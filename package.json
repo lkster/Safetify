@@ -1,0 +1,29 @@
+{
+  "name": "safetify",
+  "version": "1.0.0",
+  "description": "Var and property safing utility",
+  "main": "dist/safetify.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "webpack & node spec/config/jasmine.js"
+  },
+  "keywords": [
+    "json",
+    "decoder",
+    "safety",
+    "safe"
+  ],
+  "author": "Dominik Mielcarek",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.6",
+    "jasmine": "^2.9.0",
+    "jasmine-core": "^2.9.1",
+    "jasmine-spec-reporter": "^4.2.1",
+    "ts-loader": "^3.4.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "types": "index.d.ts"
+}
