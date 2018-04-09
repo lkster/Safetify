@@ -1,6 +1,6 @@
 const dec = require('../dist/safetify');
 
-describe('Array decoder', () => {
+describe('Array resolver', () => {
     
     describe('correct input', () => {
         it('should return success as true', () => {
