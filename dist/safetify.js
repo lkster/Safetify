@@ -255,8 +255,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Object", function() { return __WEBPACK_IMPORTED_MODULE_4__resolvers_Object__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__resolvers_Any__ = __webpack_require__(10);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Any", function() { return __WEBPACK_IMPORTED_MODULE_5__resolvers_Any__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__resolvers_DynamicObject__ = __webpack_require__(11);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "DynamicObject", function() { return __WEBPACK_IMPORTED_MODULE_6__resolvers_DynamicObject__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__resolvers_Dictionary__ = __webpack_require__(11);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Dictionary", function() { return __WEBPACK_IMPORTED_MODULE_6__resolvers_Dictionary__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__resolvers_OneOf__ = __webpack_require__(12);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "OneOf", function() { return __WEBPACK_IMPORTED_MODULE_7__resolvers_OneOf__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__resolvers_Enum__ = __webpack_require__(13);
@@ -452,7 +452,7 @@ var AnyResolver = new __WEBPACK_IMPORTED_MODULE_0__Resolver__["a" /* Resolver */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = DynamicObjectResolver;
+/* harmony export (immutable) */ __webpack_exports__["a"] = DictionaryResolver;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Resolver__ = __webpack_require__(1);
@@ -461,7 +461,7 @@ var AnyResolver = new __WEBPACK_IMPORTED_MODULE_0__Resolver__["a" /* Resolver */
 
 
 
-function DynamicObjectResolver(resolver) {
+function DictionaryResolver(resolver) {
     return new __WEBPACK_IMPORTED_MODULE_2__Resolver__["a" /* Resolver */]('object', function (input) {
         if (!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isObject(input)) {
             return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](false, __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__["a" /* SafeUtil */].makeSafeObject(input), ['value is not an object']);
