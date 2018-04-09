@@ -1,6 +1,6 @@
 const dec = require('../dist/safetify').String;
 
-describe('String decoder', () => {
+describe('String resolver', () => {
     
     describe('correct input', () => {
         it('should return success as true', () => {

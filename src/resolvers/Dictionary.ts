@@ -5,20 +5,20 @@ import { Result } from '../Result';
 
 
 
-type DynamicObjectResolverTypeString<T> = {
+type DictionaryResolverTypeString<T> = {
     [key: string]: Resolver<T>
 }
 
-type DynamicObjectResolverTypeNumber<T> = {
+type DictionaryResolverTypeNumber<T> = {
     [key: number]: Resolver<T>
 }
 
-type DynamicObjectResolverType<T> = DynamicObjectResolverTypeString<T> | DynamicObjectResolverTypeNumber<T>;
+type DictionaryResolverType<T> = DictionaryResolverTypeString<T> | DictionaryResolverTypeNumber<T>;
 
-export function DynamicObjectResolver<T>(resolver: Resolver<T>) {
-    return new Resolver<DynamicObjectResolverType<T>>('object', (input: any) => {
+export function DictionaryResolver<T>(resolver: Resolver<T>) {
+    return new Resolver<DictionaryResolverType<T>>('object', (input: any) => {
         if (!Util.isObject(input)) {
-            return new Result<DynamicObjectResolverType<T>>(false, <DynamicObjectResolverType<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);
+            return new Result<DictionaryResolverType<T>>(false, <DictionaryResolverType<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);
         }
         
         let errors: string[] = [];
@@ -40,6 +40,6 @@ export function DynamicObjectResolver<T>(resolver: Resolver<T>) {
             result[key] = Resolve.result;
         }
 
-        return new Result<DynamicObjectResolverType<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result<DictionaryResolverType<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
     });
 }

@@ -1,6 +1,6 @@
 const dec = require('../dist/safetify');
 
-describe('Object decoder', () => {
+describe('Object resolver', () => {
     let resolve;
 
     describe('correct input', () => {

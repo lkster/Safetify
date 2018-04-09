@@ -1,12 +1,12 @@
 const dec = require('../dist/safetify');
 
-describe('Dynamic object decoder', () => {
+describe('Dictionary resolver', () => {
     let resolve;
 
     describe('correct input', () => {
 
         beforeEach(() => {
-            resolve = dec.DynamicObject(dec.String)
+            resolve = dec.Dictionary(dec.String)
                 .resolve({
                     a: 'a',
                     b: 'b',
@@ -29,7 +29,7 @@ describe('Dynamic object decoder', () => {
     
     describe('wrong input', () => {
         beforeEach(() => {
-            resolve = dec.DynamicObject(dec.String)
+            resolve = dec.Dictionary(dec.String)
                 .resolve({
                     a: 'a',
                     b: 10,
