@@ -6,7 +6,7 @@ export { NumberResolver as Number } from './resolvers/Number';
 export { StringResolver as String } from './resolvers/String';
 export { ObjectResolver as Object, ObjectResolverDefinition } from './resolvers/Object';
 export { AnyResolver as Any } from './resolvers/Any';
-export { DynamicObjectResolver as DynamicObject } from './resolvers/DynamicObject';
+export { DictionaryResolver as Dictionary } from './resolvers/Dictionary';
 export { OneOfResolver as OneOf } from './resolvers/OneOf';
 export { EnumResolver as Enum } from './resolvers/Enum';
 export { Resolver } from './Resolver';
