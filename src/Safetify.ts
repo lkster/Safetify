@@ -1,42 +1,32 @@
 declare var module: any;
 
-import { ArrayResolver as arrayResolver } from './resolvers/Array';
-import { BooleanResolver as booleanResolver } from './resolvers/Boolean';
-import { NumberResolver as numberResolver } from './resolvers/Number';
-import { StringResolver as stringResolver } from './resolvers/String';
-import { ObjectResolver as objectResolver } from './resolvers/Object';
-import { AnyResolver as anyResolver } from './resolvers/Any';
-import { DictionaryResolver as dictionaryResolver } from './resolvers/Dictionary';
-import { OneOfResolver as oneOfResolver } from './resolvers/OneOf';
-import { EnumResolver as enumResolver } from './resolvers/Enum';
+export { ArrayResolver as Array } from './resolvers/Array';
+export { ArrayResolver as ArrayResolver } from './resolvers/Array';
+
+export { BooleanResolver as Boolean } from './resolvers/Boolean';
+export { BooleanResolver as BooleanResolver } from './resolvers/Boolean';
+
+export { NumberResolver as Number } from './resolvers/Number';
+export { NumberResolver as NumberResolver } from './resolvers/Number';
+
+export { StringResolver as String } from './resolvers/String';
+export { StringResolver as StringResolver } from './resolvers/String';
+
+export { ObjectResolver as Object } from './resolvers/Object';
+export { ObjectResolver as ObjectResolver } from './resolvers/Object';
+
+export { AnyResolver as Any } from './resolvers/Any';
+export { AnyResolver as AnyResolver } from './resolvers/Any';
+
+export { DictionaryResolver as Dictionary } from './resolvers/Dictionary';
+export { DictionaryResolver as DictionaryResolver } from './resolvers/Dictionary';
+
+export { OneOfResolver as OneOf } from './resolvers/OneOf';
+export { OneOfResolver as OneOfResolver } from './resolvers/OneOf';
+
+export { EnumResolver as Enum } from './resolvers/Enum';
+export { EnumResolver as EnumResolver } from './resolvers/Enum';
 
 export { Resolver } from './Resolver';
 export { Result } from './Result';
 export { ResolverType } from './ResolverType';
-
-export const Array = arrayResolver;
-export const ArrayResolver = arrayResolver;
-
-export const Boolean = booleanResolver;
-export const BooleanResolver = booleanResolver;
-
-export const Number = numberResolver;
-export const NumberResolver = numberResolver;
-
-export const String = stringResolver;
-export const StringResolver = stringResolver;
-
-export const Object = objectResolver;
-export const ObjectResolver = objectResolver;
-
-export const Any = anyResolver;
-export const AnyResolver = anyResolver;
-
-export const Dictionary = dictionaryResolver;
-export const DictionaryResolver = dictionaryResolver;
-
-export const OneOf = oneOfResolver;
-export const OneOfResolver = oneOfResolver;
-
-export const Enum = enumResolver;
-export const EnumResolver = enumResolver;
