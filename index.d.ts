@@ -1,8 +1,8 @@
-declare type DynamicObjectResolverTypeString<T> = {
+declare type DictionarytResolverTypeString<T> = {
     [key: string]: Safetify.Resolver<T>
 }
 
-declare type DynamicObjectResolverTypeNumber<T> = {
+declare type DictionarytResolverTypeNumber<T> = {
     [key: number]: Safetify.Resolver<T>
 }
 
@@ -10,7 +10,7 @@ declare type EnumType = {
     [key: number]: string;
 }
 
-declare type DynamicObjectResolverType<T> = DynamicObjectResolverTypeString<T> | DynamicObjectResolverTypeNumber<T>;
+declare type DictionarytResolverType<T> = DictionarytResolverTypeString<T> | DictionarytResolverTypeNumber<T>;
 
 declare namespace Safetify {
 
@@ -56,8 +56,8 @@ declare namespace Safetify {
     function Array<T>(resolver: Resolver<T>): Resolver<T[]>;
     type Array<T> = Resolver<T[]>;
     
-    function DynamicObject<T>(resolver: Resolver<T>): Resolver<DynamicObjectResolverType<T>>;
-    type DynamicObjectResolver<T> = Resolver<DynamicObjectResolverType<T>>;
+    function Dictionary<T>(resolver: Resolver<T>): Resolver<DictionaryResolverType<T>>;
+    type DictionaryResolver<T> = Resolver<DictionaryResolverType<T>>;
 
     function Enum<T>(definition: Array<string | number> | EnumType): Resolver<T>;
     type Enum<T> = Resolver<T>;
