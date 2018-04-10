@@ -27,7 +27,7 @@ export function ArrayResolver<T>(resolver: Resolver<T>) {
                 }
             }
 
-            result.unshift(dec.result);
+            result.push(dec.result);
         });
 
         return new Result<Array<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
