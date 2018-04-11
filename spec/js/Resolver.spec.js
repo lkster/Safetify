@@ -1,6 +1,6 @@
-const resolver = require('../dist/safetify').Resolver;
-const result = require('../dist/safetify').Result;
-const dec = require('../dist/safetify').String;
+const resolver = require('../../dist/safetify').Resolver;
+const result = require('../../dist/safetify').Result;
+const dec = require('../../dist/safetify').String;
 
 describe('Resolver', () => {
     

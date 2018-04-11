@@ -1,4 +1,4 @@
-const dec = require('../dist/safetify');
+const dec = require('../../dist/safetify');
 
 describe('Array resolver', () => {
     

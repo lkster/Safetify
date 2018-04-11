@@ -1,4 +1,4 @@
-const dec = require('../dist/safetify').Number;
+const dec = require('../../dist/safetify').Number;
 
 describe('Number resolver', () => {
     
