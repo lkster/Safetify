@@ -1,13 +1,13 @@
-import { Resolver, Result } from '..';
+import { Resolver, Result, ResolverFunction } from '../..';
 
-type Decoder = (input: any) => Result<any>;
+
 
 describe('Resolver', () => {
    
     describe('initialize', () => {
         it('should correctly use passed decoder', () => {
-            let decoder = (input: any) => {
-                return new Result(true, input);
+            let decoder: ResolverFunction<any> = (input: any) => {
+                return new Result<any>(true, input);
             }
 
             let resolver: Resolver<any> = new Resolver<any>('testType', decoder);

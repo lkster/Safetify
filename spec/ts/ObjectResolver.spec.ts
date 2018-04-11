@@ -1,4 +1,6 @@
-import { ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '..';
+import { ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '../..';
+
+
 
 interface ITestC {
     d: string;
@@ -56,6 +58,10 @@ describe('Object Resolver', () => {
                     e: true
                 }
             });
+        });
+
+        it('should not return error', () => {
+            expect(result.error).toBeUndefined();
         });
     });
 

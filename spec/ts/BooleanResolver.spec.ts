@@ -1,4 +1,6 @@
-import { BooleanResolver, Result } from '..';
+import { BooleanResolver, Result } from '../..';
+
+
 
 describe('Boolean Resolver', () => {
     
@@ -10,6 +12,10 @@ describe('Boolean Resolver', () => {
         it('should return result equals to input', () => {
             expect(BooleanResolver.resolve(false).result).toBe(false);
             expect(BooleanResolver.resolve(true).result).toBe(true);
+        });
+
+        it('should not return error', () => {
+            expect(BooleanResolver.resolve(false).error).toBeUndefined();
         });
     });
 

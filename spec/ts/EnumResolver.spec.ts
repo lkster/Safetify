@@ -1,4 +1,6 @@
-import { EnumResolver, Result } from '..';
+import { EnumResolver, Result } from '../..';
+
+
 
 enum testEnumNumberValues {
     option1,
@@ -34,6 +36,11 @@ describe('Enum Resolver', () => {
                 expect(result.result).toBe(testEnumNumberValues.option1);
                 expect(result2.result).toBe(testEnumNumberValues.option3);
             });
+
+            it('should not return error', () => {
+                expect(result.error).toBeUndefined();
+                expect(result2.error).toBeUndefined();
+            });
         });
 
         describe('string valued enum', () => {
@@ -53,6 +60,11 @@ describe('Enum Resolver', () => {
             it('should return result equals to input', () => {
                 expect(result.result).toBe(testEnumStringValues.option1);
                 expect(result2.result).toBe(testEnumStringValues.option3);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeUndefined();
+                expect(result2.error).toBeUndefined();
             });
         });
     });

@@ -1,4 +1,4 @@
-import { ArrayResolver, StringResolver, NumberResolver, Result } from '..';
+import { ArrayResolver, StringResolver, NumberResolver, Result } from '../..';
 
 
 
@@ -6,17 +6,26 @@ describe('Array Resolver', () => {
     
     describe('correct input', () => {
         let result: Result<string[]>;
+        let result2: Result<number[]>;
 
         beforeEach(() => {
             result = ArrayResolver<string>(StringResolver).resolve(['im a string']);
+            result2 = ArrayResolver<number>(NumberResolver).resolve([13.5, 47]);
         });
         
         it('should return success as true', () => {
             expect(result.success).toBe(true);
+            expect(result2.success).toBe(true);
         });
 
         it('should return result equals to input', () => {
             expect(result.result).toEqual(['im a string']);
+            expect(result2.result).toEqual([13.5, 47]);
+        });
+
+        it('should not return error', () => {
+            expect(result.error).toBeUndefined();
+            expect(result2.error).toBeUndefined();
         });
     });
 

@@ -1,4 +1,6 @@
-import { NumberResolver, Result } from '..';
+import { NumberResolver, Result } from '../..';
+
+
 
 describe('Number Resolver', () => {
     
@@ -19,6 +21,11 @@ describe('Number Resolver', () => {
         it('should return result equals to input', () => {
             expect(result.result).toBe(17);
             expect(result2.result).toBe(14.5);
+        });
+
+        it('should not return error', () => {
+            expect(result.error).toBeUndefined();
+            expect(result2.error).toBeUndefined();
         });
     });
 

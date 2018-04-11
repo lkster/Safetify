@@ -1,4 +1,6 @@
-import { StringResolver, Result } from '..';
+import { StringResolver, Result } from '../..';
+
+
 
 describe('String Resolver', () => {
     
@@ -15,6 +17,10 @@ describe('String Resolver', () => {
 
         it('should return result equal to input', () => {
             expect(result.result).toBe('something');
+        });
+
+        it('should not return error', () => {
+            expect(result.error).toBeUndefined();
         });
     });
 

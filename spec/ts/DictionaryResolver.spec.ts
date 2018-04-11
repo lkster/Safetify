@@ -1,19 +1,27 @@
-import { DictionaryResolver, StringResolver, NumberResolver, Result } from '..';
+import { DictionaryResolver, StringResolver, NumberResolver, Result } from '../..';
 
-interface IDictionary {
-    [key: number]: string;
+
+
+interface IDictionary<T> {
+    [key: number]: T;
 }
 
 describe('Dictionary Resolver', () => {
     
     describe('correct input', () => {
-        let result: Result<IDictionary>;
+        let result: Result<IDictionary<string>>;
+        let result2: Result<IDictionary<number>>;
         
         beforeEach(() => {
             result = DictionaryResolver<string>(StringResolver).resolve({
                 a: 'a',
                 b: 'b',
                 c: 'c'
+            });
+            result2 = DictionaryResolver<number>(NumberResolver).resolve({
+                a: 3,
+                b: 27,
+                c: 41
             });
         });
 
@@ -28,10 +36,14 @@ describe('Dictionary Resolver', () => {
                 c: 'c'
             })
         });
+
+        it('should not return error', () => {
+            expect(result.error).toBeUndefined();
+        });
     });
 
     describe('wrong input', () => {
-        let result: Result<IDictionary>;
+        let result: Result<IDictionary<string>>;
 
         beforeEach(() => {
             result = DictionaryResolver(StringResolver).resolve(undefined);
@@ -51,7 +63,7 @@ describe('Dictionary Resolver', () => {
     });
 
     describe('wrong input values', () => {
-        let result: Result<IDictionary>;
+        let result: Result<IDictionary<string>>;
 
         beforeEach(() => {
             result = DictionaryResolver(StringResolver).resolve({
