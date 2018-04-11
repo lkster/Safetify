@@ -1,4 +1,4 @@
-import { BooleanResolver, Result } from '../src/Safetify';
+import { BooleanResolver, Result } from '..';
 
 describe('Boolean Resolver', () => {
     

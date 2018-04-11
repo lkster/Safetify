@@ -1,4 +1,4 @@
-import { EnumResolver, Result } from '../src/Safetify';
+import { EnumResolver, Result } from '..';
 
 enum testEnumNumberValues {
     option1,

@@ -1,4 +1,4 @@
-import { DictionaryResolver, StringResolver, Result } from '../src/Safetify';
+import { DictionaryResolver, StringResolver, NumberResolver, Result } from '..';
 
 interface IDictionary {
     [key: number]: string;

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "test-js": "webpack & node spec/config/jasmine.js",
-    "test": "jasmine-ts --config=spec/config/jasmine.json spec/**/*.spec.ts"
+    "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/**/*.spec.ts"
   },
   "keywords": [
     "var",

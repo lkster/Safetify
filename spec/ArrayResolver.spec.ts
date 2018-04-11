@@ -1,5 +1,5 @@
-import { ArrayResolver, StringResolver, Result } from '../src/Safetify';
-//TODO: check undefined error in correct input
+import { ArrayResolver, StringResolver, NumberResolver, Result } from '..';
+
 
 
 describe('Array Resolver', () => {

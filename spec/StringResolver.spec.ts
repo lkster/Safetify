@@ -1,4 +1,4 @@
-import { StringResolver, Result } from '../src/Safetify';
+import { StringResolver, Result } from '..';
 
 describe('String Resolver', () => {
     

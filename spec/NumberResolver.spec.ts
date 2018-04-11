@@ -1,4 +1,4 @@
-import { NumberResolver, Result } from '../src/Safetify';
+import { NumberResolver, Result } from '..';
 
 describe('Number Resolver', () => {
     

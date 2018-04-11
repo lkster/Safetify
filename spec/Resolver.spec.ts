@@ -1,4 +1,4 @@
-import { Resolver, Result } from '../src/Safetify';
+import { Resolver, Result } from '..';
 
 type Decoder = (input: any) => Result<any>;
 

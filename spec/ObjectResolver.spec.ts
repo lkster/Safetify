@@ -1,4 +1,4 @@
-import { ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '../src/Safetify';
+import { ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '..';
 
 interface ITestC {
     d: string;
