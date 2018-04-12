@@ -24,19 +24,19 @@ export function ObjectResolver<T>(resolver: ObjectResolverDefinition<T>) {
         let result: any = {};
 
         for (let key in resolver) {
-            let resolve = resolver[key].resolve(input[key]);
+            let dec = resolver[key].resolve(input[key]);
 
-            if (!resolve.success) {
+            if (!dec.success) {
                 if (resolver[key].type === 'object' || resolver[key].type === 'array') {
-                    (<string[]> resolve.error).forEach((error: string) => {
-                        errors.push(`${key}.${error}`);
-                    });
+                    for (let i = 0; i < dec.error.length; i++) {
+                        errors.push(`${key}.${dec.error[i]}`);
+                    }
                 } else {
-                    errors.push(`${key}: ` + <string> resolve.error);
+                    errors.push(`${key}: ` + <string> dec.error);
                 }
             }
 
-            result[key] = resolve.result;
+            result[key] = dec.result;
         }
 
         return new Result<T>(errors.length == 0, result, errors.length > 0 ? errors : undefined);

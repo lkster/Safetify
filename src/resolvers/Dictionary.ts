@@ -21,19 +21,19 @@ export function DictionaryResolver<T>(resolver: Resolver<T>) {
         let result: any = {};
 
         for (let key in input) {
-            let Resolve = resolver.resolve(input[key]);
+            let dec = resolver.resolve(input[key]);
 
-            if (!Resolve.success) {
+            if (!dec.success) {
                 if (resolver.type === 'object' || resolver.type === 'array') {
-                    (<string[]> Resolve.error).forEach((error: string) => {
-                        errors.push(`${key}.${error}`);
-                    });
+                    for (let i = 0; i < dec.error.length; i++) {
+                        errors.push(`${key}.${dec.error[i]}`);
+                    }
                 } else {
-                    errors.push(`${key}: ` + <string> Resolve.error);
+                    errors.push(`${key}: ` + <string> dec.error);
                 }
             }
 
-            result[key] = Resolve.result;
+            result[key] = dec.result;
         }
 
         return new Result<IDictionary<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);

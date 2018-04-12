@@ -9,18 +9,17 @@ export function OneOfResolver<T>(resolvers: Array<Resolver<T>>) {
         let success: boolean = false;
         let result: T;
 
-        resolvers.some((resolver: Resolver<T>) => {
-            let dec: Result<T> = resolver.resolve(input);
+        for (let i = 0; i < resolvers.length; i++) {
+            let dec: Result<T> = resolvers[i].resolve(input);
 
             if (dec.success) {
                 success = true;
                 result = dec.result;
-                return true;
+                break;
             }
-            result = dec.result;
 
-            return false;
-        });
+            result = dec.result;
+        };
 
         let error: string;
 
