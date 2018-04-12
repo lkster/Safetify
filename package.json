@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "test-js": "webpack & node spec/config/jasmine.js",
-    "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/ts/**/*.spec.ts"
+    "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/ts/**/*.spec.ts",
+    "jsdoc": "typedoc src/safetify.ts --mode file --out docs/"
   },
   "keywords": [
     "var",
@@ -29,6 +30,7 @@
     "jasmine-spec-reporter": "^4.2.1",
     "jasmine-ts": "^0.2.1",
     "ts-loader": "^3.4.0",
+    "typedoc": "^0.11.1",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-node-externals": "^1.6.0"
