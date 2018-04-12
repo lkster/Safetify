@@ -29,11 +29,11 @@ describe('Object Resolver', () => {
         
         beforeEach(() => {
             result = ObjectResolver<ITest>({
-                a: StringResolver,
-                b: NumberResolver,
+                a: StringResolver(),
+                b: NumberResolver(),
                 c: ObjectResolver<ITestC>({
-                    d: StringResolver,
-                    e: BooleanResolver
+                    d: StringResolver(),
+                    e: BooleanResolver()
                 })
             }).resolve({
                 a: 'a',
@@ -70,15 +70,15 @@ describe('Object Resolver', () => {
 
         beforeEach(() => {
             result = ObjectResolver<ITestExtended>({
-                a: StringResolver,
-                b: NumberResolver,
+                a: StringResolver(),
+                b: NumberResolver(),
                 c: ObjectResolver<ITestC>({
-                    d: StringResolver,
-                    e: BooleanResolver
+                    d: StringResolver(),
+                    e: BooleanResolver()
                 }),
-                f: ArrayResolver(StringResolver),
+                f: ArrayResolver(StringResolver()),
                 g: ObjectResolver<ITestG>({
-                    h: StringResolver
+                    h: StringResolver()
                 })
             }).resolve({
                 a: false,

@@ -9,8 +9,8 @@ describe('OneOf Resolver', () => {
         let result2: Result<string | number>;
 
         beforeEach(() => {
-            result = OneOfResolver<string | number>([StringResolver, NumberResolver]).resolve('im a string');
-            result2 = OneOfResolver<string | number>([StringResolver, NumberResolver]).resolve(31);
+            result = OneOfResolver<string | number>([StringResolver(), NumberResolver()]).resolve('im a string');
+            result2 = OneOfResolver<string | number>([StringResolver(), NumberResolver()]).resolve(31);
         });
 
         it('should return success as true', () => {
@@ -34,8 +34,8 @@ describe('OneOf Resolver', () => {
         let result2: Result<string | number>;
 
         beforeEach(() => {
-            result = OneOfResolver<string | number>([StringResolver, NumberResolver]).resolve({});
-            result2 = OneOfResolver<string | number>([NumberResolver, StringResolver]).resolve({});
+            result = OneOfResolver<string | number>([StringResolver(), NumberResolver()]).resolve({});
+            result2 = OneOfResolver<string | number>([NumberResolver(), StringResolver()]).resolve({});
         });
 
         it('should return success as false', () => {

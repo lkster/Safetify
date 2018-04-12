@@ -8,7 +8,7 @@ describe('String Resolver', () => {
         let result: Result<string>;
 
         beforeEach(() => {
-            result = StringResolver.resolve('something');
+            result = StringResolver().resolve('something');
         });
 
         it('should return success as true', () => {
@@ -30,9 +30,9 @@ describe('String Resolver', () => {
         let result3: Result<string>;
 
         beforeEach(() => {
-            result = StringResolver.resolve(undefined);
-            result2 = StringResolver.resolve(null);
-            result3 = StringResolver.resolve(false);
+            result = StringResolver().resolve(undefined);
+            result2 = StringResolver().resolve(null);
+            result3 = StringResolver().resolve(false);
         });
 
         it('should return success as false', () => {
