@@ -1,0 +1,26 @@
+{
+    "spec_dir": "spec",
+    "spec_files": [
+      "../**/*[sS]pec.ts"
+    ],
+    "helpers": [
+      "helpers/**/*.js"
+    ],
+    "stopSpecOnExpectationFailure": false,
+    "random": false,
+    "reporters": [
+      {
+        "name": "jasmine-spec-reporter#SpecReporter",
+        "options": {
+          "maxLogLines": 5,
+          "suppressErrorSummary": false,
+          "suppressFailed": false,
+          "suppressPassed": false,
+          "suppressSkipped": true,
+          "showSpecTiming": false,
+          "failFast": false
+        }
+      }
+    ]
+  }
+  
