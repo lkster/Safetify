@@ -9,8 +9,8 @@ describe('Array Resolver', () => {
         let result2: Result<number[]>;
 
         beforeEach(() => {
-            result = ArrayResolver<string>(StringResolver).resolve(['im a string']);
-            result2 = ArrayResolver<number>(NumberResolver).resolve([13.5, 47]);
+            result = ArrayResolver<string>(StringResolver()).resolve(['im a string']);
+            result2 = ArrayResolver<number>(NumberResolver()).resolve([13.5, 47]);
         });
         
         it('should return success as true', () => {
@@ -33,7 +33,7 @@ describe('Array Resolver', () => {
         let result: Result<string[]>;
 
         beforeEach(() => {
-            result = ArrayResolver<string>(StringResolver).resolve(undefined);
+            result = ArrayResolver<string>(StringResolver()).resolve(undefined);
         });
 
         it('should return success as false', () => {
@@ -53,7 +53,7 @@ describe('Array Resolver', () => {
         let result: Result<string[]>;
 
         beforeEach(() => {
-            result = ArrayResolver<string>(StringResolver).resolve(['string1', true, 'string2', undefined, 253, 'string3']);
+            result = ArrayResolver<string>(StringResolver()).resolve(['string1', true, 'string2', undefined, 253, 'string3']);
         });
 
         it('should return success as false', () => {

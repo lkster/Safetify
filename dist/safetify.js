@@ -60,15 +60,16 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Result; });
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var Result = /** @class */ (function () {
     function Result(success, result, error) {
         this.success = success;
@@ -77,19 +78,18 @@ var Result = /** @class */ (function () {
     }
     return Result;
 }());
-
+exports.Result = Result;
 
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Resolver; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Result__ = __webpack_require__(0);
 
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
 var Resolver = /** @class */ (function () {
     function Resolver(type, resolver) {
         this.type = type;
@@ -100,16 +100,16 @@ var Resolver = /** @class */ (function () {
         var resolved = this.resolver(input);
         if (!resolved.success) {
             if (this.isNullable === true && input === null) {
-                return new __WEBPACK_IMPORTED_MODULE_1__Result__["a" /* Result */](true, null);
+                return new Result_1.Result(true, null);
             }
-            else if (__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isDefAndNotNull(this.defaultValue)) {
+            else if (Util_1.Util.isDefAndNotNull(this.defaultValue)) {
                 resolved.result = this.resolver(this.defaultValue).result;
             }
             else if (this.isNullable === true) {
                 resolved.result = null;
             }
         }
-        else if (!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isDef(resolved.result) && this.isNullable === true) {
+        else if (!Util_1.Util.isDef(resolved.result) && this.isNullable === true) {
             resolved.result = null;
         }
         return resolved;
@@ -131,15 +131,16 @@ var Resolver = /** @class */ (function () {
     };
     return Resolver;
 }());
-
+exports.Resolver = Resolver;
 
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Util; });
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var Util = /** @class */ (function () {
     function Util() {
     }
@@ -204,350 +205,290 @@ var Util = /** @class */ (function () {
     };
     return Util;
 }());
-
+exports.Util = Util;
 
 
 /***/ }),
 /* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SafeUtil; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Util__ = __webpack_require__(2);
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
 var SafeUtil = /** @class */ (function () {
     function SafeUtil() {
     }
     SafeUtil.makeSafeString = function (val) {
-        return __WEBPACK_IMPORTED_MODULE_0__Util__["a" /* Util */].isString(val) ? String(val) : '';
+        return Util_1.Util.isString(val) ? String(val) : '';
     };
     SafeUtil.makeSafeNumber = function (val, safeValue) {
         if (safeValue === void 0) { safeValue = NaN; }
-        var parsed = parseInt(val);
+        var parsed = Number(val);
         return isFinite(parsed) ? parsed : safeValue;
     };
     SafeUtil.makeSafeArray = function (val) {
-        return __WEBPACK_IMPORTED_MODULE_0__Util__["a" /* Util */].isArray(val) ? val : [];
+        return Util_1.Util.isArray(val) ? val : [];
     };
     SafeUtil.makeSafeObject = function (val) {
-        return __WEBPACK_IMPORTED_MODULE_0__Util__["a" /* Util */].isObject(val) ? val : {};
+        return Util_1.Util.isObject(val) ? val : {};
     };
     return SafeUtil;
 }());
-
+exports.SafeUtil = SafeUtil;
 
 
 /***/ }),
 /* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__resolvers_Array__ = __webpack_require__(5);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Array", function() { return __WEBPACK_IMPORTED_MODULE_0__resolvers_Array__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__resolvers_Boolean__ = __webpack_require__(6);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Boolean", function() { return __WEBPACK_IMPORTED_MODULE_1__resolvers_Boolean__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__resolvers_Number__ = __webpack_require__(7);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Number", function() { return __WEBPACK_IMPORTED_MODULE_2__resolvers_Number__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__resolvers_String__ = __webpack_require__(8);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "String", function() { return __WEBPACK_IMPORTED_MODULE_3__resolvers_String__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__resolvers_Object__ = __webpack_require__(9);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Object", function() { return __WEBPACK_IMPORTED_MODULE_4__resolvers_Object__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__resolvers_Any__ = __webpack_require__(10);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Any", function() { return __WEBPACK_IMPORTED_MODULE_5__resolvers_Any__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__resolvers_Dictionary__ = __webpack_require__(11);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Dictionary", function() { return __WEBPACK_IMPORTED_MODULE_6__resolvers_Dictionary__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__resolvers_OneOf__ = __webpack_require__(12);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "OneOf", function() { return __WEBPACK_IMPORTED_MODULE_7__resolvers_OneOf__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__resolvers_Enum__ = __webpack_require__(13);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Enum", function() { return __WEBPACK_IMPORTED_MODULE_8__resolvers_Enum__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Resolver__ = __webpack_require__(1);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Resolver", function() { return __WEBPACK_IMPORTED_MODULE_9__Resolver__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Result__ = __webpack_require__(0);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Result", function() { return __WEBPACK_IMPORTED_MODULE_10__Result__["a"]; });
 
-
-
-
-
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
+var SafeUtil_1 = __webpack_require__(3);
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+function ArrayResolver(resolver) {
+    return new Resolver_1.Resolver('array', function (input) {
+        if (!Util_1.Util.isArray(input)) {
+            return new Result_1.Result(false, SafeUtil_1.SafeUtil.makeSafeArray(input), ['value is not an array']);
+        }
+        var errors = [];
+        var result = [];
+        for (var i = 0; i < input.length; i++) {
+            var dec = resolver.resolve(input[i]);
+            if (!dec.success) {
+                if (resolver.type === 'object' || resolver.type === 'array') {
+                    for (var i_1 = 0; i_1 < dec.error.length; i_1++) {
+                        errors.push(i_1 + "." + dec.error[i_1]);
+                    }
+                }
+                else {
+                    errors.push(i + ": " + dec.error);
+                }
+            }
+            result.push(dec.result);
+        }
+        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+    });
+}
+exports.ArrayResolver = ArrayResolver;
 
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = ArrayResolver;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Result__ = __webpack_require__(0);
 
-
-
-
-function ArrayResolver(resolver) {
-    return new __WEBPACK_IMPORTED_MODULE_2__Resolver__["a" /* Resolver */]('array', function (input) {
-        if (!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isArray(input)) {
-            return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](false, __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__["a" /* SafeUtil */].makeSafeArray(input), ['value is not an array']);
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+function BooleanResolver() {
+    return new Resolver_1.Resolver('boolean', function (input) {
+        var error;
+        if (!Util_1.Util.isBoolean(input)) {
+            error = 'value is not a boolean';
         }
-        var errors = [];
-        var result = [];
-        input.forEach(function (value, index) {
-            var dec = resolver.resolve(value);
-            if (!dec.success) {
-                if (resolver.type === 'object' || resolver.type === 'array') {
-                    dec.error.forEach(function (error) {
-                        errors.push(index + "." + error);
-                    });
-                }
-                else {
-                    errors.push(index + " index: " + dec.error);
-                }
-            }
-            result.unshift(dec.result);
-        });
-        return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), !!input, error);
     });
 }
+exports.BooleanResolver = BooleanResolver;
 
 
 /***/ }),
 /* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BooleanResolver; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Result__ = __webpack_require__(0);
 
-
-
-var BooleanResolver = new __WEBPACK_IMPORTED_MODULE_1__Resolver__["a" /* Resolver */]('boolean', function (input) {
-    var error;
-    if (!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isBoolean(input)) {
-        error = 'value is not a boolean';
-    }
-    return new __WEBPACK_IMPORTED_MODULE_2__Result__["a" /* Result */](!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isDefAndNotNull(error), !!input, error);
-});
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
+var SafeUtil_1 = __webpack_require__(3);
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+function NumberResolver() {
+    return new Resolver_1.Resolver('number', function (input) {
+        var error;
+        if (!Util_1.Util.isNumber(input) || !isFinite(input)) {
+            error = 'value is not a number';
+        }
+        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), SafeUtil_1.SafeUtil.makeSafeNumber(input), error);
+    });
+}
+exports.NumberResolver = NumberResolver;
 
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NumberResolver; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Result__ = __webpack_require__(0);
 
-
-
-
-var NumberResolver = new __WEBPACK_IMPORTED_MODULE_2__Resolver__["a" /* Resolver */]('number', function (input) {
-    var error;
-    if (!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isNumber(input)) {
-        error = 'value is not a number';
-    }
-    return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isDefAndNotNull(error), __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__["a" /* SafeUtil */].makeSafeNumber(input), error);
-});
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
+var SafeUtil_1 = __webpack_require__(3);
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+function StringResolver() {
+    return new Resolver_1.Resolver('string', function (input) {
+        var error;
+        if (!Util_1.Util.isString(input)) {
+            error = 'value is not a string';
+        }
+        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), SafeUtil_1.SafeUtil.makeSafeString(input), error);
+    });
+}
+exports.StringResolver = StringResolver;
 
 
 /***/ }),
 /* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StringResolver; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Result__ = __webpack_require__(0);
 
-
-
-
-var StringResolver = new __WEBPACK_IMPORTED_MODULE_2__Resolver__["a" /* Resolver */]('string', function (input) {
-    var error;
-    if (!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isString(input)) {
-        error = 'value is not a string';
-    }
-    return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isDefAndNotNull(error), __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__["a" /* SafeUtil */].makeSafeString(input), error);
-});
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
+var SafeUtil_1 = __webpack_require__(3);
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+function ObjectResolver(resolver) {
+    return new Resolver_1.Resolver('object', function (input) {
+        if (!Util_1.Util.isObject(input)) {
+            var safe = SafeUtil_1.SafeUtil.makeSafeObject(input);
+            for (var key in resolver) {
+                safe[key] = resolver[key].resolve(undefined).result;
+            }
+            return new Result_1.Result(false, safe, ['input is not an object']);
+        }
+        var errors = [];
+        var result = {};
+        for (var key in resolver) {
+            var dec = resolver[key].resolve(input[key]);
+            if (!dec.success) {
+                if (resolver[key].type === 'object' || resolver[key].type === 'array') {
+                    for (var i = 0; i < dec.error.length; i++) {
+                        errors.push(key + "." + dec.error[i]);
+                    }
+                }
+                else {
+                    errors.push(key + ": " + dec.error);
+                }
+            }
+            result[key] = dec.result;
+        }
+        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+    });
+}
+exports.ObjectResolver = ObjectResolver;
 
 
 /***/ }),
 /* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = ObjectResolver;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Result__ = __webpack_require__(0);
 
-
-
-
-function ObjectResolver(resolver) {
-    return new __WEBPACK_IMPORTED_MODULE_2__Resolver__["a" /* Resolver */]('object', function (input) {
-        if (!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isObject(input)) {
-            var safe = __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__["a" /* SafeUtil */].makeSafeObject(input);
-            for (var key in resolver) {
-                safe[key] = resolver[key].resolve(undefined).result;
-            }
-            return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](false, safe, ['value is not an object']);
-        }
-        var errors = [];
-        var result = {};
-        var _loop_1 = function (key) {
-            var resolve = resolver[key].resolve(input[key]);
-            if (!resolve.success) {
-                if (resolver[key].type === 'object' || resolver[key].type === 'array') {
-                    resolve.error.forEach(function (error) {
-                        errors.push(key + "." + error);
-                    });
-                }
-                else {
-                    errors.push(key + ": " + resolve.error);
-                }
-            }
-            result[key] = resolve.result;
-        };
-        for (var key in resolver) {
-            _loop_1(key);
-        }
-        return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](errors.length == 0, result, errors.length > 0 ? errors : undefined);
+Object.defineProperty(exports, "__esModule", { value: true });
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+function AnyResolver() {
+    return new Resolver_1.Resolver('any', function (input) {
+        return new Result_1.Result(true, input);
     });
 }
+exports.AnyResolver = AnyResolver;
 
 
 /***/ }),
 /* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnyResolver; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Result__ = __webpack_require__(0);
 
-
-var AnyResolver = new __WEBPACK_IMPORTED_MODULE_0__Resolver__["a" /* Resolver */]('any', function (input) {
-    return new __WEBPACK_IMPORTED_MODULE_1__Result__["a" /* Result */](true, input);
-});
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
+var SafeUtil_1 = __webpack_require__(3);
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+function DictionaryResolver(resolver) {
+    return new Resolver_1.Resolver('object', function (input) {
+        if (!Util_1.Util.isObject(input)) {
+            return new Result_1.Result(false, SafeUtil_1.SafeUtil.makeSafeObject(input), ['value is not an object']);
+        }
+        var errors = [];
+        var result = {};
+        for (var key in input) {
+            var dec = resolver.resolve(input[key]);
+            if (!dec.success) {
+                if (resolver.type === 'object' || resolver.type === 'array') {
+                    for (var i = 0; i < dec.error.length; i++) {
+                        errors.push(key + "." + dec.error[i]);
+                    }
+                }
+                else {
+                    errors.push(key + ": " + dec.error);
+                }
+            }
+            result[key] = dec.result;
+        }
+        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+    });
+}
+exports.DictionaryResolver = DictionaryResolver;
 
 
 /***/ }),
 /* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = DictionaryResolver;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Result__ = __webpack_require__(0);
 
-
-
-
-function DictionaryResolver(resolver) {
-    return new __WEBPACK_IMPORTED_MODULE_2__Resolver__["a" /* Resolver */]('object', function (input) {
-        if (!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isObject(input)) {
-            return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](false, __WEBPACK_IMPORTED_MODULE_1__Utils_SafeUtil__["a" /* SafeUtil */].makeSafeObject(input), ['value is not an object']);
-        }
-        var errors = [];
-        var result = {};
-        var _loop_1 = function (key) {
-            var Resolve = resolver.resolve(input[key]);
-            if (!Resolve.success) {
-                if (resolver.type === 'object' || resolver.type === 'array') {
-                    Resolve.error.forEach(function (error) {
-                        errors.push(key + "." + error);
-                    });
-                }
-                else {
-                    errors.push(key + ": " + Resolve.error);
-                }
+Object.defineProperty(exports, "__esModule", { value: true });
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+function OneOfResolver(resolvers) {
+    return new Resolver_1.Resolver('oneof', function (input) {
+        var success = false;
+        var result;
+        for (var i = 0; i < resolvers.length; i++) {
+            var dec = resolvers[i].resolve(input);
+            if (dec.success) {
+                success = true;
+                result = dec.result;
+                break;
             }
-            result[key] = Resolve.result;
-        };
-        for (var key in input) {
-            _loop_1(key);
+            result = dec.result;
         }
-        return new __WEBPACK_IMPORTED_MODULE_3__Result__["a" /* Result */](errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        ;
+        var error;
+        if (!success) {
+            error = resolvers.map(function (r) { return r.type; }).join(' nor ');
+        }
+        return new Result_1.Result(success, result, error);
     });
 }
+exports.OneOfResolver = OneOfResolver;
 
 
 /***/ }),
 /* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = OneOfResolver;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Result__ = __webpack_require__(0);
 
-
-function OneOfResolver(resolvers) {
-    return new __WEBPACK_IMPORTED_MODULE_0__Resolver__["a" /* Resolver */]('oneof', function (input) {
-        var errors = [];
-        var result;
-        for (var key in resolvers) {
-            var dec = resolvers[key].resolve(input);
-            if (dec.success) {
-                result = dec.result;
-                break;
-            }
-            else if (!dec.success) {
-                errors.push(resolvers[key].type);
-                if (key.toString() === '0') {
-                    result = dec.result;
-                }
-            }
-        }
-        resolvers.forEach(function (resolver, index) {
-            var dec = resolver.resolve(input);
-            if (!dec.success) {
-                errors.push(resolver.type);
-            }
-            else {
-                result;
-            }
-        });
-        return new __WEBPACK_IMPORTED_MODULE_1__Result__["a" /* Result */](errors.length == 0, result, errors.length > 0 ? 'value is not ' + errors.join(' nor ') : undefined);
-    });
-}
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = EnumResolver;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Utils_Util__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Resolver__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Result__ = __webpack_require__(0);
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(2);
+var Resolver_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
 function EnumResolver(definition) {
-    return new __WEBPACK_IMPORTED_MODULE_1__Resolver__["a" /* Resolver */]('enum', function (input) {
+    return new Resolver_1.Resolver('enum', function (input) {
         var error;
         var result = 0;
-        if (__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isArray(definition)) {
+        if (Util_1.Util.isArray(definition)) {
             if (definition.indexOf(input) > -1) {
                 result = input;
             }
@@ -556,21 +497,71 @@ function EnumResolver(definition) {
                 result = definition[0];
             }
         }
-        else if (__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isObject(definition)) {
+        else if (Util_1.Util.isObject(definition)) {
             if (Object.keys(definition).map(function (e) { return definition[e]; }).indexOf(input) > -1) {
                 result = input;
             }
             else {
                 error = 'value is not this enum\'s property';
-                result = definition[0];
+                result = Util_1.Util.isDef(definition[0]) ? 0 : definition[Object.keys(definition)[0]];
             }
         }
         else {
             error = 'Enum definition is not valid';
         }
-        return new __WEBPACK_IMPORTED_MODULE_2__Result__["a" /* Result */](!__WEBPACK_IMPORTED_MODULE_0__Utils_Util__["a" /* Util */].isDefAndNotNull(error), result, error);
+        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), result, error);
     });
 }
+exports.EnumResolver = EnumResolver;
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Array_1 = __webpack_require__(4);
+exports.Array = Array_1.ArrayResolver;
+var Array_2 = __webpack_require__(4);
+exports.ArrayResolver = Array_2.ArrayResolver;
+var Boolean_1 = __webpack_require__(5);
+exports.Boolean = Boolean_1.BooleanResolver;
+var Boolean_2 = __webpack_require__(5);
+exports.BooleanResolver = Boolean_2.BooleanResolver;
+var Number_1 = __webpack_require__(6);
+exports.Number = Number_1.NumberResolver;
+var Number_2 = __webpack_require__(6);
+exports.NumberResolver = Number_2.NumberResolver;
+var String_1 = __webpack_require__(7);
+exports.String = String_1.StringResolver;
+var String_2 = __webpack_require__(7);
+exports.StringResolver = String_2.StringResolver;
+var Object_1 = __webpack_require__(8);
+exports.Object = Object_1.ObjectResolver;
+var Object_2 = __webpack_require__(8);
+exports.ObjectResolver = Object_2.ObjectResolver;
+var Any_1 = __webpack_require__(9);
+exports.Any = Any_1.AnyResolver;
+var Any_2 = __webpack_require__(9);
+exports.AnyResolver = Any_2.AnyResolver;
+var Dictionary_1 = __webpack_require__(10);
+exports.Dictionary = Dictionary_1.DictionaryResolver;
+var Dictionary_2 = __webpack_require__(10);
+exports.DictionaryResolver = Dictionary_2.DictionaryResolver;
+var OneOf_1 = __webpack_require__(11);
+exports.OneOf = OneOf_1.OneOfResolver;
+var OneOf_2 = __webpack_require__(11);
+exports.OneOfResolver = OneOf_2.OneOfResolver;
+var Enum_1 = __webpack_require__(12);
+exports.Enum = Enum_1.EnumResolver;
+var Enum_2 = __webpack_require__(12);
+exports.EnumResolver = Enum_2.EnumResolver;
+var Resolver_1 = __webpack_require__(1);
+exports.Resolver = Resolver_1.Resolver;
+var Result_1 = __webpack_require__(0);
+exports.Result = Result_1.Result;
 
 
 /***/ })

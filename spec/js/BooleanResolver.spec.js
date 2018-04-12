@@ -6,16 +6,16 @@ describe('Boolean resolver', () => {
     
     describe('correct input', () => {
         it('should return success as true', () => {
-            expect(BooleanResolver.resolve(false).success).toBe(true);
+            expect(BooleanResolver().resolve(false).success).toBe(true);
         });
 
         it('should return result equals to input', () => {
-            expect(BooleanResolver.resolve(false).result).toBe(false);
-            expect(BooleanResolver.resolve(true).result).toBe(true);
+            expect(BooleanResolver().resolve(false).result).toBe(false);
+            expect(BooleanResolver().resolve(true).result).toBe(true);
         });
 
         it('should not return error', () => {
-            expect(BooleanResolver.resolve(false).error).toBeUndefined();
+            expect(BooleanResolver().resolve(false).error).toBeUndefined();
         });
     });
     
@@ -24,8 +24,8 @@ describe('Boolean resolver', () => {
         let result2;
 
         beforeEach(() => {
-            result = BooleanResolver.resolve(undefined);
-            result2 = BooleanResolver.resolve('trust me im boolean');
+            result = BooleanResolver().resolve(undefined);
+            result2 = BooleanResolver().resolve('trust me im boolean');
         });
 
         it('should return success as false', () => {
