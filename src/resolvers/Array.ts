@@ -4,6 +4,7 @@ import { Resolver } from '../Resolver';
 import { Result } from '../Result';
 
 
+
 export function ArrayResolver<T>(resolver: Resolver<T>) {
     return new Resolver<Array<T>>('array', (input: any) => {
         if (!Util.isArray(input)) {
@@ -14,21 +15,21 @@ export function ArrayResolver<T>(resolver: Resolver<T>) {
 
         let result: Array<T> = [];
 
-        input.forEach((value: T, index: number) => {
-            let dec = resolver.resolve(value);
+        for (let i = 0; i < input.length; i++) {
+            let dec = resolver.resolve(input[i]);
             
             if (!dec.success) {
                 if (resolver.type === 'object' || resolver.type === 'array') {
-                    (<string[]> dec.error).forEach((error: string) => {
-                        errors.push(`${index}.${error}`);
-                    });
+                    for (let i = 0; i < dec.error.length; i++) {
+                        errors.push(`${i}.${dec.error[i]}`);
+                    }
                 } else {
-                    errors.push(`${index} index: ` + <string> dec.error);
+                    errors.push(`${i}: ` + <string> dec.error);
                 }
             }
 
-            result.unshift(dec.result);
-        });
+            result.push(dec.result);
+        }
 
         return new Result<Array<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
     });

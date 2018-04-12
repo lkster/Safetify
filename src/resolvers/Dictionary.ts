@@ -5,41 +5,37 @@ import { Result } from '../Result';
 
 
 
-type DictionaryResolverTypeString<T> = {
-    [key: string]: Resolver<T>
+interface IDictionary<T> {
+    [key: string]: T;
+    [key: number]: T;
 }
 
-type DictionaryResolverTypeNumber<T> = {
-    [key: number]: Resolver<T>
-}
-
-type DictionaryResolverType<T> = DictionaryResolverTypeString<T> | DictionaryResolverTypeNumber<T>;
 
 export function DictionaryResolver<T>(resolver: Resolver<T>) {
-    return new Resolver<DictionaryResolverType<T>>('object', (input: any) => {
+    return new Resolver<IDictionary<T>>('object', (input: any) => {
         if (!Util.isObject(input)) {
-            return new Result<DictionaryResolverType<T>>(false, <DictionaryResolverType<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);
+            return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);
         }
         
         let errors: string[] = [];
         let result: any = {};
 
         for (let key in input) {
-            let Resolve = resolver.resolve(input[key]);
+            let dec = resolver.resolve(input[key]);
 
-            if (!Resolve.success) {
+            if (!dec.success) {
                 if (resolver.type === 'object' || resolver.type === 'array') {
-                    (<string[]> Resolve.error).forEach((error: string) => {
-                        errors.push(`${key}.${error}`);
-                    });
+                    for (let i = 0; i < dec.error.length; i++) {
+                        errors.push(`${key}.${dec.error[i]}`);
+                    }
                 } else {
-                    errors.push(`${key}: ` + <string> Resolve.error);
+                    errors.push(`${key}: ` + <string> dec.error);
                 }
             }
 
-            result[key] = Resolve.result;
+            result[key] = dec.result;
         }
 
-        return new Result<DictionaryResolverType<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result<IDictionary<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
     });
 }

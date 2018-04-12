@@ -7,7 +7,7 @@ export class SafeUtil {
     }
 
     public static makeSafeNumber(val: any, safeValue = NaN): number {
-        let parsed = parseInt(val);
+        let parsed = Number(val);
         return isFinite(parsed) ? parsed : safeValue;
     }
 

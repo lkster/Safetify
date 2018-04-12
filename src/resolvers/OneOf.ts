@@ -6,34 +6,27 @@ import { Result } from '../Result';
 
 export function OneOfResolver<T>(resolvers: Array<Resolver<T>>) {
     return new Resolver<T>('oneof', (input: any) => {
-        let errors: string[] = [];
-
+        let success: boolean = false;
         let result: T;
 
-        for (let key in resolvers) {
-            let dec = resolvers[key].resolve(input);
+        for (let i = 0; i < resolvers.length; i++) {
+            let dec: Result<T> = resolvers[i].resolve(input);
 
             if (dec.success) {
+                success = true;
                 result = dec.result;
                 break;
-            } else if (!dec.success) {
-                errors.push(resolvers[key].type);
-                
-                if (key.toString() === '0') {
-                    result = dec.result;
-                }
             }
-        }
-        resolvers.forEach((resolver: Resolver<T>, index: number) => {
-            let dec = resolver.resolve(input);
-            
-            if (!dec.success) {
-                errors.push(resolver.type);
-            } else {
-                result
-            }
-        });
 
-        return new Result<T>(errors.length == 0, result, errors.length > 0 ? 'value is not ' + errors.join(' nor ') : undefined);
+            result = dec.result;
+        };
+
+        let error: string;
+
+        if (!success) {
+            error = resolvers.map(r => r.type).join(' nor ');
+        }
+
+        return new Result<T>(success, result, error);
     });
 }

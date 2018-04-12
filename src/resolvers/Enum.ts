@@ -26,7 +26,7 @@ export function EnumResolver<T>(definition: Array<string | number> | EnumType) {
                 result = input;
             } else {
                 error = 'value is not this enum\'s property';
-                result = definition[0];
+                result = Util.isDef(definition[0]) ? 0 : definition[Object.keys(definition)[0]];
             }
         } else {
             error = 'Enum definition is not valid';

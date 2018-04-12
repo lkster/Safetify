@@ -1,22 +1,19 @@
-declare type DictionaryResolverTypeString<T> = {
-    [key: string]: Safetify.Resolver<T>
-}
-
-declare type DictionaryResolverTypeNumber<T> = {
-    [key: number]: Safetify.Resolver<T>
-}
-
 declare type EnumType = {
     [key: number]: string;
 }
 
-declare type DictionaryResolverType<T> = DictionaryResolverTypeString<T> | DictionaryResolverTypeNumber<T>;
+declare interface IDictionary<T> {
+    [key: string]: T;
+    [key: number]: T;
+}
 
 declare namespace Safetify {
 
     class Resolver<T> {
 
-        constructor(type: string, resolver: ResolverType<T>);
+        public defaultValue: T;
+
+        constructor(type: string, resolver: ResolverFunction<T>);
     
         public resolve(input: any): Result<T>;
     
@@ -34,7 +31,7 @@ declare namespace Safetify {
         constructor(success: boolean, result: T, error?: string | string[]);
     }
 
-    type ResolverType<T> = (input: any) => Result<T>;
+    type ResolverFunction<T> = (input: any) => Result<T>;
 
     const Boolean: Resolver<boolean>;
     type Boolean = Resolver<boolean>;
@@ -48,6 +45,19 @@ declare namespace Safetify {
     type Any = Resolver<any>;
     const Any: Resolver<any>;
 
+    const BooleanResolver: Resolver<boolean>;
+    type BooleanResolver = Resolver<boolean>;
+
+    const NumberResolver: Resolver<number>;
+    type NumberResolver = Resolver<number>;
+
+    const StringResolver: Resolver<string>;
+    type StringResolver = Resolver<string>;
+
+    type AnyResolver = Resolver<any>;
+    const AnyResolver: Resolver<any>;
+    
+
     type ObjectResolverDefinition<T> = { [U in keyof T]: Resolver<T[U]> }
 
     function Object<T>(resolver: ObjectResolverDefinition<T>): Resolver<T>;
@@ -56,14 +66,29 @@ declare namespace Safetify {
     function Array<T>(resolver: Resolver<T>): Resolver<T[]>;
     type Array<T> = Resolver<T[]>;
     
-    function Dictionary<T>(resolver: Resolver<T>): Resolver<DictionaryResolverType<T>>;
-    type DictionaryResolver<T> = Resolver<DictionaryResolverType<T>>;
+    function Dictionary<T>(resolver: Resolver<T>): Resolver<IDictionary<T>>;
+    type Dictionary<T> = Resolver<IDictionary<T>>;
 
     function Enum<T>(definition: Array<string | number> | EnumType): Resolver<T>;
     type Enum<T> = Resolver<T>;
 
     function OneOf<T>(resolvers: Array<Resolver<T>>): Resolver<T>;
     type OneOf<T> = Resolver<T>;
+
+    function ObjectResolver<T>(resolver: ObjectResolverDefinition<T>): Resolver<T>;
+    type ObjectResolver<T> = Resolver<T>;
+
+    function ArrayResolver<T>(resolver: Resolver<T>): Resolver<T[]>;
+    type ArrayResolver<T> = Resolver<T[]>;
+    
+    function DictionaryResolver<T>(resolver: Resolver<T>): Resolver<IDictionary<T>>;
+    type DictionaryResolver<T> = Resolver<IDictionary<T>>;
+
+    function EnumResolver<T>(definition: Array<string | number> | EnumType): Resolver<T>;
+    type EnumResolver<T> = Resolver<T>;
+
+    function OneOfResolver<T>(resolvers: Resolver<T>[]): Resolver<T>;
+    type OneOfResolver<T> = Resolver<T>;
     
 }
 
