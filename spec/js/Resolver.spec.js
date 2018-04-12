@@ -20,7 +20,7 @@ describe('Resolver', () => {
         let resolver;
 
         beforeEach(() => {
-            resolver = StringResolver.nullable();
+            resolver = StringResolver().nullable();
         });
 
         it('should return proper value if input is correct', () => {
@@ -44,7 +44,7 @@ describe('Resolver', () => {
         let resolver;
 
         beforeEach(() => {
-            resolver = StringResolver.defaultsTo('default');
+            resolver = StringResolver().defaultsTo('default');
         });
         
         it('should return proper value if input is correct', () => {
@@ -58,7 +58,7 @@ describe('Resolver', () => {
         });
 
         it('should return safe value if default value is incorrect', () => {
-            let result = StringResolver.defaultsTo(false).resolve(true);
+            let result = StringResolver().defaultsTo(false).resolve(true);
             expect(result.result).toBe('');
             expect(result.error).toBeDefined();
         });

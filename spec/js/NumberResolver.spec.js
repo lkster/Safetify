@@ -7,8 +7,8 @@ describe('Number Resolver', () => {
         let resultt;
 
         beforeEach(() => {
-            result = NumberResolver.resolve(17);
-            result2 = NumberResolver.resolve(14.5);
+            result = NumberResolver().resolve(17);
+            result2 = NumberResolver().resolve(14.5);
         });
 
         it('should return success as true', () => {
@@ -31,7 +31,7 @@ describe('Number Resolver', () => {
         let result;
 
         beforeEach(() => {
-            result = NumberResolver.resolve(undefined);
+            result = NumberResolver().resolve(undefined);
         });
 
         it('should return success as false', () => {
@@ -51,7 +51,7 @@ describe('Number Resolver', () => {
         let result;
 
         beforeEach(() => {
-            result = NumberResolver.defaultsTo(6).resolve(NaN);
+            result = NumberResolver().defaultsTo(6).resolve(NaN);
         });
 
         it('should return success as false', () => {

@@ -9,11 +9,11 @@ describe('Object Resolver', () => {
         
         beforeEach(() => {
             result = ObjectResolver({
-                a: StringResolver,
-                b: NumberResolver,
+                a: StringResolver(),
+                b: NumberResolver(),
                 c: ObjectResolver({
-                    d: StringResolver,
-                    e: BooleanResolver
+                    d: StringResolver(),
+                    e: BooleanResolver()
                 })
             }).resolve({
                 a: 'a',
@@ -50,15 +50,15 @@ describe('Object Resolver', () => {
 
         beforeEach(() => {
             result = ObjectResolver({
-                a: StringResolver,
-                b: NumberResolver,
+                a: StringResolver(),
+                b: NumberResolver(),
                 c: ObjectResolver({
-                    d: StringResolver,
-                    e: BooleanResolver
+                    d: StringResolver(),
+                    e: BooleanResolver()
                 }),
-                f: ArrayResolver(StringResolver),
+                f: ArrayResolver(StringResolver()),
                 g: ObjectResolver({
-                    h: StringResolver
+                    h: StringResolver()
                 })
             }).resolve({
                 a: false,

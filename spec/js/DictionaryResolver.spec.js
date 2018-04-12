@@ -9,12 +9,12 @@ describe('Dictionary Resolver', () => {
         let result2;
         
         beforeEach(() => {
-            result = DictionaryResolver(StringResolver).resolve({
+            result = DictionaryResolver(StringResolver()).resolve({
                 a: 'a',
                 b: 'b',
                 c: 'c'
             });
-            result2 = DictionaryResolver(NumberResolver).resolve({
+            result2 = DictionaryResolver(NumberResolver()).resolve({
                 a: 3,
                 b: 27,
                 c: 41
@@ -42,7 +42,7 @@ describe('Dictionary Resolver', () => {
         let result;
 
         beforeEach(() => {
-            result = DictionaryResolver(StringResolver).resolve(undefined);
+            result = DictionaryResolver(StringResolver()).resolve(undefined);
         });
 
         it('should return success as false', () => {
@@ -62,7 +62,7 @@ describe('Dictionary Resolver', () => {
         let result;
 
         beforeEach(() => {
-            result = DictionaryResolver(StringResolver).resolve({
+            result = DictionaryResolver(StringResolver()).resolve({
                 a: 'a',
                 b: 10,
                 c: {

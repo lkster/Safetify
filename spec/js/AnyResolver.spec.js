@@ -9,8 +9,8 @@ describe('Any Resolver', () => {
         let result2;
 
         beforeEach(() => {
-            result = AnyResolver.resolve(17);
-            result2 = AnyResolver.resolve([ 'lol', true, 28, { 'sumvar': 'sumval' } ]);
+            result = AnyResolver().resolve(17);
+            result2 = AnyResolver().resolve([ 'lol', true, 28, { 'sumvar': 'sumval' } ]);
         });
 
         it('should return success as true', () => {
