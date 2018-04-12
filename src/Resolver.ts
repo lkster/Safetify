@@ -1,5 +1,5 @@
 import { Util } from './Utils/Util';
-import { ResolverType } from './ResolverType';
+import { ResolverFunction } from './ResolverFunction';
 import { Result } from './Result';
 
 
@@ -12,7 +12,7 @@ export class Resolver<T> {
 
     constructor (
         public type: string,
-        private resolver: ResolverType<T>
+        private resolver: ResolverFunction<T>
     ) {}
 
     public resolve(input: any): Result<T> {

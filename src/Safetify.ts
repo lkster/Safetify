@@ -1,5 +1,3 @@
-declare var module: any;
-
 export { ArrayResolver as Array } from './resolvers/Array';
 export { ArrayResolver as ArrayResolver } from './resolvers/Array';
 
@@ -29,4 +27,3 @@ export { EnumResolver as EnumResolver } from './resolvers/Enum';
 
 export { Resolver } from './Resolver';
 export { Result } from './Result';
-export { ResolverType } from './ResolverType';

@@ -8,7 +8,7 @@ export type ObjectResolverDefinition<T> = {
 }
 
 export function ObjectResolver<T>(resolver: ObjectResolverDefinition<T>) {
-    return new Resolver<Object>('object', (input: any) => {
+    return new Resolver<T>('object', (input: any) => {
   
         if (!Util.isObject(input)) {
             let safe: any = SafeUtil.makeSafeObject(input);
@@ -17,7 +17,7 @@ export function ObjectResolver<T>(resolver: ObjectResolverDefinition<T>) {
                 safe[key] = resolver[key].resolve(undefined).result;
             }
 
-            return new Result<Object>(false, safe, ['value is not an object']);
+            return new Result<T>(false, safe, ['input is not an object']);
         }
         
         let errors: string[] = [];

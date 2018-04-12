@@ -4,6 +4,7 @@ import { Resolver } from '../Resolver';
 import { Result } from '../Result';
 
 
+
 export function ArrayResolver<T>(resolver: Resolver<T>) {
     return new Resolver<Array<T>>('array', (input: any) => {
         if (!Util.isArray(input)) {
@@ -23,7 +24,7 @@ export function ArrayResolver<T>(resolver: Resolver<T>) {
                         errors.push(`${index}.${error}`);
                     });
                 } else {
-                    errors.push(`${index} index: ` + <string> dec.error);
+                    errors.push(`${index}: ` + <string> dec.error);
                 }
             }
 

@@ -5,20 +5,16 @@ import { Result } from '../Result';
 
 
 
-type DictionaryResolverTypeString<T> = {
-    [key: string]: Resolver<T>
+interface IDictionary<T> {
+    [key: string]: T;
+    [key: number]: T;
 }
 
-type DictionaryResolverTypeNumber<T> = {
-    [key: number]: Resolver<T>
-}
-
-type DictionaryResolverType<T> = DictionaryResolverTypeString<T> | DictionaryResolverTypeNumber<T>;
 
 export function DictionaryResolver<T>(resolver: Resolver<T>) {
-    return new Resolver<DictionaryResolverType<T>>('object', (input: any) => {
+    return new Resolver<IDictionary<T>>('object', (input: any) => {
         if (!Util.isObject(input)) {
-            return new Result<DictionaryResolverType<T>>(false, <DictionaryResolverType<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);
+            return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);
         }
         
         let errors: string[] = [];
@@ -40,6 +36,6 @@ export function DictionaryResolver<T>(resolver: Resolver<T>) {
             result[key] = Resolve.result;
         }
 
-        return new Result<DictionaryResolverType<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result<IDictionary<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
     });
 }
