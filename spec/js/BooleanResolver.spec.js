@@ -1,33 +1,46 @@
-const dec = require('../../dist/safetify').Boolean;
+const { BooleanResolver } = require('../..');
+
+
 
 describe('Boolean resolver', () => {
     
     describe('correct input', () => {
         it('should return success as true', () => {
-            expect(dec.resolve(false).success).toBe(true);
+            expect(BooleanResolver.resolve(false).success).toBe(true);
         });
 
         it('should return result equals to input', () => {
-            expect(dec.resolve(false).result).toBe(false);
-            expect(dec.resolve(true).result).toBe(true);
+            expect(BooleanResolver.resolve(false).result).toBe(false);
+            expect(BooleanResolver.resolve(true).result).toBe(true);
+        });
+
+        it('should not return error', () => {
+            expect(BooleanResolver.resolve(false).error).toBeUndefined();
         });
     });
     
     describe('wrong input', () => {
+        let result;
+        let result2;
+
+        beforeEach(() => {
+            result = BooleanResolver.resolve(undefined);
+            result2 = BooleanResolver.resolve('trust me im boolean');
+        });
+
         it('should return success as false', () => {
-            expect(dec.resolve(undefined).success).toBe(false);
+            expect(result.success).toBe(false);
+            expect(result2.success).toBe(false);
         });
 
         it('should return safe value', () => {
-            expect(dec.resolve(undefined).result).toBe(false);
+            expect(result.result).toBe(false);
+            expect(result2.result).toBe(true);
         });
 
         it('should return error', () => {
-            expect(dec.resolve(undefined).error).toBeDefined();
-        });
-
-        it('should return default value if set', () => {
-            expect(dec.defaultsTo(true).resolve(undefined).result).toBe(true);
+            expect(result.error).toBeDefined();
+            expect(result2.error).toBeDefined();
         });
     });
     

@@ -1,14 +1,16 @@
-const { NumberResolver } = require('../..');
+const { OneOfResolver, NumberResolver, StringResolver } = require('../..');
 
-describe('Number Resolver', () => {
+
+
+describe('OneOf Resolver', () => {
     
     describe('correct input', () => {
         let result;
-        let resultt;
+        let result2;
 
         beforeEach(() => {
-            result = NumberResolver.resolve(17);
-            result2 = NumberResolver.resolve(14.5);
+            result = OneOfResolver([StringResolver, NumberResolver]).resolve('im a string');
+            result2 = OneOfResolver([StringResolver, NumberResolver]).resolve(31);
         });
 
         it('should return success as true', () => {
@@ -17,8 +19,8 @@ describe('Number Resolver', () => {
         });
 
         it('should return result equals to input', () => {
-            expect(result.result).toBe(17);
-            expect(result2.result).toBe(14.5);
+            expect(result.result).toBe('im a string');
+            expect(result2.result).toBe(31);
         });
 
         it('should not return error', () => {
@@ -29,41 +31,26 @@ describe('Number Resolver', () => {
 
     describe('wrong input', () => {
         let result;
+        let result2;
 
         beforeEach(() => {
-            result = NumberResolver.resolve(undefined);
+            result = OneOfResolver([StringResolver, NumberResolver]).resolve({});
+            result2 = OneOfResolver([NumberResolver, StringResolver]).resolve({});
         });
 
         it('should return success as false', () => {
             expect(result.success).toBe(false);    
+            expect(result2.success).toBe(false);    
         });
 
         it('should return safe value', () => {
             expect(result.result).toBeNaN();
+            expect(result2.result).toBe('');
         });
 
         it('should return error', () => {
             expect(result.error).toBeDefined();
-        });
-    });
-
-    describe('NaN input', () => {
-        let result;
-
-        beforeEach(() => {
-            result = NumberResolver.defaultsTo(6).resolve(NaN);
-        });
-
-        it('should return success as false', () => {
-            expect(result.success).toBe(false);
-        });
-
-        it('should return error', () => {
-            expect(result.error).toBeDefined();
-        });
-
-        it('should set value to default', () => {
-            expect(result.result).toBe(6);
+            expect(result2.error).toBeDefined();
         });
     });
 });

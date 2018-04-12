@@ -1,32 +1,56 @@
-const dec = require('../../dist/safetify').String;
+const { StringResolver } = require('../..');
 
-describe('String resolver', () => {
+
+
+describe('String Resolver', () => {
     
     describe('correct input', () => {
-        it('should return success as true', () => {
-            expect(dec.resolve('something').success).toBe(true);
+        let result;
+
+        beforeEach(() => {
+            result = StringResolver.resolve('something');
         });
 
-        it('should return result equals to input', () => {
-            expect(dec.resolve('sth').result).toBe('sth');
-            expect(dec.resolve('something').result).toBe('something');
+        it('should return success as true', () => {
+            expect(result.success).toBe(true);    
+        });
+
+        it('should return result equal to input', () => {
+            expect(result.result).toBe('something');
+        });
+
+        it('should not return error', () => {
+            expect(result.error).toBeUndefined();
         });
     });
-    
+
     describe('wrong input', () => {
+        let result;
+        let result2;
+        let result3;
+
+        beforeEach(() => {
+            result = StringResolver.resolve(undefined);
+            result2 = StringResolver.resolve(null);
+            result3 = StringResolver.resolve(false);
+        });
+
         it('should return success as false', () => {
-            expect(dec.resolve(undefined).success).toBe(false);
-            expect(dec.resolve(null).success).toBe(false);
-            expect(dec.resolve(false).success).toBe(false);
+            expect(result.success).toBe(false);
+            expect(result2.success).toBe(false);
+            expect(result3.success).toBe(false);
         });
 
         it('should return safe value', () => {
-            expect(dec.resolve(undefined).result).toBe('');
+            expect(result.result).toBe('');
+            expect(result2.result).toBe('');
+            expect(result3.result).toBe('');
         });
 
         it('should return error', () => {
-            expect(dec.resolve(undefined).error).toBeDefined();
+            expect(result.error).toBeDefined();
+            expect(result2.error).toBeDefined();
+            expect(result3.error).toBeDefined();
         });
     });
-    
 });

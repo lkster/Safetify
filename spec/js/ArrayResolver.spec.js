@@ -1,28 +1,69 @@
-const dec = require('../../dist/safetify');
+const { ArrayResolver, StringResolver, NumberResolver } = require('../..');
 
 describe('Array resolver', () => {
     
     describe('correct input', () => {
+        let result;
+        let result2;
+
+        beforeEach(() => {
+            result = ArrayResolver(StringResolver).resolve(['im a string']);
+            result2 = ArrayResolver(NumberResolver).resolve([13.5, 47]);
+        });
+        
         it('should return success as true', () => {
-            expect(dec.Array(dec.String).resolve(['im a string']).success).toBe(true);
+            expect(result.success).toBe(true);
+            expect(result2.success).toBe(true);
         });
 
         it('should return result equals to input', () => {
-            expect(dec.Array(dec.String).resolve(['im a string']).result).toEqual(['im a string']);
+            expect(result.result).toEqual(['im a string']);
+            expect(result2.result).toEqual([13.5, 47]);
+        });
+
+        it('should not return error', () => {
+            expect(result.error).toBeUndefined();
+            expect(result2.error).toBeUndefined();
         });
     });
     
     describe('wrong input', () => {
+        let result;
+
+        beforeEach(() => {
+            result = ArrayResolver(StringResolver).resolve(undefined);
+        });
+
         it('should return success as false', () => {
-            expect(dec.Array(dec.Number).resolve(undefined).success).toBe(false);
+            expect(result.success).toBe(false);
         });
 
         it('should return safe value', () => {
-            expect(dec.Array(dec.String).resolve(undefined).result).toEqual([]);
+            expect(result.result).toEqual([]);
         });
 
         it('should return error', () => {
-            expect(dec.Array(dec.String).resolve(undefined).error).toBeDefined();
+            expect(result.error).toBeDefined();
+        });
+    });
+
+    describe('wrong values of input', () => {
+        let result;
+
+        beforeEach(() => {
+            result = ArrayResolver(StringResolver).resolve(['string1', true, 'string2', undefined, 253, 'string3']);
+        });
+
+        it('should return success as false', () => {
+            expect(result.success).toBe(false);
+        });
+
+        it('should return safe values', () => {
+            expect(result.result).toEqual(['string1', '', 'string2', '', '', 'string3']);
+        });
+
+        it('should return 3 errors', () => {
+            expect(result.error.length).toBe(3);
         });
     });
     

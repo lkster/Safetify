@@ -1,17 +1,19 @@
-const dec = require('../../dist/safetify');
+const { ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver} = require('../..');
 
-describe('Object resolver', () => {
-    let resolve;
 
+
+describe('Object Resolver', () => {
+    
     describe('correct input', () => {
-
+        let result;
+        
         beforeEach(() => {
-            resolve = dec.Object({
-                a: dec.String,
-                b: dec.Number,
-                c: dec.Object({
-                    d: dec.String,
-                    e: dec.Boolean
+            result = ObjectResolver({
+                a: StringResolver,
+                b: NumberResolver,
+                c: ObjectResolver({
+                    d: StringResolver,
+                    e: BooleanResolver
                 })
             }).resolve({
                 a: 'a',
@@ -24,11 +26,11 @@ describe('Object resolver', () => {
         });
 
         it('should return success as true', () => {
-            expect(resolve.success).toBe(true);
+            expect(result.success).toBe(true);
         });
 
         it('should return result equals to input', () => {
-            expect(resolve.result).toEqual({
+            expect(result.result).toEqual({
                 a: 'a',
                 b: 10,
                 c: {
@@ -37,20 +39,26 @@ describe('Object resolver', () => {
                 }
             });
         });
+
+        it('should not return error', () => {
+            expect(result.error).toBeUndefined();
+        });
     });
-    
+
     describe('wrong input', () => {
+        let result;
+
         beforeEach(() => {
-            resolve = dec.Object({
-                a: dec.String,
-                b: dec.Number,
-                c: dec.Object({
-                    d: dec.String,
-                    e: dec.Boolean
+            result = ObjectResolver({
+                a: StringResolver,
+                b: NumberResolver,
+                c: ObjectResolver({
+                    d: StringResolver,
+                    e: BooleanResolver
                 }),
-                f: dec.Array(dec.String),
-                g: dec.Object({
-                    h: dec.String
+                f: ArrayResolver(StringResolver),
+                g: ObjectResolver({
+                    h: StringResolver
                 })
             }).resolve({
                 a: false,
@@ -60,16 +68,17 @@ describe('Object resolver', () => {
                     e: 'trust me im boolean'
                 },
                 f: 'a',
-                g: 'a'
+                g: 'a',
+                superExtra: 'this shouldnt be here'
             });
         });
 
         it('should return success as false', () => {
-            expect(resolve.success).toBe(false);
+            expect(result.success).toBe(false);
         });
 
         it('should return safe value', () => {
-            expect(resolve.result).toEqual({
+            expect(result.result).toEqual({
                 a: '',
                 b: 10,
                 c: {
@@ -84,8 +93,7 @@ describe('Object resolver', () => {
         });
 
         it('should return 4 errors', () => {
-            expect(resolve.error.length).toBe(4);
+            expect(result.error.length).toBe(4);
         });
     });
-    
 });
