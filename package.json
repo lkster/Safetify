@@ -21,7 +21,11 @@
     "safety",
     "safe"
   ],
-  "author": "Dominik Mielcarek <fogbpl@gmail.com>",
+  "author": {
+    "name": "Dominik Mielcarek",
+    "email": "fogbpl@gmail.com",
+    "url": "https://github.com/ThaFog"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
@@ -46,5 +50,10 @@
   },
   "bugs": {
     "url": "https://github.com/ThaFog/Safetify/issues"
-  }
+  },
+  "files": [
+    "dist/safetify.js",
+    "index.d.ts",
+    "LICENSE"
+  ]
 }
