@@ -1,6 +1,6 @@
 /**
  * @hidden
  */
-interface IEnum {
+export interface IEnum {
     [key: number]: string
 }

@@ -1,7 +1,7 @@
 /**
  * @hidden
  */
-interface IDictionary<T> {
+export interface IDictionary<T> {
     [key: string]: T;
     [key: number]: T;
 }

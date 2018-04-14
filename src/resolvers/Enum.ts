@@ -3,6 +3,7 @@ import { SafeUtil } from '@/utils/SafeUtil';
 import { Resolver } from '@/base/Resolver';
 import { EnumResolver as EnumResolverBase } from '@/base/EnumResolver';
 import { Result } from '@/Result';
+import { IEnum } from '@/interfaces/IEnum';
 
 
 
