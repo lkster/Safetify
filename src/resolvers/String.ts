@@ -4,6 +4,18 @@ import { Resolver } from '../Resolver';
 import { Result } from '../Result';
 
 
+
+/**
+ * Resolves given data to string type
+ * @example
+ * <caption>
+ * StringResolver().resolve('john doe');
+ * // output will be the same as input
+ * 
+ * StringResolver().resolve(3842);
+ * // output will be ''
+ * </caption>
+ */
 export function StringResolver(): Resolver<string> {
     return new Resolver<string>('string', (input: any) => {
         let error: string;

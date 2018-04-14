@@ -3,10 +3,35 @@ import { SafeUtil } from '../Utils/SafeUtil';
 import { Resolver } from '../Resolver';
 import { Result } from '../Result';
 
+
+
+/**
+ * @hidden
+ */
 export type ObjectResolverDefinition<T> = {
     [U in keyof T]: Resolver<T[U]>
 }
 
+/**
+ * Resolves object of given structure
+ * @param resolver Structure of object filled with resolvers
+ * @example
+ * <caption>
+ * ObjectResolver<IPerson>({
+ *   name: StringResolver(),
+ *   surname: StringResolver(),
+ *   age: NumberResolver(),
+ * }).resolve({ name: 'John', surname: 'Doe', age: 56 });
+ * // output will be the same as input
+ * 
+ * ObjectResolver<IPerson>({
+ *   name: StringResolver(),
+ *   surname: StringResolver(),
+ *   age: NumberResolver(),
+ * }).resolve({ name: 'John', surname: false, age: 56 });
+ * // output will be { name: 'John', surname: '', age: 56 }
+ * </caption>
+ */
 export function ObjectResolver<T>(resolver: ObjectResolverDefinition<T>) {
     return new Resolver<T>('object', (input: any) => {
   

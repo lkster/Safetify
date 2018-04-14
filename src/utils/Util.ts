@@ -1,3 +1,6 @@
+/**
+ * @hidden
+ */
 export class Util {
 
     public static isDef(val: any): boolean {

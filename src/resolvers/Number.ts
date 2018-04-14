@@ -4,6 +4,18 @@ import { Resolver } from '../Resolver';
 import { Result } from '../Result';
 
 
+
+/**
+ * Resolves given data to number type
+ * @example
+ * <caption>
+ * NumberResolver().resolve(5);
+ * // output will be the same as input
+ * 
+ * NumberResolver().resolve('');
+ * // output will be NaN
+ * </caption>
+ */
 export function NumberResolver(): Resolver<number> {
     return new Resolver<number>('number', (input: any) => {
         let error: string;

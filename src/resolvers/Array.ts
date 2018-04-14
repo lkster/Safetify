@@ -5,6 +5,18 @@ import { Result } from '../Result';
 
 
 
+/**
+ * Resolves array of given type
+ * @param resolver Resolver of given type
+ * @example
+ * <caption>
+ * ArrayResolver<string\>(StringResolver()).resolve(['John', 'Doe']);
+ * // output will be the same as input
+ * 
+ * ArrayResolver<string\>(StringResolver()).resolve(['John', 5434]);
+ * // output will be ['John', '']
+ * </caption>
+ */
 export function ArrayResolver<T>(resolver: Resolver<T>) {
     return new Resolver<Array<T>>('array', (input: any) => {
         if (!Util.isArray(input)) {

@@ -1,5 +1,10 @@
 import { Util } from './Util';
 
+
+
+/**
+ * @hidden
+ */
 export class SafeUtil {
 
     public static makeSafeString(val: any): string {
