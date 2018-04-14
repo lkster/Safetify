@@ -36,7 +36,7 @@ export function OneOfResolver<T>(resolvers: Array<Resolver<T>>) {
             result = dec.result;
         };
 
-        let error: string;
+        let error: string = null;
 
         if (!success) {
             error = resolvers.map(r => r.type).join(' nor ');

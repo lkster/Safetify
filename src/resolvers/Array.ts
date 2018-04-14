@@ -44,6 +44,6 @@ export function ArrayResolver<T>(resolver: Resolver<T>): ArrayResolverBase<T> {
             result.push(dec.result);
         }
 
-        return new Result<Array<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result<Array<T>>(errors.length == 0, result, errors.length > 0 ? errors : null);
     });
 }

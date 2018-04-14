@@ -18,7 +18,7 @@ import { Result } from '@/Result';
  */
 export function NumberResolver(): NumberResolverBase {
     return new NumberResolverBase((input: any) => {
-        let error: string;
+        let error: string = null;
     
         if (!Util.isNumber(input) || !isFinite(input)) {
             error = 'value is not a number';
