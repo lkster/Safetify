@@ -69,7 +69,7 @@ describe('Enum Resolver', () => {
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result: Result<testEnumNumberValues>;
         let result2: Result<testEnumNumberValues>;
         let result3: Result<testEnumStringValues>;
