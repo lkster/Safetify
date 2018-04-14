@@ -4,7 +4,7 @@ import { Util } from "@/utils/Util";
 
 
 
-export class SimpleTypeResolver<T> extends Resolver<T> {
+export class SimpleTypeResolver<T extends string | number | boolean> extends Resolver<T> {
 
     /**
      * @hidden
@@ -16,7 +16,7 @@ export class SimpleTypeResolver<T> extends Resolver<T> {
      * @param val default value
      */
     public defaultsTo(val: T): SimpleTypeResolver<T> {
-        this._defaultValue = super.resolve(this._defaultValue);
+        this._defaultValue = super.resolve(val);
         return this;
     }
 
@@ -26,13 +26,11 @@ export class SimpleTypeResolver<T> extends Resolver<T> {
     public resolve(input: any): Result<T> {
         let resolved: Result<T> = super.resolve(input);
 
-        if (!resolved.success && !this.isNullable && Util.isDef(this._defaultValue)) {
-
+        if (!resolved.success && Util.isDef(this._defaultValue)) {
+            
             if (!this._defaultValue.success) {
                 resolved.error = Util.mergeErrors(resolved.error, `DefaultValue: ${this._defaultValue.error}`);
-            }
-
-            if (this._defaultValue.success || (!this._defaultValue.success && !this.isNullable)) {
+            } else if (this._defaultValue.success) {
                 resolved.result = this._defaultValue.result;
             }
         }
