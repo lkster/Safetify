@@ -1,5 +1,6 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
+import { ArrayResolver as ArrayResolverBase } from '@/base/ArrayResolver';
 import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 
@@ -17,8 +18,8 @@ import { Result } from '@/Result';
  * // output will be ['John', '']
  * </caption>
  */
-export function ArrayResolver<T>(resolver: Resolver<T>) {
-    return new Resolver<Array<T>>('array', (input: any) => {
+export function ArrayResolver<T>(resolver: Resolver<T>): ArrayResolverBase<T> {
+    return new ArrayResolverBase<T>((input: any) => {
         if (!Util.isArray(input)) {
             return new Result(false, SafeUtil.makeSafeArray(input), ['value is not an array']);
         }
