@@ -19,7 +19,7 @@ describe('Boolean resolver', () => {
         });
     });
     
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result;
         let result2;
 
@@ -44,4 +44,66 @@ describe('Boolean resolver', () => {
         });
     });
     
+    describe('default value', () => {
+        
+        describe('correct value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = BooleanResolver().defaultsTo(true).resolve(false);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(false);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeUndefined();
+            });
+        });
+        
+        describe('incorrect value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = BooleanResolver().defaultsTo(true).resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return result as default value', () => {
+                expect(result.result).toBe(true);
+            });
+
+            it('should return error', () => {
+                expect(result.error).toBeDefined();
+            });
+        });
+
+        describe('incorrect value and default value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = BooleanResolver().defaultsTo(undefined).resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toBe(false);
+            });
+
+            it('should return 2 errors', () => {
+                expect(result.error.length).toBe(2);
+            });
+        });
+    });
 });
