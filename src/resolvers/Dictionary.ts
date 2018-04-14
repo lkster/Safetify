@@ -1,17 +1,10 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Resolver } from '@/base/Resolver';
+import { DictionaryResolver as DictionaryResolverBase } from '@/base/DictionaryResolver';
 import { Result } from '@/Result';
 
 
-
-/**
- * @hidden
- */
-interface IDictionary<T> {
-    [key: string]: T;
-    [key: number]: T;
-}
 
 /**
  * Resolves dictionary object of given type
@@ -26,7 +19,7 @@ interface IDictionary<T> {
  * </caption>
  */
 export function DictionaryResolver<T>(resolver: Resolver<T>) {
-    return new Resolver<IDictionary<T>>('object', (input: any) => {
+    return new DictionaryResolverBase<T>((input: any) => {
         if (!Util.isObject(input)) {
             return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);
         }
