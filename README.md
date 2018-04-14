@@ -70,7 +70,7 @@ This won't throw any exception of course.
 
 # Usage
 
-Safetify works both with TypeScript and JavaScript. Look on [unit tests](https://github.com/ThaFog/Safetify/tree/master/spec) or [documentation]() to get more familiar with.
+Safetify works both with TypeScript and JavaScript. Look on [unit tests](https://github.com/ThaFog/Safetify/tree/master/spec) or [documentation](https://thafog.github.io/Safetify/index.html) to get more familiar with.
 
 Simple types have no arguments to pass, ie. we can use resolvers:
 - `StringResolver`
