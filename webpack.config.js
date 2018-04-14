@@ -21,7 +21,10 @@ module.exports = (options = {}) => {
         externals: [ nodeExternals() ],
         resolve: {
             extensions: [ ".js", ".ts" ],
-            modules: [path.resolve('node_modules')]
+            modules: [path.resolve('node_modules')],
+            alias: {
+                '@': path.join(__dirname, 'src')
+            }
         },
         output: {
             filename: "safetify.js",
