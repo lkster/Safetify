@@ -22,8 +22,8 @@ describe('Array resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeUndefined();
-            expect(result2.error).toBeUndefined();
+            expect(result.error).toBeNull();
+            expect(result2.error).toBeNull();
         });
     });
     
@@ -43,7 +43,7 @@ describe('Array resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
     });
 
