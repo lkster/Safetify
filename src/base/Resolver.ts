@@ -9,13 +9,9 @@ import { Result } from '@/Result';
 export class Resolver<T> {
 
     /**
-     * default value
+     * @hidden
      */
-    public defaultValue: T;
-    /**
-     * whether data is nullable
-     */
-    public isNullable: boolean = false;
+    protected isNullable: boolean = false;
 
 
 
@@ -38,17 +34,17 @@ export class Resolver<T> {
      */
     public resolve(input: any): Result<T> {
         let resolved = this.resolver(input);
+
         if (!resolved.success) {
             if (this.isNullable === true && input === null) {
                 return new Result<T>(true, null);
-            } else if (Util.isDefAndNotNull(this.defaultValue)) {
-                resolved.result = this.resolver(this.defaultValue).result;
             } else if (this.isNullable === true) {
                 resolved.result = null;
             }
         } else if (!Util.isDef(resolved.result) && this.isNullable === true) {
             resolved.result = null;
         }
+
         return resolved;
     }
 
@@ -60,23 +56,10 @@ export class Resolver<T> {
     }
 
     /**
-     * Sets default value which will be returned in case of fail validation
-     * @param val default value
-     */
-    public defaultsTo(val: T): Resolver<T> {
-        let newResolver: Resolver<T> = this._clone(); 
-        newResolver.defaultValue = val;
-        newResolver.isNullable = this.isNullable;
-        return newResolver;
-    }
-
-    /**
      * Whether data can be nullable. If yes, resolver returns success when given data is null or returns null when given data is not validated properly
      */
     public nullable(): Resolver<T> {
-        let newResolver: Resolver<T> = this._clone();
-        newResolver.defaultValue = this.defaultValue;
-        newResolver.isNullable = true;
-        return newResolver;
+        this.isNullable = true;
+        return this;
     }
 }

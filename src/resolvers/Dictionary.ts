@@ -1,6 +1,6 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/Resolver';
+import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 
 
