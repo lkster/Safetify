@@ -9,8 +9,8 @@ describe('OneOf Resolver', () => {
         let result2;
 
         beforeEach(() => {
-            result = OneOfResolver([StringResolver, NumberResolver]).resolve('im a string');
-            result2 = OneOfResolver([StringResolver, NumberResolver]).resolve(31);
+            result = OneOfResolver([StringResolver(), NumberResolver()]).resolve('im a string');
+            result2 = OneOfResolver([StringResolver(), NumberResolver()]).resolve(31);
         });
 
         it('should return success as true', () => {
@@ -24,18 +24,18 @@ describe('OneOf Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeUndefined();
-            expect(result2.error).toBeUndefined();
+            expect(result.error).toBeNull();
+            expect(result2.error).toBeNull();
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result;
         let result2;
 
         beforeEach(() => {
-            result = OneOfResolver([StringResolver, NumberResolver]).resolve({});
-            result2 = OneOfResolver([NumberResolver, StringResolver]).resolve({});
+            result = OneOfResolver([StringResolver(), NumberResolver()]).resolve({});
+            result2 = OneOfResolver([NumberResolver(), StringResolver()]).resolve({});
         });
 
         it('should return success as false', () => {
@@ -49,8 +49,8 @@ describe('OneOf Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
-            expect(result2.error).toBeDefined();
+            expect(result.error).not.toBeNull();
+            expect(result2.error).not.toBeNull();
         });
     });
 });

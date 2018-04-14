@@ -13,12 +13,12 @@ describe('Dictionary Resolver', () => {
         let result2: Result<IDictionary<number>>;
         
         beforeEach(() => {
-            result = DictionaryResolver<string>(StringResolver).resolve({
+            result = DictionaryResolver<string>(StringResolver()).resolve({
                 a: 'a',
                 b: 'b',
                 c: 'c'
             });
-            result2 = DictionaryResolver<number>(NumberResolver).resolve({
+            result2 = DictionaryResolver<number>(NumberResolver()).resolve({
                 a: 3,
                 b: 27,
                 c: 41
@@ -38,15 +38,15 @@ describe('Dictionary Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeUndefined();
+            expect(result.error).toBeNull();
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result: Result<IDictionary<string>>;
 
         beforeEach(() => {
-            result = DictionaryResolver(StringResolver).resolve(undefined);
+            result = DictionaryResolver(StringResolver()).resolve(undefined);
         });
 
         it('should return success as false', () => {
@@ -58,15 +58,15 @@ describe('Dictionary Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
     });
 
-    describe('wrong input values', () => {
+    describe('incorrect input values', () => {
         let result: Result<IDictionary<string>>;
 
         beforeEach(() => {
-            result = DictionaryResolver(StringResolver).resolve({
+            result = DictionaryResolver(StringResolver()).resolve({
                 a: 'a',
                 b: 10,
                 c: {

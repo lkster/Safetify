@@ -1,14 +1,34 @@
-import { Util } from '../Utils/Util';
-import { SafeUtil } from '../Utils/SafeUtil';
-import { Resolver } from '../Resolver';
-import { Result } from '../Result';
+import { Util } from '@/utils/Util';
+import { SafeUtil } from '@/utils/SafeUtil';
+import { Resolver } from '@/base/Resolver';
+import { ObjectResolver as ObjectResolverBase } from '@/base/ObjectResolver';
+import { Result } from '@/Result';
+import { IObjectResolver } from '@/interfaces/IObjectResolver';
 
-export type ObjectResolverDefinition<T> = {
-    [U in keyof T]: Resolver<T[U]>
-}
 
-export function ObjectResolver<T>(resolver: ObjectResolverDefinition<T>) {
-    return new Resolver<T>('object', (input: any) => {
+
+/**
+ * Resolves object of given structure
+ * @param resolver Structure of object filled with resolvers
+ * @example
+ * <caption>
+ * ObjectResolver<IPerson>({
+ *   name: StringResolver(),
+ *   surname: StringResolver(),
+ *   age: NumberResolver(),
+ * }).resolve({ name: 'John', surname: 'Doe', age: 56 });
+ * // returns { name: 'John', surname: 'Doe', age: 56 }
+ * 
+ * ObjectResolver<IPerson>({
+ *   name: StringResolver(),
+ *   surname: StringResolver(),
+ *   age: NumberResolver(),
+ * }).resolve({ name: 'John', surname: false, age: 56 });
+ * // returns { name: 'John', surname: '', age: 56 }
+ * </caption>
+ */
+export function ObjectResolver<T>(resolver: IObjectResolver<T>) {
+    return new ObjectResolverBase<T>((input: any) => {
   
         if (!Util.isObject(input)) {
             let safe: any = SafeUtil.makeSafeObject(input);
@@ -39,6 +59,6 @@ export function ObjectResolver<T>(resolver: ObjectResolverDefinition<T>) {
             result[key] = dec.result;
         }
 
-        return new Result<T>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result<T>(errors.length == 0, result, errors.length > 0 ? errors : null);
     });
 }

@@ -1,16 +1,29 @@
-import { Util } from '../Utils/Util';
-import { SafeUtil } from '../Utils/SafeUtil';
-import { Resolver } from '../Resolver';
-import { Result } from '../Result';
+import { Util } from '@/utils/Util';
+import { SafeUtil } from '@/utils/SafeUtil';
+import { NumberResolver as NumberResolverBase } from '@/base/NumberResolver';
+import { Result } from '@/Result';
 
 
 
-export const NumberResolver: Resolver<number> = new Resolver<number>('number', (input: any) => {
-    let error: string;
-
-    if (!Util.isNumber(input) || !isFinite(input)) {
-        error = 'value is not a number';
-    }
-
-    return new Result<number>(!Util.isDefAndNotNull(error), SafeUtil.makeSafeNumber(input), error);
-});
+/**
+ * Resolves given data to number type
+ * @example
+ * <caption>
+ * NumberResolver().resolve(5);
+ * // returns 5
+ * 
+ * NumberResolver().resolve('');
+ * // returns NaN
+ * </caption>
+ */
+export function NumberResolver(): NumberResolverBase {
+    return new NumberResolverBase((input: any) => {
+        let error: string = null;
+    
+        if (!Util.isNumber(input) || !isFinite(input)) {
+            error = 'value is not a number';
+        }
+    
+        return new Result<number>(!Util.isDefAndNotNull(error), SafeUtil.makeSafeNumber(input), error);
+    });
+}

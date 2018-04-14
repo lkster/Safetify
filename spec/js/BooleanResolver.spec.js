@@ -6,26 +6,26 @@ describe('Boolean resolver', () => {
     
     describe('correct input', () => {
         it('should return success as true', () => {
-            expect(BooleanResolver.resolve(false).success).toBe(true);
+            expect(BooleanResolver().resolve(false).success).toBe(true);
         });
 
         it('should return result equals to input', () => {
-            expect(BooleanResolver.resolve(false).result).toBe(false);
-            expect(BooleanResolver.resolve(true).result).toBe(true);
+            expect(BooleanResolver().resolve(false).result).toBe(false);
+            expect(BooleanResolver().resolve(true).result).toBe(true);
         });
 
         it('should not return error', () => {
-            expect(BooleanResolver.resolve(false).error).toBeUndefined();
+            expect(BooleanResolver().resolve(false).error).toBeNull();
         });
     });
     
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result;
         let result2;
 
         beforeEach(() => {
-            result = BooleanResolver.resolve(undefined);
-            result2 = BooleanResolver.resolve('trust me im boolean');
+            result = BooleanResolver().resolve(undefined);
+            result2 = BooleanResolver().resolve('trust me im boolean');
         });
 
         it('should return success as false', () => {
@@ -39,9 +39,71 @@ describe('Boolean resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
-            expect(result2.error).toBeDefined();
+            expect(result.error).not.toBeNull();
+            expect(result2.error).not.toBeNull();
         });
     });
     
+    describe('default value', () => {
+        
+        describe('correct value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = BooleanResolver().defaultsTo(true).resolve(false);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(false);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeNull();
+            });
+        });
+        
+        describe('incorrect value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = BooleanResolver().defaultsTo(true).resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return result as default value', () => {
+                expect(result.result).toBe(true);
+            });
+
+            it('should return error', () => {
+                expect(result.error).not.toBeNull();
+            });
+        });
+
+        describe('incorrect value and default value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = BooleanResolver().defaultsTo(undefined).resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toBe(false);
+            });
+
+            it('should return 2 errors', () => {
+                expect(result.error.length).toBe(2);
+            });
+        });
+    });
 });

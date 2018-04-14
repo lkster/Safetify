@@ -1,3 +1,6 @@
+/**
+ * @hidden
+ */
 export class Util {
 
     public static isDef(val: any): boolean {
@@ -27,6 +30,18 @@ export class Util {
     public static isObject(val: any): boolean {
         let type = typeof val;
         return type == 'object' && val != null || type == 'function';
+    }
+
+    public static mergeErrors(source1: string | string[], source2: string | string[]): string[] {
+      if (this.isString(source1) && this.isString(source2)) {
+        return <string[]> [ source1, source2 ];
+      } else if (this.isString(source1) && this.isArray(source2)) {
+        return <string[]> [ source1, ...( <string[]> source2) ];
+      } else if (this.isArray(source1) && this.isString(source2)) {
+        return <string[]> [...(<string[]> source1), source2 ];
+      } else if (this.isArray(source1) && this.isArray(source2)) {
+        return <string[]> [...(<string[]> source1), ...(<string[]> source2) ];
+      }
     }
 
     private static _typeOf(val: any): string {

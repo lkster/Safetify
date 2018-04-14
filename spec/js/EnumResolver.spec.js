@@ -27,7 +27,7 @@ describe('Enum decoder', () => {
             });
 
             it('should not return error', () => {
-                expect(resolver.resolve('option1').error).toBeUndefined();
+                expect(resolver.resolve('option1').error).toBeNull();
             });
         });
 
@@ -60,13 +60,13 @@ describe('Enum decoder', () => {
             });
 
             it('should not return error', () => {
-                expect(resolver.resolve('option1').error).toBeUndefined();
-                expect(resolver2.resolve(1).error).toBeUndefined();
+                expect(resolver.resolve('option1').error).toBeNull();
+                expect(resolver2.resolve(1).error).toBeNull();
             });
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let testEnum = [ 'option1', 'option2', 'option3' ];
         let result;
         let result2;
@@ -87,8 +87,8 @@ describe('Enum decoder', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
-            expect(result2.error).toBeDefined();
+            expect(result.error).not.toBeNull();
+            expect(result2.error).not.toBeNull();
         });
     });
 });

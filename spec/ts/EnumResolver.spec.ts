@@ -38,8 +38,8 @@ describe('Enum Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeUndefined();
-                expect(result2.error).toBeUndefined();
+                expect(result.error).toBeNull();
+                expect(result2.error).toBeNull();
             });
         });
 
@@ -63,13 +63,13 @@ describe('Enum Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeUndefined();
-                expect(result2.error).toBeUndefined();
+                expect(result.error).toBeNull();
+                expect(result2.error).toBeNull();
             });
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result: Result<testEnumNumberValues>;
         let result2: Result<testEnumNumberValues>;
         let result3: Result<testEnumStringValues>;
@@ -93,9 +93,9 @@ describe('Enum Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
-            expect(result2.error).toBeDefined();
-            expect(result3.error).toBeDefined();
+            expect(result.error).not.toBeNull();
+            expect(result2.error).not.toBeNull();
+            expect(result3.error).not.toBeNull();
         });
     });
 });

@@ -7,8 +7,8 @@ describe('Array resolver', () => {
         let result2;
 
         beforeEach(() => {
-            result = ArrayResolver(StringResolver).resolve(['im a string']);
-            result2 = ArrayResolver(NumberResolver).resolve([13.5, 47]);
+            result = ArrayResolver(StringResolver()).resolve(['im a string']);
+            result2 = ArrayResolver(NumberResolver()).resolve([13.5, 47]);
         });
         
         it('should return success as true', () => {
@@ -22,16 +22,16 @@ describe('Array resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeUndefined();
-            expect(result2.error).toBeUndefined();
+            expect(result.error).toBeNull();
+            expect(result2.error).toBeNull();
         });
     });
     
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result;
 
         beforeEach(() => {
-            result = ArrayResolver(StringResolver).resolve(undefined);
+            result = ArrayResolver(StringResolver()).resolve(undefined);
         });
 
         it('should return success as false', () => {
@@ -43,15 +43,15 @@ describe('Array resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
     });
 
-    describe('wrong values of input', () => {
+    describe('incorrect values of input', () => {
         let result;
 
         beforeEach(() => {
-            result = ArrayResolver(StringResolver).resolve(['string1', true, 'string2', undefined, 253, 'string3']);
+            result = ArrayResolver(StringResolver()).resolve(['string1', true, 'string2', undefined, 253, 'string3']);
         });
 
         it('should return success as false', () => {

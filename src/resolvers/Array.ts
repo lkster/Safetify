@@ -1,12 +1,25 @@
-import { Util } from '../Utils/Util';
-import { SafeUtil } from '../Utils/SafeUtil';
-import { Resolver } from '../Resolver';
-import { Result } from '../Result';
+import { Util } from '@/utils/Util';
+import { SafeUtil } from '@/utils/SafeUtil';
+import { ArrayResolver as ArrayResolverBase } from '@/base/ArrayResolver';
+import { Resolver } from '@/base/Resolver';
+import { Result } from '@/Result';
 
 
 
-export function ArrayResolver<T>(resolver: Resolver<T>) {
-    return new Resolver<Array<T>>('array', (input: any) => {
+/**
+ * Resolves array of given type
+ * @param resolver Resolver of given type
+ * @example
+ * <caption>
+ * ArrayResolver<string\>(StringResolver()).resolve(['John', 'Doe']);
+ * // returns ['John', 'Doe']
+ * 
+ * ArrayResolver<string\>(StringResolver()).resolve(['John', 5434]);
+ * // returns ['John', '']
+ * </caption>
+ */
+export function ArrayResolver<T>(resolver: Resolver<T>): ArrayResolverBase<T> {
+    return new ArrayResolverBase<T>((input: any) => {
         if (!Util.isArray(input)) {
             return new Result(false, SafeUtil.makeSafeArray(input), ['value is not an array']);
         }
@@ -31,6 +44,6 @@ export function ArrayResolver<T>(resolver: Resolver<T>) {
             result.push(dec.result);
         }
 
-        return new Result<Array<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result<Array<T>>(errors.length == 0, result, errors.length > 0 ? errors : null);
     });
 }

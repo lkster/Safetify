@@ -1,17 +1,37 @@
-import { Util } from '../Utils/Util';
-import { SafeUtil } from '../Utils/SafeUtil';
-import { Resolver } from '../Resolver';
-import { Result } from '../Result';
+import { Util } from '@/utils/Util';
+import { SafeUtil } from '@/utils/SafeUtil';
+import { Resolver } from '@/base/Resolver';
+import { EnumResolver as EnumResolverBase } from '@/base/EnumResolver';
+import { Result } from '@/Result';
+import { IEnum } from '@/interfaces/IEnum';
 
 
-export type EnumType = {
-    [key: number]: string
-}
 
-export function EnumResolver<T>(definition: Array<string | number> | EnumType) {
-    return new Resolver<T>('enum', (input: any) => {
+
+/**
+ * Resolves enum
+ * @param definition enum representation in array, object or passed TypeScript's enum declaration
+ * @example
+ * <caption>
+ * // Array representation
+ * EnumResolver([ 'option1', 'option2', 'option3' ]).resolve('option1');
+ * 
+ * // Object representation
+ * EnumResolver({ opt1: 'option1', opt2: 'option2', opt3: 'option3' }).resolve('option1');
+ * 
+ * // TypeScript's enum 
+ * EnumResolver<someEnum>(someEnum).resolve('option1');
+ * 
+ * // output will be the same as input
+ * 
+ * EnumResolver<someEnum>(someEnum).resolve('option4');
+ * // output will be the first enum item, in this case 'option1'
+ * </caption>
+ */
+export function EnumResolver<T>(definition: Array<string | number> | IEnum) {
+    return new EnumResolverBase<T>((input: any) => {
         
-        let error;
+        let error = null;
         let result: string | number = 0;
 
         if (Util.isArray(definition)) {

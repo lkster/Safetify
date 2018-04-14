@@ -20,7 +20,7 @@ describe('Resolver', () => {
         let resolver;
 
         beforeEach(() => {
-            resolver = StringResolver.nullable();
+            resolver = StringResolver().nullable();
         });
 
         it('should return proper value if input is correct', () => {
@@ -30,13 +30,13 @@ describe('Resolver', () => {
         it('should return null and set error if input is incorrect', () => {
             let result = resolver.resolve(false);
             expect(result.result).toBeNull();
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
 
         it('should return null if input is null', () => {
             let result = resolver.resolve(null);
             expect(result.result).toBeNull();
-            expect(result.error).toBeUndefined();
+            expect(result.error).toBeNull();
         });
     });
 
@@ -44,7 +44,7 @@ describe('Resolver', () => {
         let resolver;
 
         beforeEach(() => {
-            resolver = StringResolver.defaultsTo('default');
+            resolver = StringResolver().defaultsTo('default');
         });
         
         it('should return proper value if input is correct', () => {
@@ -54,13 +54,76 @@ describe('Resolver', () => {
         it('should return default value and set error if input is incorrect', () => {
             let result = resolver.resolve(false);
             expect(result.result).toBe('default');
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
 
         it('should return safe value if default value is incorrect', () => {
-            let result = StringResolver.defaultsTo(false).resolve(true);
+            let result = StringResolver().defaultsTo(false).resolve(true);
             expect(result.result).toBe('');
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
+        });
+    });
+
+    describe('nullable value', () => {
+        
+        describe('correct value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = StringResolver().nullable().resolve('im a string');
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe('im a string');
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeNull();
+            });
+        });
+
+        describe('null value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = StringResolver().nullable().resolve(null);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeNull();
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = StringResolver().nullable().resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);    
+            });
+
+            it('should return null as result', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).not.toBeNull();
+            });
         });
     });
 });
