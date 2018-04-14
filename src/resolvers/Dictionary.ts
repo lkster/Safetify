@@ -5,12 +5,26 @@ import { Result } from '../Result';
 
 
 
+/**
+ * @hidden
+ */
 interface IDictionary<T> {
     [key: string]: T;
     [key: number]: T;
 }
 
-
+/**
+ * Resolves dictionary object of given type
+ * @param resolver Resolver of given type
+ * @example
+ * <caption>
+ * DictionaryResolver<string\>(StringResolver()).resolve({ name: 'John', surname: 'Doe' });
+ * // output will be the same as input
+ * 
+ * DictionaryResolver<string\>(StringResolver()).resolve({ name: 'John', surname: 5434 });
+ * // output will be { name: 'John', surname: '' }
+ * </caption>
+ */
 export function DictionaryResolver<T>(resolver: Resolver<T>) {
     return new Resolver<IDictionary<T>>('object', (input: any) => {
         if (!Util.isObject(input)) {
