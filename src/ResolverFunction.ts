@@ -1,4 +1,4 @@
-import { Result } from './Result';
+import { Result } from '@/Result';
 
 /**
  * Function that validates and resolves given data
