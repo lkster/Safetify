@@ -29,7 +29,7 @@ describe('Array Resolver', () => {
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result: Result<string[]>;
 
         beforeEach(() => {
@@ -49,7 +49,7 @@ describe('Array Resolver', () => {
         });
     });
 
-    describe('wrong values of input', () => {
+    describe('incorrect values of input', () => {
         let result: Result<string[]>;
 
         beforeEach(() => {

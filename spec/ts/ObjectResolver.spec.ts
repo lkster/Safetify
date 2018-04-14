@@ -65,7 +65,7 @@ describe('Object Resolver', () => {
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result: Result<ITestExtended>;
 
         beforeEach(() => {

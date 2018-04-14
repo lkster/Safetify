@@ -25,5 +25,5 @@ export { OneOfResolver as OneOfResolver } from '@/resolvers/OneOf';
 export { EnumResolver as Enum } from '@/resolvers/Enum';
 export { EnumResolver as EnumResolver } from '@/resolvers/Enum';
 
-export { Resolver } from '@/Resolver';
+export { Resolver } from '@/base/Resolver';
 export { Result } from '@/Result';

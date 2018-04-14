@@ -29,7 +29,7 @@ describe('OneOf Resolver', () => {
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result: Result<string | number>;
         let result2: Result<string | number>;
 

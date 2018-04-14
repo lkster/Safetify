@@ -1,7 +1,8 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/Resolver';
+import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
+import { StringResolver as StringResolverBase } from '@/base/StringResolver';
 
 
 
@@ -10,14 +11,14 @@ import { Result } from '@/Result';
  * @example
  * <caption>
  * StringResolver().resolve('john doe');
- * // output will be the same as input
+ * // returns 'john doe'
  * 
  * StringResolver().resolve(3842);
- * // output will be ''
+ * // returns ''
  * </caption>
  */
-export function StringResolver(): Resolver<string> {
-    return new Resolver<string>('string', (input: any) => {
+export function StringResolver(): StringResolverBase {
+    return new StringResolverBase((input: any) => {
         let error: string;
     
         if (!Util.isString(input)) {

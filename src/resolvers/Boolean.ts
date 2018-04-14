@@ -1,6 +1,6 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/Resolver';
+import { BooleanResolver as BooleanResolverBase } from '@/base/BooleanResolver';
 import { Result } from '@/Result';
 
 
@@ -10,14 +10,14 @@ import { Result } from '@/Result';
  * @example
  * <caption>
  * BooleanResolver().resolve(true);
- * // output will be the same as input
+ * // returns true
  * 
  * BooleanResolver().resolve('im boolean');
  * // output will be converted input to boolean, in this case true
  * </caption>
  */
-export function BooleanResolver(): Resolver<boolean> {
-    return new Resolver<boolean>('boolean', (input: any) => {
+export function BooleanResolver(): BooleanResolverBase {
+    return new BooleanResolverBase((input: any) => {
         let error: string;
     
         if (!Util.isBoolean(input)) {

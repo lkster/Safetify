@@ -1,16 +1,12 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/Resolver';
+import { Resolver } from '@/base/Resolver';
+import { EnumResolver as EnumResolverBase } from '@/base/EnumResolver';
 import { Result } from '@/Result';
+import { IEnum } from '@/interfaces/IEnum';
 
 
 
-/**
- * @hidden
- */
-export type EnumType = {
-    [key: number]: string
-}
 
 /**
  * Resolves enum
@@ -32,8 +28,8 @@ export type EnumType = {
  * // output will be the first enum item, in this case 'option1'
  * </caption>
  */
-export function EnumResolver<T>(definition: Array<string | number> | EnumType) {
-    return new Resolver<T>('enum', (input: any) => {
+export function EnumResolver<T>(definition: Array<string | number> | IEnum) {
+    return new EnumResolverBase<T>((input: any) => {
         
         let error;
         let result: string | number = 0;

@@ -38,7 +38,7 @@ describe('Dictionary Resolver', () => {
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result;
 
         beforeEach(() => {
@@ -58,7 +58,7 @@ describe('Dictionary Resolver', () => {
         });
     });
 
-    describe('wrong input values', () => {
+    describe('incorrect input values', () => {
         let result;
 
         beforeEach(() => {

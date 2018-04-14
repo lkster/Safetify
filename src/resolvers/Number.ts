@@ -1,6 +1,6 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/Resolver';
+import { NumberResolver as NumberResolverBase } from '@/base/NumberResolver';
 import { Result } from '@/Result';
 
 
@@ -10,14 +10,14 @@ import { Result } from '@/Result';
  * @example
  * <caption>
  * NumberResolver().resolve(5);
- * // output will be the same as input
+ * // returns 5
  * 
  * NumberResolver().resolve('');
- * // output will be NaN
+ * // returns NaN
  * </caption>
  */
-export function NumberResolver(): Resolver<number> {
-    return new Resolver<number>('number', (input: any) => {
+export function NumberResolver(): NumberResolverBase {
+    return new NumberResolverBase((input: any) => {
         let error: string;
     
         if (!Util.isNumber(input) || !isFinite(input)) {

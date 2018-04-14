@@ -66,7 +66,7 @@ describe('Enum decoder', () => {
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let testEnum = [ 'option1', 'option2', 'option3' ];
         let result;
         let result2;

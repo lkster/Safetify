@@ -1,14 +1,22 @@
 import { Util } from '@/utils/Util';
-import { Resolver } from '@/Resolver';
+import { AnyResolver as AnyResolverBase } from '@/base/AnyResolver';
 import { Result } from '@/Result';
 
 
 
 /**
  * Always return given data in unchanged form
+ * @example
+ * <caption>
+ * AnyResolver().resolve('input of any type');
+ * // returns 'input of any type'
+ * 
+ * AnyResolver().resolve(undefined);
+ * // returns undefined
+ * </caption>
  */
-export function AnyResolver(): Resolver<any> {
-    return new Resolver<any>('any', (input: any) => {
+export function AnyResolver(): AnyResolverBase {
+    return new AnyResolverBase((input: any) => {
         return new Result<any>(true, input);
     });
 }

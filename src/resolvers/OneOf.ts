@@ -1,6 +1,7 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/Resolver';
+import { Resolver } from '@/base/Resolver';
+import { OneOfResolver as OneOfResolverBase } from '@/base/OneOfResolver';
 import { Result } from '@/Result';
 
 
@@ -19,7 +20,7 @@ import { Result } from '@/Result';
  * </caption>
  */
 export function OneOfResolver<T>(resolvers: Array<Resolver<T>>) {
-    return new Resolver<T>('oneof', (input: any) => {
+    return new OneOfResolverBase<T>((input: any) => {
         let success: boolean = false;
         let result: T;
 

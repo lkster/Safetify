@@ -1,16 +1,11 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/Resolver';
+import { Resolver } from '@/base/Resolver';
+import { ObjectResolver as ObjectResolverBase } from '@/base/ObjectResolver';
 import { Result } from '@/Result';
+import { IObjectResolver } from '@/interfaces/IObjectResolver';
 
 
-
-/**
- * @hidden
- */
-export type ObjectResolverDefinition<T> = {
-    [U in keyof T]: Resolver<T[U]>
-}
 
 /**
  * Resolves object of given structure
@@ -22,18 +17,18 @@ export type ObjectResolverDefinition<T> = {
  *   surname: StringResolver(),
  *   age: NumberResolver(),
  * }).resolve({ name: 'John', surname: 'Doe', age: 56 });
- * // output will be the same as input
+ * // returns { name: 'John', surname: 'Doe', age: 56 }
  * 
  * ObjectResolver<IPerson>({
  *   name: StringResolver(),
  *   surname: StringResolver(),
  *   age: NumberResolver(),
  * }).resolve({ name: 'John', surname: false, age: 56 });
- * // output will be { name: 'John', surname: '', age: 56 }
+ * // returns { name: 'John', surname: '', age: 56 }
  * </caption>
  */
-export function ObjectResolver<T>(resolver: ObjectResolverDefinition<T>) {
-    return new Resolver<T>('object', (input: any) => {
+export function ObjectResolver<T>(resolver: IObjectResolver<T>) {
+    return new ObjectResolverBase<T>((input: any) => {
   
         if (!Util.isObject(input)) {
             let safe: any = SafeUtil.makeSafeObject(input);

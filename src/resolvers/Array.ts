@@ -1,6 +1,7 @@
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/Resolver';
+import { ArrayResolver as ArrayResolverBase } from '@/base/ArrayResolver';
+import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 
 
@@ -11,14 +12,14 @@ import { Result } from '@/Result';
  * @example
  * <caption>
  * ArrayResolver<string\>(StringResolver()).resolve(['John', 'Doe']);
- * // output will be the same as input
+ * // returns ['John', 'Doe']
  * 
  * ArrayResolver<string\>(StringResolver()).resolve(['John', 5434]);
- * // output will be ['John', '']
+ * // returns ['John', '']
  * </caption>
  */
-export function ArrayResolver<T>(resolver: Resolver<T>) {
-    return new Resolver<Array<T>>('array', (input: any) => {
+export function ArrayResolver<T>(resolver: Resolver<T>): ArrayResolverBase<T> {
+    return new ArrayResolverBase<T>((input: any) => {
         if (!Util.isArray(input)) {
             return new Result(false, SafeUtil.makeSafeArray(input), ['value is not an array']);
         }

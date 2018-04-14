@@ -27,7 +27,7 @@ describe('Number Resolver', () => {
         });
     });
 
-    describe('wrong input', () => {
+    describe('incorrect input', () => {
         let result;
 
         beforeEach(() => {
@@ -64,6 +64,69 @@ describe('Number Resolver', () => {
 
         it('should set value to default', () => {
             expect(result.result).toBe(6);
+        });
+    });
+
+    describe('default value', () => {
+        
+        describe('correct value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = NumberResolver().defaultsTo(23).resolve(46);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(46);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeUndefined();
+            });
+        });
+        
+        describe('incorrect value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = NumberResolver().defaultsTo(23).resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return result as default value', () => {
+                expect(result.result).toBe(23);
+            });
+
+            it('should return error', () => {
+                expect(result.error).toBeDefined();
+            });
+        });
+
+        describe('incorrect value and default value', () => {
+            let result;
+
+            beforeEach(() => {
+                result = NumberResolver().defaultsTo(undefined).resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toBeNaN();
+            });
+
+            it('should return 2 errors', () => {
+                expect(result.error.length).toBe(2);
+            });
         });
     });
 });
