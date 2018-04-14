@@ -1,7 +1,7 @@
-import { Util } from '../Utils/Util';
-import { SafeUtil } from '../Utils/SafeUtil';
-import { Resolver } from '../Resolver';
-import { Result } from '../Result';
+import { Util } from '@/utils/Util';
+import { SafeUtil } from '@/utils/SafeUtil';
+import { Resolver } from '@/Resolver';
+import { Result } from '@/Result';
 
 
 
