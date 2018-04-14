@@ -17,14 +17,14 @@ import { IObjectResolver } from '@/interfaces/IObjectResolver';
  *   surname: StringResolver(),
  *   age: NumberResolver(),
  * }).resolve({ name: 'John', surname: 'Doe', age: 56 });
- * // output will be the same as input
+ * // returns { name: 'John', surname: 'Doe', age: 56 }
  * 
  * ObjectResolver<IPerson>({
  *   name: StringResolver(),
  *   surname: StringResolver(),
  *   age: NumberResolver(),
  * }).resolve({ name: 'John', surname: false, age: 56 });
- * // output will be { name: 'John', surname: '', age: 56 }
+ * // returns { name: 'John', surname: '', age: 56 }
  * </caption>
  */
 export function ObjectResolver<T>(resolver: IObjectResolver<T>) {

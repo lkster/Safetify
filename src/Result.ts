@@ -5,7 +5,7 @@ export class Result<T> {
     
     /**
      * 
-     * @param success is true if data is successfuly resolved, false otherwise
+     * @param success true if data is successfuly resolved, false otherwise
      * @param result resolved data
      * @param error has error(s) if resolving failed
      */

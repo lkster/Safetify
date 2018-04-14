@@ -12,10 +12,10 @@ import { Result } from '@/Result';
  * @example
  * <caption>
  * ArrayResolver<string\>(StringResolver()).resolve(['John', 'Doe']);
- * // output will be the same as input
+ * // returns ['John', 'Doe']
  * 
  * ArrayResolver<string\>(StringResolver()).resolve(['John', 5434]);
- * // output will be ['John', '']
+ * // returns ['John', '']
  * </caption>
  */
 export function ArrayResolver<T>(resolver: Resolver<T>): ArrayResolverBase<T> {

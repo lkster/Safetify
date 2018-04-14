@@ -13,10 +13,10 @@ import { IDictionary } from '@/interfaces/IDictionary';
  * @example
  * <caption>
  * DictionaryResolver<string\>(StringResolver()).resolve({ name: 'John', surname: 'Doe' });
- * // output will be the same as input
+ * // returns { name: 'John', surname: 'Doe' }
  * 
  * DictionaryResolver<string\>(StringResolver()).resolve({ name: 'John', surname: 5434 });
- * // output will be { name: 'John', surname: '' }
+ * // returns { name: 'John', surname: '' }
  * </caption>
  */
 export function DictionaryResolver<T>(resolver: Resolver<T>) {

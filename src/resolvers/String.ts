@@ -11,10 +11,10 @@ import { StringResolver as StringResolverBase } from '@/base/StringResolver';
  * @example
  * <caption>
  * StringResolver().resolve('john doe');
- * // output will be the same as input
+ * // returns 'john doe'
  * 
  * StringResolver().resolve(3842);
- * // output will be ''
+ * // returns ''
  * </caption>
  */
 export function StringResolver(): StringResolverBase {

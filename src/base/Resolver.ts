@@ -50,6 +50,17 @@ export class Resolver<T> {
 
     /**
      * Whether data can be nullable. If yes, resolver returns success when given data is null or returns null when given data is not validated properly
+     * @example
+     * <caption>
+     * StringResolver().nullable().resolve('John Doe');
+     * // returns 'John Doe'
+     * 
+     * StringResolver().nullable().resolve(null);
+     * // returns null without any errors
+     * 
+     * StringResolver().nullable().resolve(undefined);
+     * // returns null with false success and input type error
+     * </caption>
      */
     public nullable(): Resolver<T> {
         this.isNullable = true;

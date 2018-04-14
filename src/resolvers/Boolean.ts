@@ -10,7 +10,7 @@ import { Result } from '@/Result';
  * @example
  * <caption>
  * BooleanResolver().resolve(true);
- * // output will be the same as input
+ * // returns true
  * 
  * BooleanResolver().resolve('im boolean');
  * // output will be converted input to boolean, in this case true

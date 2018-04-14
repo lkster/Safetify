@@ -6,9 +6,12 @@ import { Result } from "@/Result";
 export class AnyResolver {
 
     /**
-     * @param resolver Function that resolves given data
+     * @hidden
      */
     constructor (
+        /**
+         * @hidden
+         */
         private resolver: ResolverFunction<any>
     ) {}
 

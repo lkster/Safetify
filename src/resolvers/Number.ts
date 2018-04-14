@@ -10,10 +10,10 @@ import { Result } from '@/Result';
  * @example
  * <caption>
  * NumberResolver().resolve(5);
- * // output will be the same as input
+ * // returns 5
  * 
  * NumberResolver().resolve('');
- * // output will be NaN
+ * // returns NaN
  * </caption>
  */
 export function NumberResolver(): NumberResolverBase {
