@@ -49,13 +49,6 @@ export class Resolver<T> {
     }
 
     /**
-     * @hidden
-     */
-    private _clone(): Resolver<T> {
-        return new Resolver(this.type, this.resolver);
-    }
-
-    /**
      * Whether data can be nullable. If yes, resolver returns success when given data is null or returns null when given data is not validated properly
      */
     public nullable(): Resolver<T> {
