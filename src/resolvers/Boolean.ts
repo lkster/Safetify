@@ -18,7 +18,7 @@ import { Result } from '@/Result';
  */
 export function BooleanResolver(): BooleanResolverBase {
     return new BooleanResolverBase((input: any) => {
-        let error: string;
+        let error: string = null;
     
         if (!Util.isBoolean(input)) {
             error = 'value is not a boolean';

@@ -37,7 +37,7 @@ export class Resolver<T> {
 
         if (!resolved.success) {
             if (this.isNullable === true && input === null) {
-                return new Result<T>(true, null);
+                return new Result<T>(true, null, null);
             } else if (this.isNullable === true) {
                 resolved.result = null;
             }

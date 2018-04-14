@@ -44,6 +44,6 @@ export function DictionaryResolver<T>(resolver: Resolver<T>) {
             result[key] = dec.result;
         }
 
-        return new Result<IDictionary<T>>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result<IDictionary<T>>(errors.length == 0, result, errors.length > 0 ? errors : null);
     });
 }

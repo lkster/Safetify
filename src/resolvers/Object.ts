@@ -59,6 +59,6 @@ export function ObjectResolver<T>(resolver: IObjectResolver<T>) {
             result[key] = dec.result;
         }
 
-        return new Result<T>(errors.length == 0, result, errors.length > 0 ? errors : undefined);
+        return new Result<T>(errors.length == 0, result, errors.length > 0 ? errors : null);
     });
 }

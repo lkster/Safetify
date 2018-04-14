@@ -31,7 +31,7 @@ import { IEnum } from '@/interfaces/IEnum';
 export function EnumResolver<T>(definition: Array<string | number> | IEnum) {
     return new EnumResolverBase<T>((input: any) => {
         
-        let error;
+        let error = null;
         let result: string | number = 0;
 
         if (Util.isArray(definition)) {

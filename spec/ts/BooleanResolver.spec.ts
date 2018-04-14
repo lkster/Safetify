@@ -15,7 +15,7 @@ describe('Boolean Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(BooleanResolver().resolve(false).error).toBeUndefined();
+            expect(BooleanResolver().resolve(false).error).toBeNull();
         });
     });
 
@@ -39,8 +39,8 @@ describe('Boolean Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
-            expect(result2.error).toBeDefined();
+            expect(result.error).not.toBeNull();
+            expect(result2.error).not.toBeNull();
         });
     });
 
@@ -62,7 +62,7 @@ describe('Boolean Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeUndefined();
+                expect(result.error).toBeNull();
             });
         });
         
@@ -82,7 +82,7 @@ describe('Boolean Resolver', () => {
             });
 
             it('should return error', () => {
-                expect(result.error).toBeDefined();
+                expect(result.error).not.toBeNull();
             });
         });
 

@@ -30,13 +30,13 @@ describe('Resolver', () => {
         it('should return null and set error if input is incorrect', () => {
             let result = resolver.resolve(false);
             expect(result.result).toBeNull();
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
 
         it('should return null if input is null', () => {
             let result = resolver.resolve(null);
             expect(result.result).toBeNull();
-            expect(result.error).toBeUndefined();
+            expect(result.error).toBeNull();
         });
     });
 
@@ -54,13 +54,13 @@ describe('Resolver', () => {
         it('should return default value and set error if input is incorrect', () => {
             let result = resolver.resolve(false);
             expect(result.result).toBe('default');
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
 
         it('should return safe value if default value is incorrect', () => {
             let result = StringResolver().defaultsTo(false).resolve(true);
             expect(result.result).toBe('');
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
     });
 
@@ -82,7 +82,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeUndefined();
+                expect(result.error).toBeNull();
             });
         });
 
@@ -102,7 +102,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeUndefined();
+                expect(result.error).toBeNull();
             });
         });
 
@@ -122,7 +122,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeDefined();
+                expect(result.error).not.toBeNull();
             });
         });
     });

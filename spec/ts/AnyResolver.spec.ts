@@ -32,10 +32,10 @@ describe('Any Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeUndefined();
-            expect(result2.error).toBeUndefined();
-            expect(result3.error).toBeUndefined();
-            expect(result4.error).toBeUndefined();
+            expect(result.error).toBeNull();
+            expect(result2.error).toBeNull();
+            expect(result3.error).toBeNull();
+            expect(result4.error).toBeNull();
         });
     });
 });

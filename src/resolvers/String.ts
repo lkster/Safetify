@@ -19,7 +19,7 @@ import { StringResolver as StringResolverBase } from '@/base/StringResolver';
  */
 export function StringResolver(): StringResolverBase {
     return new StringResolverBase((input: any) => {
-        let error: string;
+        let error: string = null;
     
         if (!Util.isString(input)) {
             error = 'value is not a string';

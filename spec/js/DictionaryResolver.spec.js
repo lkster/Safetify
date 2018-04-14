@@ -34,7 +34,7 @@ describe('Dictionary Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeUndefined();
+            expect(result.error).toBeNull();
         });
     });
 
@@ -54,7 +54,7 @@ describe('Dictionary Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).toBeDefined();
+            expect(result.error).not.toBeNull();
         });
     });
 
