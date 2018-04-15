@@ -71,7 +71,7 @@
 				<p>To install Safetify simply use <code>npm</code>:</p>
 				<pre><code>npm <span class="hljs-keyword">install</span> safetify <span class="hljs-comment">--save</span>
 </code></pre><h1 id="introduction">Introduction</h1>
-				<p>Received from 3rd party applications data are never strongly-typed so we can get any value in place we expect specifically typed one. Not always something that fits data we made application for. As example we can take bug in API because of which we wouldn&#39;t receive specific value or even get empty result. Safetify prevents of situations like that one simply by always converting data to expected type.</p>
+				<p>Received from 3rd party applications data are never strongly-typed so we can get any value in place we expect specifically typed one. Not always something that fits data we made application for. As example we can take bug in API because of which we wouldn&#39;t receive specific value or even get empty result. We need to prevent of situations like that one simply by checking for <code>null</code>s, <code>undefined</code> values or by mapping data to validated model.</p>
 				<p>Say we would receive from API data like this:</p>
 				<pre><code class="lang-json">{
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John Doe"</span>,
@@ -79,13 +79,13 @@
     <span class="hljs-attr">"isSingle"</span>: <span class="hljs-literal">false</span>
 }
 </code></pre>
-				<p>We can resolve the data in that way:</p>
+				<p>With Safetify we can resolve the data in that way:</p>
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Safetify <span class="hljs-keyword">from</span> <span class="hljs-string">'safetify'</span>;
 
 <span class="hljs-keyword">let</span> personResolver: Safetify.Object = Safetify.Object&lt;IPerson&gt;({
-    name: Safetify.String,
-    age: Safetify.Number,
-    isSingle: Safetify.Boolean
+    name: Safetify.String(),
+    age: Safetify.Number(),
+    isSingle: Safetify.Boolean()
 });
 
 <span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data);
@@ -94,9 +94,9 @@
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { ObjectResolver, StringResolver, NumberResolver, BooleanResolver } <span class="hljs-keyword">from</span> <span class="hljs-string">'safetify'</span>;
 
 <span class="hljs-keyword">let</span> personResolver: ObjectResolver = ObjectResolver&lt;IPerson&gt;({
-    name: StringResolver,
-    age: NumberResolver,
-    isSingle: BooleanResolver
+    name: StringResolver(),
+    age: NumberResolver(),
+    isSingle: BooleanResolver()
 });
 
 <span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data);
@@ -106,34 +106,34 @@
 
 name.toUpperCase();
 </code></pre>
-				<p>Which throws us a <code>TypeError</code> exception. Safetify in that case will convert failed data to empty <code>string</code> so in result we will always be operating on string:</p>
+				<p>This would throw us a <code>TypeError</code> exception. Safetify in that case will convert failed data to empty <code>string</code> so in result we will always be operating on string:</p>
 				<pre><code class="lang-ts"><span class="hljs-keyword">let</span> name = person.name; <span class="hljs-comment">// now it's empty string</span>
 
 name.toUpperCase();
 </code></pre>
 				<p>This won&#39;t throw any exception of course.</p>
 				<h1 id="usage">Usage</h1>
-				<p>Safetify works both in TypeScript and JavaScript. Look on <a href="https://github.com/ThaFog/Safetify/tree/master/spec">unit tests</a> or <a href="">documentation</a> to get more familiar with.</p>
-				<p>Simple types have simple syntax, ie. we can use resolvers:</p>
+				<p>Safetify works both with TypeScript and JavaScript. Look on <a href="https://github.com/ThaFog/Safetify/tree/master/spec">unit tests</a> or <a href="https://thafog.github.io/Safetify/index.html">documentation</a> to get more familiar with.</p>
+				<p>Simple types have no arguments to pass, ie. we can use resolvers:</p>
 				<ul>
 					<li><code>StringResolver</code></li>
 					<li><code>NumberResolver</code></li>
 					<li><code>BooleanResolver</code></li>
 				</ul>
-				<p>like <code>StringResolver.resolve(&lt;anyString&gt;)</code>.</p>
-				<p>In case of advanced types like <code>object</code> (well and all the others) we need to pass structure or values (as we did it in example above).</p>
-				<p>Additional functionality is a possibility to set default or nullable value. It&#39;s best to use it on simple types - using it on advanced ones (well except <code>enum</code>) doesn&#39;t make sense at all.</p>
+				<p>just like <code>StringResolver().resolve(&lt;anyString&gt;)</code>.</p>
+				<p>In case of advanced types like <code>object</code> we need to pass structure or values (as we did it in example above).</p>
+				<p>Additional functionality is a possibility to set nullable and default value (default is available only for simple types and enum).</p>
 				<pre><code class="lang-ts"><span class="hljs-keyword">let</span> personResolver: ObjectResolver = ObjectResolver&lt;IPerson&gt;({
-    name: StringResolver.defaultsTo(<span class="hljs-string">'Johnny'</span>),
-    age: NumberResolver,
-    isSingle: BooleanResolver.nullable()
+    name: StringResolver().defaultsTo(<span class="hljs-string">'Johnny'</span>),
+    age: NumberResolver(),
+    isSingle: BooleanResolver().nullable()
 });
 </code></pre>
-				<p>After resolving any type of data <code>resolve</code> method will always return <code>Result</code> object which has 2 or 3 properties:</p>
+				<p>After resolving any type of data <code>resolve</code> method will always return <code>Result</code> object which has 3 properties:</p>
 				<ul>
 					<li><code>success</code> as <code>boolean</code>,</li>
 					<li><code>result</code> as resolved data type,</li>
-					<li>optional <code>error</code> if success is false as <code>string</code> or <code>string[]</code> type.</li>
+					<li><code>error</code> if success is false as <code>string</code> or <code>string[]</code> type. <code>Null</code> otherwise</li>
 				</ul>
 				<p>If resolving was not succeeded then <code>error</code> property will always describe what went wrong (and which property in if resolved data was <code>object</code> or <code>array</code>)</p>
 			</div>
@@ -156,6 +156,9 @@ name.toUpperCase();
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/booleanresolver.html" class="tsd-kind-icon">Boolean<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/dateresolver.html" class="tsd-kind-icon">Date<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/dictionaryresolver.html" class="tsd-kind-icon">Dictionary<wbr>Resolver</a>

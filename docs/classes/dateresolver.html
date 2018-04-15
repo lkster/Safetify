@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ArrayResolver | safetify</title>
+	<title>DateResolver | safetify</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="arrayresolver.html">ArrayResolver</a>
+					<a href="dateresolver.html">DateResolver</a>
 				</li>
 			</ul>
-			<h1>Class ArrayResolver&lt;T&gt;</h1>
+			<h1>Class DateResolver</h1>
 		</div>
 	</div>
 </header>
@@ -70,37 +70,33 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Resolves array of given type</p>
+						<p>Resolves given data to date type</p>
 					</div>
 					<dl class="tsd-comment-tags">
 						<span class="tag-label">example</span>
 						<dd><pre class="code"><code><caption>
-ArrayResolver&lt;string>(StringResolver()).resolve([&#39;John&#39;, &#39;Doe&#39;]);
-// returns [&#39;John&#39;, &#39;Doe&#39;]
+DateResolver().resolve(1523742351657);
+// returns Date 2018-04-14T21:45:51.657Z
 
-ArrayResolver&lt;string>(StringResolver()).resolve([&#39;John&#39;, 5434]);
-// returns [&#39;John&#39;, &#39;&#39;]
+DateResolver().resolve(&#39;2018-04-14 21:45&#39;);
+// returns Date 2018-04-14T19:45:00.000Z
+
+DateResolver().resolve(&#39;im boolean&#39;);
+DateResolver().resolve(true);
+// returns Date 1970-01-01T00:00:00.000Z
 </caption>
 </code></pre></dd>
 					</dl>
 				</div>
 			</section>
-			<section class="tsd-panel tsd-type-parameters">
-				<h3>Type parameters</h3>
-				<ul class="tsd-type-parameters">
-					<li>
-						<h4>T</h4>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
+						<a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">ArrayResolver</span>
+								<span class="target">DateResolver</span>
 							</li>
 						</ul>
 					</li>
@@ -108,50 +104,37 @@ ArrayResolver&lt;string>(StringResolver()).resolve([&#39;John&#39;, 5434]);
 			</section>
 			<section class="tsd-panel">
 				<h3 class="tsd-before-signature">Callable</h3>
-				<ul class="tsd-signatures tsd-kind-class tsd-has-type-parameter tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">Array<wbr>Resolver&lt;T&gt;<span class="tsd-signature-symbol">(</span>resolver<span class="tsd-signature-symbol">: </span><a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayResolverBase</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<ul class="tsd-signatures tsd-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">Date<wbr>Resolver<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DateResolverBase</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/6fddc9b/src/resolvers/Array.ts#L21">resolvers/Array.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/6fddc9b/src/resolvers/Date.ts#L23">resolvers/Date.ts:23</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Resolves array of given type</p>
+								<p>Resolves given data to date type</p>
 							</div>
 							<dl class="tsd-comment-tags">
 								<span class="tag-label">example</span>
 								<dd><pre class="code"><code><caption>
-ArrayResolver&lt;string>(StringResolver()).resolve([&#39;John&#39;, &#39;Doe&#39;]);
-// returns [&#39;John&#39;, &#39;Doe&#39;]
+DateResolver().resolve(1523742351657);
+// returns Date 2018-04-14T21:45:51.657Z
 
-ArrayResolver&lt;string>(StringResolver()).resolve([&#39;John&#39;, 5434]);
-// returns [&#39;John&#39;, &#39;&#39;]
+DateResolver().resolve(&#39;2018-04-14 21:45&#39;);
+// returns Date 2018-04-14T19:45:00.000Z
+
+DateResolver().resolve(&#39;im boolean&#39;);
+DateResolver().resolve(true);
+// returns Date 1970-01-01T00:00:00.000Z
 </caption>
 </code></pre></dd>
 							</dl>
 						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>T</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>resolver: <a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>Resolver of given type</p>
-									</div>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ArrayResolverBase</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">DateResolverBase</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -162,14 +145,14 @@ ArrayResolver&lt;string>(StringResolver()).resolve([&#39;John&#39;, 5434]);
 						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="arrayresolver.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="dateresolver.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="arrayresolver.html#nullable" class="tsd-kind-icon">nullable</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="arrayresolver.html#resolve" class="tsd-kind-icon">resolve</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="dateresolver.html#nullable" class="tsd-kind-icon">nullable</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="dateresolver.html#resolve" class="tsd-kind-icon">resolve</a></li>
 							</ul>
 						</section>
 					</div>
@@ -200,7 +183,7 @@ ArrayResolver&lt;string>(StringResolver()).resolve([&#39;John&#39;, 5434]);
 					<a name="nullable" class="tsd-anchor"></a>
 					<h3>nullable</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">nullable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">nullable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -229,7 +212,7 @@ StringResolver().nullable().resolve(undefined);
 </code></pre></dd>
 								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -237,7 +220,7 @@ StringResolver().nullable().resolve(undefined);
 					<a name="resolve" class="tsd-anchor"></a>
 					<h3>resolve</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -261,7 +244,7 @@ StringResolver().nullable().resolve(undefined);
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -280,30 +263,30 @@ StringResolver().nullable().resolve(undefined);
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="anyresolver.html" class="tsd-kind-icon">Any<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="arrayresolver.html" class="tsd-kind-icon">Array<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="booleanresolver.html" class="tsd-kind-icon">Boolean<wbr>Resolver</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="arrayresolver.html" class="tsd-kind-icon">Array<wbr>Resolver</a>
+					<li class="current tsd-kind-class tsd-is-external">
+						<a href="dateresolver.html" class="tsd-kind-icon">Date<wbr>Resolver</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-								<a href="arrayresolver.html#type" class="tsd-kind-icon">type</a>
+								<a href="dateresolver.html#type" class="tsd-kind-icon">type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-								<a href="arrayresolver.html#nullable" class="tsd-kind-icon">nullable</a>
+								<a href="dateresolver.html#nullable" class="tsd-kind-icon">nullable</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-								<a href="arrayresolver.html#resolve" class="tsd-kind-icon">resolve</a>
+								<a href="dateresolver.html#resolve" class="tsd-kind-icon">resolve</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="booleanresolver.html" class="tsd-kind-icon">Boolean<wbr>Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="dateresolver.html" class="tsd-kind-icon">Date<wbr>Resolver</a>
-					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="dictionaryresolver.html" class="tsd-kind-icon">Dictionary<wbr>Resolver</a>
 					</li>
