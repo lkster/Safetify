@@ -32,6 +32,10 @@ export class Util {
         return type == 'object' && val != null || type == 'function';
     }
 
+    public static isDateLike(val: any): boolean {
+      return this.isObject(val) && typeof val.getFullYear == 'function';
+    }
+
     public static mergeErrors(source1: string | string[], source2: string | string[]): string[] {
       if (this.isString(source1) && this.isString(source2)) {
         return <string[]> [ source1, source2 ];
