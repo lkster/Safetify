@@ -26,7 +26,9 @@ export function DateResolver(): DateResolverBase {
         let date: Date = new Date(0);
         let error: string = null;
 
-        if (Util.isNumber(input) || Util.isString(input) || Util.isDateLike(input)) {
+        if (Util.isDateLike(input)) {
+            date = input;
+        } else if (Util.isNumber(input) || Util.isString(input)) {
             let testDate = new Date(input);
 
             if (!isNaN(testDate.getTime())) {
