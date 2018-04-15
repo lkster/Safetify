@@ -85,9 +85,9 @@ Additional functionality is a possibility to set nullable and default value (def
 
 ```ts
 let personResolver: ObjectResolver = ObjectResolver<IPerson>({
-    name: StringResolver.defaultsTo('Johnny'),
-    age: NumberResolver,
-    isSingle: BooleanResolver.nullable()
+    name: StringResolver().defaultsTo('Johnny'),
+    age: NumberResolver(),
+    isSingle: BooleanResolver().nullable()
 });
 ```
 
