@@ -11,6 +11,9 @@
   },
   "keywords": [
     "var",
+    "val",
+    "variable",
+    "value",
     "property",
     "json",
     "resolver",
