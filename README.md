@@ -28,9 +28,9 @@ With Safetify we can resolve the data in that way:
 import * as Safetify from 'safetify';
 
 let personResolver: Safetify.Object = Safetify.Object<IPerson>({
-    name: Safetify.String,
-    age: Safetify.Number,
-    isSingle: Safetify.Boolean
+    name: Safetify.String(),
+    age: Safetify.Number(),
+    isSingle: Safetify.Boolean()
 });
 
 let person: IPerson = personResolver.resolve(data);
@@ -42,9 +42,9 @@ Or use alternative imports:
 import { ObjectResolver, StringResolver, NumberResolver, BooleanResolver } from 'safetify';
 
 let personResolver: ObjectResolver = ObjectResolver<IPerson>({
-    name: StringResolver,
-    age: NumberResolver,
-    isSingle: BooleanResolver
+    name: StringResolver(),
+    age: NumberResolver(),
+    isSingle: BooleanResolver()
 });
 
 let person: IPerson = personResolver.resolve(data);
