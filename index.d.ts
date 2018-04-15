@@ -29,6 +29,8 @@ declare namespace Base {
 
     class BooleanResolver extends SimpleTypeResolver<boolean> {}
 
+    class DateResolver extends Safetify.Resolver<Date> {}
+
     class ArrayResolver<T> extends Safetify.Resolver<Array<T>> {}
 
     class DictionaryResolver<T> extends Safetify.Resolver<IDictionary<T>> {}
@@ -73,6 +75,9 @@ declare namespace Safetify {
 
     type Any = Base.AnyResolver;
     function Any(): Base.AnyResolver;
+
+    function Date(): Base.DateResolver;
+    type Date = Base.DateResolver;
     
     function Object<T>(resolver: IObjectResolver<T>): Base.ObjectResolver<T>;
     type Object<T> = Base.ObjectResolver<T>;
@@ -100,6 +105,9 @@ declare namespace Safetify {
 
     function AnyResolver(): Base.AnyResolver;
     type AnyResolver = Base.AnyResolver;
+
+    function DateResolver(): Base.DateResolver;
+    type DateResolver = Base.DateResolver;
 
     function ObjectResolver<T>(resolver: IObjectResolver<T>): Base.ObjectResolver<T>;
     type ObjectResolver<T> = Base.ObjectResolver<T>;
