@@ -47,6 +47,7 @@
     "type": "git",
     "url": "https://github.com/ThaFog/Safetify.git"
   },
+  "homepage": "https://thafog.github.io/Safetify/index.html",
   "directories": {
     "lib": "./src",
     "test": "./spec"
