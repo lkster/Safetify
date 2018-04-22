@@ -1,6 +1,6 @@
 {
   "name": "safetify",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Var and property safing utility",
   "main": "dist/safetify.js",
   "scripts": {
@@ -47,6 +47,7 @@
     "type": "git",
     "url": "https://github.com/ThaFog/Safetify.git"
   },
+  "homepage": "https://thafog.github.io/Safetify/index.html",
   "directories": {
     "lib": "./src",
     "test": "./spec"

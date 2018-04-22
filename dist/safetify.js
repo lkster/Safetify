@@ -782,7 +782,10 @@ function DateResolver() {
         var success = true;
         var date = new Date(0);
         var error = null;
-        if (Util_1.Util.isNumber(input) || Util_1.Util.isString(input) || Util_1.Util.isDateLike(input)) {
+        if (Util_1.Util.isDateLike(input)) {
+            date = input;
+        }
+        else if (Util_1.Util.isNumber(input) || Util_1.Util.isString(input)) {
             var testDate = new Date(input);
             if (!isNaN(testDate.getTime())) {
                 date = testDate;
