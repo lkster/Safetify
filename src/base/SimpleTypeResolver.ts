@@ -1,6 +1,7 @@
 import { Resolver } from "./Resolver";
 import { Result } from "@/Result";
 import { Util } from "@/utils/Util";
+import { ResolverUtil } from "@/utils/ResolverUtil";
 
 
 
@@ -42,7 +43,7 @@ export class SimpleTypeResolver<T extends string | number | boolean> extends Res
         if (!resolved.success && Util.isDef(this._defaultValue)) {
             
             if (!this._defaultValue.success) {
-                resolved.error = Util.mergeErrors(resolved.error, `DefaultValue: ${this._defaultValue.error}`);
+                resolved.error = ResolverUtil.mergeErrors(resolved.error, `DefaultValue: ${this._defaultValue.error}`);
             } else if (this._defaultValue.success) {
                 resolved.result = this._defaultValue.result;
             }
