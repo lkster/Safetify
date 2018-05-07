@@ -27,6 +27,12 @@ export class Util {
         return this._typeOf(val) == 'array';
     }
 
+    public static isArrayLike(val: any): boolean {
+      const type: string = this._typeOf(val);
+
+      return type == 'array' || type == 'object' && typeof val.length == 'number';
+    }
+
     public static isObject(val: any): boolean {
         let type = typeof val;
         return type == 'object' && val != null || type == 'function';
@@ -36,6 +42,12 @@ export class Util {
       return this.isObject(val) && typeof val.getFullYear == 'function';
     }
 
+    public static isStringValidDate(val: any): boolean {
+      return !isNaN(+new Date(val));
+    }
+
+    public static isFunction(val: any): boolean {
+      return this._typeOf(val) == 'function';
     }
 
     private static _typeOf(val: any): string {
