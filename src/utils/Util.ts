@@ -1,53 +1,113 @@
-/**
- * @hidden
+/*
+ * Based on Closure Library's Goog Functions by Google
+ * https://github.com/google/closure-library
  */
 export class Util {
 
+    /**
+     * Returns true if the specified value is null.
+     * @param val Variable to test.
+     */
     public static isDef(val: any): boolean {
         return val !== void 0;
     }
 
+    /**
+     * Returns true if the specified value is defined and not null.
+     * @param val Variable to test.
+     */
     public static isDefAndNotNull(val: any): boolean {
         return val != null;
     }
 
+    /**
+     * Returns true if the specified value is a string.
+     * @param {?} val Variable to test.
+     */
     public static isString(val: any): boolean {
         return typeof val == 'string';
     }
     
+    /**
+     * Returns true if the specified value is a boolean.
+     * @param {?} val Variable to test.
+     */
     public static isBoolean(val: any): boolean {
         return typeof val == 'boolean';
     }
 
+    /**
+     * Returns true if the specified value is a number.
+     * @param val Variable to test.
+     */
     public static isNumber(val: any): boolean {
         return typeof val == 'number';
     }
 
+    /**
+     * Returns true if the specified value is an array.
+     * @param val Variable to test.
+     */
     public static isArray(val: any): boolean {
         return this._typeOf(val) == 'array';
     }
 
+    /**
+     * Returns true if the object looks like an array. To qualify as array like
+     * the value needs to be either a NodeList or an object with a Number length
+     * property. Note that for this function neither strings nor functions are
+     * considered "array-like".
+     *
+     * @param val Variable to test.
+     */
+    public static isArrayLike(val: any): boolean {
+      const type: string = this._typeOf(val);
+
+      return type == 'array' || type == 'object' && typeof val.length == 'number';
+    }
+
+    /**
+     * Returns true if the specified value is an object.  This includes arrays and
+     * functions.
+     * @param val Variable to test.
+     */
     public static isObject(val: any): boolean {
         let type = typeof val;
         return type == 'object' && val != null || type == 'function';
     }
 
+    /**
+     * Returns true if the object looks like a Date. To qualify as Date-like the
+     * value needs to be an object and have a getFullYear() function.
+     * @param val Variable to test.
+     */
     public static isDateLike(val: any): boolean {
       return this.isObject(val) && typeof val.getFullYear == 'function';
     }
 
-    public static mergeErrors(source1: string | string[], source2: string | string[]): string[] {
-      if (this.isString(source1) && this.isString(source2)) {
-        return <string[]> [ source1, source2 ];
-      } else if (this.isString(source1) && this.isArray(source2)) {
-        return <string[]> [ source1, ...( <string[]> source2) ];
-      } else if (this.isArray(source1) && this.isString(source2)) {
-        return <string[]> [...(<string[]> source1), source2 ];
-      } else if (this.isArray(source1) && this.isArray(source2)) {
-        return <string[]> [...(<string[]> source1), ...(<string[]> source2) ];
-      }
+    /**
+     * Returns true if the specified value is a valid date (can be string, 
+     * unix timestamp but also custom library like Moment)
+     * @param val variable to test
+     */
+    public static isValidDate(val: any): boolean {
+      return !isNaN(+new Date(val));
     }
 
+    /**
+     * Returns true if the specified value is a function.
+     * @param val Variable to test.
+     */
+    public static isFunction(val: any): boolean {
+      return this._typeOf(val) == 'function';
+    }
+
+    /**
+     * @hidden
+     * This is a "fixed" version of the typeof operator.  It differs from the typeof
+     * operator in such a way that null returns 'null' and arrays return 'array'.
+     * @param val The value to get the type of.
+     */
     private static _typeOf(val: any): string {
         let s: string = typeof val;
 

@@ -97,3 +97,39 @@ After resolving any type of data `resolve` method will always return `Result` ob
 - `error` if success is false as `string` or `string[]` type. `Null` otherwise
 
 If resolving was not succeeded then `error` property will always describe what went wrong (and which property in if resolved data was `object` or `array`)
+
+# Utilities
+
+Safetify provides bunch of utilities for checking type of values like `isDefAndNotNull()`, `isObject()`, `isDateLike()` etc. You can use them via `Safetify.util` property. All functions are described [here](https://thafog.github.io/Safetify/classes/util.html). Most of the functions are based on Google's [Closure Library](https://github.com/google/closure-library)'s Goog functions.
+
+# Building
+
+If You want to contribute or fork this library firstly install all dependencies:
+
+```
+npm install
+```
+
+Then You can simply build it with:
+
+```
+npm run build
+```
+
+To run Typescript tests use:
+
+```
+npm test
+```
+
+Or
+
+```
+npm run test-js
+```
+
+For pure Javascript tests. To generate documentation use
+
+```
+npm run jsdoc
+```
