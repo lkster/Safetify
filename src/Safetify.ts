@@ -30,3 +30,5 @@ export { DateResolver as DateResolver } from '@/resolvers/Date';
 
 export { Resolver } from '@/base/Resolver';
 export { Result } from '@/Result';
+
+export { Util as util } from '@/utils/Util';
