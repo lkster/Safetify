@@ -136,6 +136,20 @@ name.toUpperCase();
 					<li><code>error</code> if success is false as <code>string</code> or <code>string[]</code> type. <code>Null</code> otherwise</li>
 				</ul>
 				<p>If resolving was not succeeded then <code>error</code> property will always describe what went wrong (and which property in if resolved data was <code>object</code> or <code>array</code>)</p>
+				<h1 id="utilities">Utilities</h1>
+				<p>Safetify provides bunch of utilities for checking type of values like <code>isDefAndNotNull()</code>, <code>isObject()</code>, <code>isDateLike()</code> etc. You can use them via <code>Safetify.util</code> property. All functions are described <a href="https://thafog.github.io/Safetify/classes/util.html">here</a>. Most of the functions are based on Google&#39;s <a href="https://github.com/google/closure-library">Closure Library</a>&#39;s Goog functions.</p>
+				<h1 id="building">Building</h1>
+				<p>If You want to contribute or fork this library firstly install all dependencies:</p>
+				<pre><code>npm <span class="hljs-keyword">install</span>
+</code></pre><p>Then You can simply build it with:</p>
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> build</span>
+</code></pre><p>To run Typescript tests use:</p>
+				<pre><code>npm <span class="hljs-built_in">test</span>
+</code></pre><p>Or</p>
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span>-js</span>
+</code></pre><p>For pure Javascript tests. To generate documentation use</p>
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> jsdoc</span>
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
