@@ -88,10 +88,10 @@ export class Util {
     /**
      * Returns true if the specified value is a valid date (can be string, 
      * unix timestamp but also custom library like Moment)
-     * @param val variable to test
+     * @param val Variable to test
      */
     public static isValidDate(val: any): boolean {
-      return !isNaN(+new Date(val));
+      return this.isDefAndNotNull(val) && !this.isBoolean(val) && !isNaN(+new Date(val));
     }
 
     /**
@@ -100,6 +100,15 @@ export class Util {
      */
     public static isFunction(val: any): boolean {
       return this._typeOf(val) == 'function';
+    }
+
+    /**
+     * Returns true if the specified value is a dictionary typed object. This means that object is created
+     * only to be a storage without any logic
+     * @param val Variable to test
+     */
+    public static isDict(val: any): boolean {
+      return this.isObject(val) && val.constructor === Object;
     }
 
     /**

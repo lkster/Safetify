@@ -62,6 +62,21 @@ declare namespace Safetify {
         constructor(success: boolean, result: T, error?: string | string[]);
     }
 
+    class util {
+        public static isDef(val: any): boolean;
+        public static isDefAndNotNull(val: any): boolean;
+        public static isString(val: any): boolean;
+        public static isBoolean(val: any): boolean;
+        public static isNumber(val: any): boolean;
+        public static isArray(val: any): boolean;
+        public static isArrayLike(val: any): boolean;
+        public static isObject(val: any): boolean;
+        public static isDateLike(val: any): boolean;
+        public static isValidDate(val: any): boolean;
+        public static isFunction(val: any): boolean;
+        public static isDict(val: any): boolean;
+    }
+
     type ResolverFunction<T> = (input: any) => Result<T>;
 
     function Boolean(): Base.BooleanResolver;
