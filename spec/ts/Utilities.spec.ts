@@ -167,7 +167,7 @@ describe('Utilities', () => {
         });
     });
 
-    describe('isfunction()', () => {
+    describe('isFunction()', () => {
         it('should return true if value is function', () => {
             expect(Util.isFunction(function () {})).toBe(true);
         });
@@ -181,6 +181,27 @@ describe('Utilities', () => {
             expect(Util.isFunction(NaN)).toBe(false);
             expect(Util.isFunction({})).toBe(false);
             expect(Util.isFunction([])).toBe(false);
+        });
+    });
+
+    describe('isDict()', () => {
+        it('should return true if value is dictionary', () => {
+            expect(Util.isDict({})).toBe(true);
+            expect(Util.isDict({
+                lol: 'lolz'
+            })).toBe(true);
+        });
+
+        it('should return false if value is not a dictionary', () => {
+            expect(Util.isDict(null)).toBe(false);
+            expect(Util.isDict(undefined)).toBe(false);
+            expect(Util.isDict(0)).toBe(false);
+            expect(Util.isDict(true)).toBe(false);
+            expect(Util.isDict('something')).toBe(false);
+            expect(Util.isDict(NaN)).toBe(false);
+            expect(Util.isDict(function() {})).toBe(false,);
+            expect(Util.isDict(new (function() {}))).toBe(false);
+            expect(Util.isDict([])).toBe(false);
         });
     });
 });
