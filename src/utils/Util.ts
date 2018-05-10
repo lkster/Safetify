@@ -91,7 +91,7 @@ export class Util {
      * @param val variable to test
      */
     public static isValidDate(val: any): boolean {
-      return !isNaN(+new Date(val));
+      return this.isDefAndNotNull(val) && !this.isBoolean(val) && !isNaN(+new Date(val));
     }
 
     /**
