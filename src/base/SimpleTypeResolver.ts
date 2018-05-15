@@ -40,7 +40,28 @@ export class SimpleTypeResolver<T extends string | number | boolean> extends Res
         return this;
     }
 
-
+    /**
+     * Adds constraint to resolver to check for specified data range (eg. only positive numbers, strings under specific length etc.)
+     * @param cond condition to check
+     * @param defaultValue optional default value or transform function to use in case input is not valid under set condition
+     * @example
+     * <caption>
+     * NumberResolver().constraint((n: number) => n >= 0).resolve(5);
+     * // returns 5
+     * 
+     * NumberResolver().constraint((n: number) => n >= 0).resolve(-5);
+     * // returns -5 with error that constraint failed
+     * 
+     * NumberResolver().constraint((n: number) => n >= 0 || 'Value is not positive').resolve(-5);
+     * // returns -5 with custom constraint error
+     * 
+     * NumberResolver().constraint((n: number) => n >= 0, 0).resolve(-5);
+     * // returns default constraint's value, in this case 0
+     * 
+     * NumberResolver().constraint((n: number) => n >= 0, (n: number) => Math.abs(n)).resolve(-5);
+     * // returns transformed value into that proposed by transform function, in this case 5
+     * </caption>
+     */
     public constraint (cond: (val: T) => boolean | string, defaultValue: T | ((val: T) => T) = null): SimpleTypeResolver<T> {
         const con: IConstraint<T> = {
             condition: cond,

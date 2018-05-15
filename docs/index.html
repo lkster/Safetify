@@ -136,6 +136,67 @@ name.toUpperCase();
 					<li><code>error</code> if success is false as <code>string</code> or <code>string[]</code> type. <code>Null</code> otherwise</li>
 				</ul>
 				<p>If resolving was not succeeded then <code>error</code> property will always describe what went wrong (and which property in if resolved data was <code>object</code> or <code>array</code>)</p>
+				<h1 id="constraints">Constraints</h1>
+				<p>Constraints are simple functions to check resolved value under specified condition. Say we want to get only positive numbers. We can make constraint like this:</p>
+				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span>);
+
+positiveResolver.resolve(<span class="hljs-number">5</span>);
+</code></pre>
+				<p>Now if value is not positive, Result will have <code>success</code> as false and error with constraint number. </p>
+				<pre><code class="lang-ts">positiveResolver.resolve(<span class="hljs-number">-5</span>);
+
+<span class="hljs-comment">/*
+    Returns:
+    {
+        success: false,
+        result: -5,
+        error: [ 'constraint #0 failed' ]
+    }
+*/</span>
+</code></pre>
+				<p>To make it more clear we can set own error in simplest way:</p>
+				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>);
+
+positiveResolver.resolve(<span class="hljs-number">-5</span>);
+
+<span class="hljs-comment">/*
+    Returns:
+    {
+        success: false,
+        result: -5,
+        error: [ 'Value is not positive' ]
+    }
+*/</span>
+</code></pre>
+				<p>As You saw in examples above, Safetify returns <code>-5</code> as a result. It&#39;s because this is still correct value in terms of type safety. I assume dev would like to get <code>-5</code> more than <code>NaN</code> value. In case we would like to change value if constraint is failed, default value can be set:</p>
+				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>, <span class="hljs-number">0</span>);
+
+positiveResolver.resolve(<span class="hljs-number">-5</span>);
+
+<span class="hljs-comment">/*
+    Returns:
+    {
+        success: false,
+        result: 0,
+        error: [ 'Value is not positive' ]
+    }
+*/</span>
+</code></pre>
+				<p>Much better but sometimes it&#39;s still not perfect (especially in this example). Say we want change all values to positive if there is failed constraint and value is negative. Default value argument can take also default value transform function:</p>
+				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>, <span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">Math</span>.abs(n));
+
+positiveResolver.resolve(<span class="hljs-number">-5</span>);
+
+<span class="hljs-comment">/*
+    Returns:
+    {
+        success: false,
+        result: 5,
+        error: [ 'Value is not positive' ]
+    }
+*/</span>
+</code></pre>
+				<p>And that&#39;s all the simple stuff of constraints. Btw. they works only on primitive types resolvers.</p>
 				<h1 id="utilities">Utilities</h1>
 				<p>Safetify provides bunch of utilities for checking type of values like <code>isDefAndNotNull()</code>, <code>isObject()</code>, <code>isDateLike()</code> etc. You can use them via <code>Safetify.util</code> property. All functions are described <a href="https://thafog.github.io/Safetify/classes/util.html">here</a>. Most of the functions are based on Google&#39;s <a href="https://github.com/google/closure-library">Closure Library</a>&#39;s Goog functions.</p>
 				<h1 id="building">Building</h1>
@@ -206,6 +267,9 @@ name.toUpperCase();
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/util.html" class="tsd-kind-icon">Util</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external">
+						<a href="interfaces/iconstraint.html" class="tsd-kind-icon">IConstraint</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
 						<a href="globals.html#resolverfunction" class="tsd-kind-icon">Resolver<wbr>Function</a>
