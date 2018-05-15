@@ -369,12 +369,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(1);
 var Util_1 = __webpack_require__(0);
 var ResolverUtil_1 = __webpack_require__(18);
 var SimpleTypeResolver = /** @class */ (function (_super) {
     __extends(SimpleTypeResolver, _super);
     function SimpleTypeResolver() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * @hidden
+         */
+        _this._constraints = [];
+        return _this;
     }
     /**
      * Sets default value which will be returned in case of fail validation
@@ -397,6 +403,46 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
         this._defaultValue = _super.prototype.resolve.call(this, val);
         return this;
     };
+    SimpleTypeResolver.prototype.constraint = function (cond, defaultValue) {
+        if (defaultValue === void 0) { defaultValue = null; }
+        var con = {
+            condition: cond,
+            defaultValue: null
+        };
+        if (Util_1.Util.isDefAndNotNull(defaultValue)) {
+            con.defaultValue = defaultValue;
+        }
+        this._constraints.push(con);
+        return this;
+    };
+    /**
+     * @hidden
+     */
+    SimpleTypeResolver.prototype.resolveConstraints = function (input) {
+        var len = this._constraints.length;
+        var errors = [];
+        var value = input;
+        for (var i = 0; i < len; i++) {
+            var result = this._constraints[i].condition(value);
+            if (result !== true) {
+                if (Util_1.Util.isString(result)) {
+                    errors.push(result);
+                }
+                else {
+                    errors.push("constraint #" + i + " failed");
+                }
+                if (Util_1.Util.isDefAndNotNull(this._constraints[i].defaultValue)) {
+                    if (Util_1.Util.isFunction(this._constraints[i].defaultValue)) {
+                        value = this._constraints[i].defaultValue(value);
+                    }
+                    else {
+                        value = this._constraints[i].defaultValue;
+                    }
+                }
+            }
+        }
+        return new Result_1.Result(errors.length == 0, value, errors.length > 0 ? errors : null);
+    };
     /**
      * @hidden
      */
@@ -409,6 +455,9 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
             else if (this._defaultValue.success) {
                 resolved.result = this._defaultValue.result;
             }
+        }
+        if (resolved.success && this._constraints.length > 0) {
+            resolved = this.resolveConstraints(resolved.result);
         }
         return resolved;
     };
