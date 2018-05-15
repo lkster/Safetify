@@ -116,4 +116,161 @@ describe('String Resolver', () => {
             });
         });
     });
+
+    describe('constraints', () => {
+
+        describe('correct value', () => {
+            
+            describe('correct value against constraint', () => {
+                let result;
+                let constraintFunction;
+
+                beforeEach(() => {
+                    constraintFunction = jasmine.createSpy().and.callFake(n => n.length < 20 || 'value is longer than 20 characters');
+
+                    result = StringResolver()
+                        .constraint(constraintFunction)
+                        .resolve('test string');
+                });
+
+                it('should return success as true', () => {
+                    expect(result.success).toBe(true);
+                });
+
+                it('should return output same as input', () => {
+                    expect(result.result).toBe('test string');
+                });
+
+                it('should call constraint function', () => {
+                    expect(constraintFunction).toHaveBeenCalled();
+                });
+
+                it('should not return errors', () => {
+                    expect(result.error).toBeNull();
+                });
+            });
+
+            describe('incorrect value against constraint', () => {
+                let result;
+                let constraintFunction;
+
+                beforeEach(() => {
+                    constraintFunction = jasmine.createSpy().and.callFake(n => n.length < 20 || 'value is longer than 20 characters');
+
+                    result = StringResolver()
+                        .constraint(constraintFunction)
+                        .resolve('test string longer than 20 characters');
+                });
+
+                it('should return success as false', () => {
+                    expect(result.success).toBe(false);
+                });
+
+                it('should return output same as input', () => {
+                    expect(result.result).toBe('test string longer than 20 characters');
+                });
+
+                it('should call constraint function', () => {
+                    expect(constraintFunction).toHaveBeenCalled();
+                });
+
+                it('should not return errors', () => {
+                    expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+                });
+            });
+
+            describe('incorrect value against constraint with raw default value', () => {
+                let result;
+                let constraintFunction;
+
+                beforeEach(() => {
+                    constraintFunction = jasmine.createSpy().and.callFake(n => n.length < 20 || 'value is longer than 20 characters');
+
+                    result = StringResolver()
+                        .constraint(constraintFunction, 'default value')
+                        .resolve('test string longer than 20 characters');
+                });
+
+                it('should return success as false', () => {
+                    expect(result.success).toBe(false);
+                });
+
+                it('should return output same as input', () => {
+                    expect(result.result).toBe('default value');
+                });
+
+                it('should call constraint function', () => {
+                    expect(constraintFunction).toHaveBeenCalled();
+                });
+
+                it('should not return errors', () => {
+                    expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+                });
+            });
+
+            describe('incorrect value against constraint with default value transform function', () => {
+                let result;
+                let constraintFunction;
+                let constraintDefaultTransform;
+
+                beforeEach(() => {
+                    constraintFunction = jasmine.createSpy().and.callFake(n => n.length < 20 || 'value is longer than 20 characters');
+                    constraintDefaultTransform = jasmine.createSpy('default').and.callFake(n => n.substr(0, 20));
+
+                    result = StringResolver()
+                        .constraint(constraintFunction, constraintDefaultTransform)
+                        .resolve('test string longer than 20 characters');
+                });
+
+                it('should return success as false', () => {
+                    expect(result.success).toBe(false);
+                });
+
+                it('should return output same as input', () => {
+                    expect(result.result).toBe('test string longer t');
+                });
+
+                it('should call constraint function', () => {
+                    expect(constraintFunction).toHaveBeenCalled();
+                });
+
+                it('should call default transform function', () => {
+                    expect(constraintDefaultTransform).toHaveBeenCalled();
+                });
+
+                it('should not return errors', () => {
+                    expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+                });
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result;
+            let constraintFunction;
+
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake(n => n.length < 20 || 'value is longer than 20 characters');
+
+                result = StringResolver()
+                    .constraint(constraintFunction)
+                    .resolve(2354346);
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return output as safe value', () => {
+                expect(result.result).toBe('');
+            });
+
+            it('should not call constraint function', () => {
+                expect(constraintFunction).not.toHaveBeenCalled();
+            });
+
+            it('should return errors', () => {
+                expect(result.error).not.toBeNull();
+            });
+        });
+    });
 });
