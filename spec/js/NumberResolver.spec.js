@@ -129,4 +129,161 @@ describe('Number Resolver', () => {
             });
         });
     });
+
+    describe('constraints', () => {
+
+        describe('correct value', () => {
+            
+            describe('correct value against constraint', () => {
+                let result;
+                let constraintFunction;
+
+                beforeEach(() => {
+                    constraintFunction = jasmine.createSpy().and.callFake(n => n >= 0 || 'value is not a positive number');
+
+                    result = NumberResolver()
+                        .constraint(constraintFunction)
+                        .resolve(23);
+                });
+
+                it('should return success as true', () => {
+                    expect(result.success).toBe(true);
+                });
+
+                it('should return output same as input', () => {
+                    expect(result.result).toBe(23);
+                });
+
+                it('should call constraint function', () => {
+                    expect(constraintFunction).toHaveBeenCalled();
+                });
+
+                it('should not return errors', () => {
+                    expect(result.error).toBeNull();
+                });
+            });
+
+            describe('incorrect value against constraint', () => {
+                let result;
+                let constraintFunction;
+
+                beforeEach(() => {
+                    constraintFunction = jasmine.createSpy().and.callFake(n => n >= 0 || 'value is not a positive number');
+
+                    result = NumberResolver()
+                        .constraint(constraintFunction)
+                        .resolve(-5);
+                });
+
+                it('should return success as false', () => {
+                    expect(result.success).toBe(false);
+                });
+
+                it('should return output same as input', () => {
+                    expect(result.result).toBe(-5);
+                });
+
+                it('should call constraint function', () => {
+                    expect(constraintFunction).toHaveBeenCalled();
+                });
+
+                it('should not return errors', () => {
+                    expect(result.error).toEqual([ 'value is not a positive number' ]);
+                });
+            });
+
+            describe('incorrect value against constraint with raw default value', () => {
+                let result;
+                let constraintFunction;
+
+                beforeEach(() => {
+                    constraintFunction = jasmine.createSpy().and.callFake(n => n >= 0 || 'value is not a positive number');
+
+                    result = NumberResolver()
+                        .constraint(constraintFunction, 0)
+                        .resolve(-5);
+                });
+
+                it('should return success as false', () => {
+                    expect(result.success).toBe(false);
+                });
+
+                it('should return output same as input', () => {
+                    expect(result.result).toBe(0);
+                });
+
+                it('should call constraint function', () => {
+                    expect(constraintFunction).toHaveBeenCalled();
+                });
+
+                it('should not return errors', () => {
+                    expect(result.error).toEqual([ 'value is not a positive number' ]);
+                });
+            });
+
+            describe('incorrect value against constraint with default value transform function', () => {
+                let result;
+                let constraintFunction;
+                let constraintDefaultTransform;
+
+                beforeEach(() => {
+                    constraintFunction = jasmine.createSpy().and.callFake(n => n >= 0 || 'value is not a positive number');
+                    constraintDefaultTransform = jasmine.createSpy('default').and.callFake(n => Math.abs(n));
+
+                    result = NumberResolver()
+                        .constraint(constraintFunction, constraintDefaultTransform)
+                        .resolve(-7);
+                });
+
+                it('should return success as false', () => {
+                    expect(result.success).toBe(false);
+                });
+
+                it('should return output same as input', () => {
+                    expect(result.result).toBe(7);
+                });
+
+                it('should call constraint function', () => {
+                    expect(constraintFunction).toHaveBeenCalled();
+                });
+
+                it('should call default transform function', () => {
+                    expect(constraintDefaultTransform).toHaveBeenCalled();
+                });
+
+                it('should not return errors', () => {
+                    expect(result.error).toEqual([ 'value is not a positive number' ]);
+                });
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result;
+            let constraintFunction;
+
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake(n => n >= 0 || 'value is not a positive number');
+
+                result = NumberResolver()
+                    .constraint(constraintFunction)
+                    .resolve('trust me im number');
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return output as safe value', () => {
+                expect(result.result).toBeNaN();
+            });
+
+            it('should not call constraint function', () => {
+                expect(constraintFunction).not.toHaveBeenCalled();
+            });
+
+            it('should return errors', () => {
+                expect(result.error).not.toBeNull();
+            });
+        });
+    });
 });

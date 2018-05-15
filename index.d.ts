@@ -14,6 +14,8 @@ declare namespace Base {
     class SimpleTypeResolver<T> extends Safetify.Resolver<T> {
 
         public defaultsTo(val: T): SimpleTypeResolver<T>;
+
+        public constraint (cond: (val: T) => boolean | string, defaultValue?: T | ((val: T) => T)): SimpleTypeResolver<T>;
     }
 
     class AnyResolver {
