@@ -98,6 +98,84 @@ After resolving any type of data `resolve` method will always return `Result` ob
 
 If resolving was not succeeded then `error` property will always describe what went wrong (and which property in if resolved data was `object` or `array`)
 
+# Constraints
+
+Constraints are simple functions to check resolved value under specified condition. Say we want to get only positive numbers. We can make constraint like this:
+
+```ts
+const positiveResolver: NumberResolver = NumberResolver().constraint((n: number) => n >= 0);
+
+positiveResolver.resolve(5);
+```
+
+Now if value is not positive, Result will have `success` as false and error with constraint number. 
+
+```ts
+positiveResolver.resolve(-5);
+
+/*
+    Returns:
+    {
+        success: false,
+        result: -5,
+        error: [ 'constraint #0 failed' ]
+    }
+*/
+```
+
+To make it more clear we can set own error in simplest way:
+
+```ts
+const positiveResolver: NumberResolver = NumberResolver().constraint((n: number) => n >= 0 || 'Value is not positive');
+
+positiveResolver.resolve(-5);
+
+/*
+    Returns:
+    {
+        success: false,
+        result: -5,
+        error: [ 'Value is not positive' ]
+    }
+*/
+```
+
+As You saw in examples above, Safetify returns `-5` as a result. It's because this is still correct value in terms of type safety. I assume dev would like to get `-5` more than `NaN` value. In case we would like to change value if constraint is failed, default value can be set:
+
+```ts
+const positiveResolver: NumberResolver = NumberResolver().constraint((n: number) => n >= 0 || 'Value is not positive', 0);
+
+positiveResolver.resolve(-5);
+
+/*
+    Returns:
+    {
+        success: false,
+        result: 0,
+        error: [ 'Value is not positive' ]
+    }
+*/
+```
+
+Much better but sometimes it's still not perfect (especially in this example). Say we want change all values to positive if there is failed constraint and value is negative. Default value argument can take also default value transform function:
+
+```ts
+const positiveResolver: NumberResolver = NumberResolver().constraint((n: number) => n >= 0 || 'Value is not positive', (n: number) => Math.abs(n));
+
+positiveResolver.resolve(-5);
+
+/*
+    Returns:
+    {
+        success: false,
+        result: 5,
+        error: [ 'Value is not positive' ]
+    }
+*/
+```
+
+And that's all the simple stuff of constraints. Btw. they works only on primitive types resolvers.
+
 # Utilities
 
 Safetify provides bunch of utilities for checking type of values like `isDefAndNotNull()`, `isObject()`, `isDateLike()` etc. You can use them via `Safetify.util` property. All functions are described [here](https://thafog.github.io/Safetify/classes/util.html). Most of the functions are based on Google's [Closure Library](https://github.com/google/closure-library)'s Goog functions.
