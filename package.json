@@ -1,6 +1,6 @@
 {
   "name": "safetify",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Var and property safing utility",
   "main": "dist/safetify.js",
   "scripts": {
