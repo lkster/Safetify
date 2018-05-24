@@ -82,7 +82,7 @@ export class SimpleTypeResolver<T extends string | number | boolean> extends Res
      */
     private resolveConstraints (input: any): Result<T> {
         const len: number = this._constraints.length;
-        const errors: string[] = [];
+        let errors: string[] = [];
         let value: any = input;
 
         for (let i = 0; i < len; i++) {
@@ -97,9 +97,19 @@ export class SimpleTypeResolver<T extends string | number | boolean> extends Res
 
                 if (Util.isDefAndNotNull(this._constraints[i].defaultValue)) {
                     if (Util.isFunction(this._constraints[i].defaultValue)) {
-                        value = (<Function> this._constraints[i].defaultValue)(value);
+                        const defResult: Result<T> = super.resolve((<Function> this._constraints[i].defaultValue)(value));
+                        value = defResult.result;
+
+                        if (!defResult.success) {
+                            errors.push(`Constraint default value: ${defResult.error}`);
+                        }
                     } else {
-                        value = this._constraints[i].defaultValue;
+                        const defResult: Result<T> = super.resolve(this._constraints[i].defaultValue);
+                        value = defResult.result;
+
+                        if (!defResult.success) {
+                            errors.push(`Constraint default value: ${defResult.error}`);
+                        }
                     }
                 }
             }
