@@ -119,132 +119,129 @@ describe('String Resolver', () => {
 
     describe('constraints', () => {
 
-        describe('correct value', () => {
-            
-            describe('correct value against constraint', () => {
-                let result: Result<string>;
-                let constraintFunction: (n: string) => boolean | string;
+        describe('correct value against constraint', () => {
+            let result: Result<string>;
+            let constraintFunction: (n: string) => boolean | string;
 
-                beforeEach(() => {
-                    constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
 
-                    result = StringResolver()
-                        .constraint(constraintFunction)
-                        .resolve('test string');
-                });
-
-                it('should return success as true', () => {
-                    expect(result.success).toBe(true);
-                });
-
-                it('should return output same as input', () => {
-                    expect(result.result).toBe('test string');
-                });
-
-                it('should call constraint function', () => {
-                    expect(constraintFunction).toHaveBeenCalled();
-                });
-
-                it('should not return errors', () => {
-                    expect(result.error).toBeNull();
-                });
+                result = StringResolver()
+                    .constraint(constraintFunction)
+                    .resolve('test string');
             });
 
-            describe('incorrect value against constraint', () => {
-                let result: Result<string>;
-                let constraintFunction: (n: string) => boolean | string;
-
-                beforeEach(() => {
-                    constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
-
-                    result = StringResolver()
-                        .constraint(constraintFunction)
-                        .resolve('test string longer than 20 characters');
-                });
-
-                it('should return success as false', () => {
-                    expect(result.success).toBe(false);
-                });
-
-                it('should return output same as input', () => {
-                    expect(result.result).toBe('test string longer than 20 characters');
-                });
-
-                it('should call constraint function', () => {
-                    expect(constraintFunction).toHaveBeenCalled();
-                });
-
-                it('should not return errors', () => {
-                    expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
-                });
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);
             });
 
-            describe('incorrect value against constraint with raw default value', () => {
-                let result: Result<string>;
-                let constraintFunction: (n: string) => boolean | string;
-
-                beforeEach(() => {
-                    constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
-
-                    result = StringResolver()
-                        .constraint(constraintFunction, 'default value')
-                        .resolve('test string longer than 20 characters');
-                });
-
-                it('should return success as false', () => {
-                    expect(result.success).toBe(false);
-                });
-
-                it('should return output same as input', () => {
-                    expect(result.result).toBe('default value');
-                });
-
-                it('should call constraint function', () => {
-                    expect(constraintFunction).toHaveBeenCalled();
-                });
-
-                it('should not return errors', () => {
-                    expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
-                });
+            it('should return output same as input', () => {
+                expect(result.result).toBe('test string');
             });
 
-            describe('incorrect value against constraint with default value transform function', () => {
-                let result: Result<string>;
-                let constraintFunction: (n: string) => boolean | string;
-                let constraintDefaultTransform: (n: string) => string;
+            it('should call constraint function', () => {
+                expect(constraintFunction).toHaveBeenCalled();
+            });
 
-                beforeEach(() => {
-                    constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
-                    constraintDefaultTransform = jasmine.createSpy('default').and.callFake((n: string) => n.substr(0, 20));
-
-                    result = StringResolver()
-                        .constraint(constraintFunction, constraintDefaultTransform)
-                        .resolve('test string longer than 20 characters');
-                });
-
-                it('should return success as false', () => {
-                    expect(result.success).toBe(false);
-                });
-
-                it('should return output same as input', () => {
-                    expect(result.result).toBe('test string longer t');
-                });
-
-                it('should call constraint function', () => {
-                    expect(constraintFunction).toHaveBeenCalled();
-                });
-
-                it('should call default transform function', () => {
-                    expect(constraintDefaultTransform).toHaveBeenCalled();
-                });
-
-                it('should not return errors', () => {
-                    expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
-                });
+            it('should not return errors', () => {
+                expect(result.error).toBeNull();
             });
         });
 
-        describe('incorrect value', () => {
+        describe('incorrect value against constraint', () => {
+            let result: Result<string>;
+            let constraintFunction: (n: string) => boolean | string;
+
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+
+                result = StringResolver()
+                    .constraint(constraintFunction)
+                    .resolve('test string longer than 20 characters');
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return output same as input', () => {
+                expect(result.result).toBe('test string longer than 20 characters');
+            });
+
+            it('should call constraint function', () => {
+                expect(constraintFunction).toHaveBeenCalled();
+            });
+
+            it('should not return errors', () => {
+                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+            });
+        });
+
+        describe('incorrect value against constraint with raw default value', () => {
+            let result: Result<string>;
+            let constraintFunction: (n: string) => boolean | string;
+
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+
+                result = StringResolver()
+                    .constraint(constraintFunction, 'default value')
+                    .resolve('test string longer than 20 characters');
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return output same as input', () => {
+                expect(result.result).toBe('default value');
+            });
+
+            it('should call constraint function', () => {
+                expect(constraintFunction).toHaveBeenCalled();
+            });
+
+            it('should not return errors', () => {
+                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+            });
+        });
+
+        describe('incorrect value against constraint with default value transform function', () => {
+            let result: Result<string>;
+            let constraintFunction: (n: string) => boolean | string;
+            let constraintDefaultTransform: (n: string) => string;
+
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+                constraintDefaultTransform = jasmine.createSpy('default').and.callFake((n: string) => n.substr(0, 20));
+
+                result = StringResolver()
+                    .constraint(constraintFunction, constraintDefaultTransform)
+                    .resolve('test string longer than 20 characters');
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return output same as input', () => {
+                expect(result.result).toBe('test string longer t');
+            });
+
+            it('should call constraint function', () => {
+                expect(constraintFunction).toHaveBeenCalled();
+            });
+
+            it('should call default transform function', () => {
+                expect(constraintDefaultTransform).toHaveBeenCalled();
+            });
+
+            it('should not return errors', () => {
+                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+            });
+        });
+
+        describe('incorrect value against resolver', () => {
             let result: Result<string>;
             let constraintFunction: (n: string) => boolean | string;
 
@@ -270,6 +267,35 @@ describe('String Resolver', () => {
 
             it('should return errors', () => {
                 expect(result.error).not.toBeNull();
+            });
+        });
+
+        describe('incorrect constraint default value', () => {
+            let result: Result<string>;
+            let constraintFunction: (n: string) => boolean | string;
+
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+
+                result = StringResolver()
+                    .constraint(constraintFunction, <any> 1234234)
+                    .resolve('test string longer than 20 characters');
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return output same as input', () => {
+                expect(result.result).toBe('');
+            });
+
+            it('should call constraint function', () => {
+                expect(constraintFunction).toHaveBeenCalled();
+            });
+
+            it('should not return errors', () => {
+                expect(result.error.length).toBe(2);
             });
         });
     });
