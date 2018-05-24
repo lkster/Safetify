@@ -403,6 +403,28 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
         this._defaultValue = _super.prototype.resolve.call(this, val);
         return this;
     };
+    /**
+     * Adds constraint to resolver to check for specified data range (eg. only positive numbers, strings under specific length etc.)
+     * @param cond condition to check
+     * @param defaultValue optional default value or transform function to use in case input is not valid under set condition
+     * @example
+     * <caption>
+     * NumberResolver().constraint((n: number) => n >= 0).resolve(5);
+     * // returns 5
+     *
+     * NumberResolver().constraint((n: number) => n >= 0).resolve(-5);
+     * // returns -5 with error that constraint failed
+     *
+     * NumberResolver().constraint((n: number) => n >= 0 || 'Value is not positive').resolve(-5);
+     * // returns -5 with custom constraint error
+     *
+     * NumberResolver().constraint((n: number) => n >= 0, 0).resolve(-5);
+     * // returns default constraint's value, in this case 0
+     *
+     * NumberResolver().constraint((n: number) => n >= 0, (n: number) => Math.abs(n)).resolve(-5);
+     * // returns transformed value into that proposed by transform function, in this case 5
+     * </caption>
+     */
     SimpleTypeResolver.prototype.constraint = function (cond, defaultValue) {
         if (defaultValue === void 0) { defaultValue = null; }
         var con = {
@@ -433,10 +455,18 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
                 }
                 if (Util_1.Util.isDefAndNotNull(this._constraints[i].defaultValue)) {
                     if (Util_1.Util.isFunction(this._constraints[i].defaultValue)) {
-                        value = this._constraints[i].defaultValue(value);
+                        var defResult = _super.prototype.resolve.call(this, this._constraints[i].defaultValue(value));
+                        value = defResult.result;
+                        if (!defResult.success) {
+                            errors.push("Constraint default value: " + defResult.error);
+                        }
                     }
                     else {
-                        value = this._constraints[i].defaultValue;
+                        var defResult = _super.prototype.resolve.call(this, this._constraints[i].defaultValue);
+                        value = defResult.result;
+                        if (!defResult.success) {
+                            errors.push("Constraint default value: " + defResult.error);
+                        }
                     }
                 }
             }
