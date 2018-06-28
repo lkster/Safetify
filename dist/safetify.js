@@ -78,7 +78,7 @@ var Util = /** @class */ (function () {
     function Util() {
     }
     /**
-     * Returns true if the specified value is null.
+     * Returns true if the specified value is defined.
      * @param val Variable to test.
      */
     Util.isDef = function (val) {
@@ -90,6 +90,13 @@ var Util = /** @class */ (function () {
      */
     Util.isDefAndNotNull = function (val) {
         return val != null;
+    };
+    /**
+     * Returns true if the specified value is null.
+     * @param val Vaiable to test.
+     */
+    Util.isNull = function (val) {
+        return val === null;
     };
     /**
      * Returns true if the specified value is a string.
@@ -111,6 +118,13 @@ var Util = /** @class */ (function () {
      */
     Util.isNumber = function (val) {
         return typeof val == 'number';
+    };
+    /**
+     * Returns true if the specified value is string, number, boolean, undefined, null or symbol
+     * @param val Variable to test.
+     */
+    Util.isPrimitive = function (val) {
+        return this.isString(val) || this.isNumber(val) || this.isBoolean(val) || !this.isDef(val) || this.isNull(val) || typeof val === 'symbol';
     };
     /**
      * Returns true if the specified value is an array.
