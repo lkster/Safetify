@@ -30,6 +30,23 @@ describe('Utilities', () => {
         });
     });
 
+    describe('isNull()', () => {
+        it('should return true if value is null', () => {
+            expect(safetify.util.isNull(null)).toBe(true);
+        });
+
+        it('should return false if value is not a null', () => {
+            expect(safetify.util.isNull('something')).toBe(false);
+            expect(safetify.util.isNull(undefined)).toBe(false);
+            expect(safetify.util.isNull(0)).toBe(false);
+            expect(safetify.util.isNull(true)).toBe(false);
+            expect(safetify.util.isNull([])).toBe(false);
+            expect(safetify.util.isNull({})).toBe(false);
+            expect(safetify.util.isNull(function () {})).toBe(false);
+            expect(safetify.util.isNull(NaN)).toBe(false);
+        });
+    });
+
     describe('isString()', () => {
         it('should return true if value is string', () => {
             expect(safetify.util.isString('something')).toBe(true);
@@ -42,7 +59,7 @@ describe('Utilities', () => {
             expect(safetify.util.isString(true)).toBe(false);
             expect(safetify.util.isString([])).toBe(false);
             expect(safetify.util.isString({})).toBe(false);
-            expect(safetify.util.isBoolean(function () {})).toBe(false);
+            expect(safetify.util.isString(function () {})).toBe(false);
             expect(safetify.util.isString(NaN)).toBe(false);
         });
     });
@@ -77,7 +94,24 @@ describe('Utilities', () => {
             expect(safetify.util.isNumber(true)).toBe(false);
             expect(safetify.util.isNumber([])).toBe(false);
             expect(safetify.util.isNumber({})).toBe(false);
-            expect(safetify.util.isBoolean(function () {})).toBe(false);
+            expect(safetify.util.isNumber(function () {})).toBe(false);
+        });
+    });
+
+    describe('isPrimitive()', () => {
+        it('should return true if value is primitive', () => {
+            expect(safetify.util.isPrimitive('something')).toBe(true);
+            expect(safetify.util.isPrimitive(23)).toBe(true);
+            expect(safetify.util.isPrimitive(true)).toBe(true);
+            expect(safetify.util.isPrimitive(null)).toBe(true);
+            expect(safetify.util.isPrimitive(undefined)).toBe(true);
+            expect(safetify.util.isPrimitive(Symbol())).toBe(true);
+        });
+
+        it('should return false if value is not primitive', () => {
+            expect(safetify.util.isPrimitive([])).toBe(false);
+            expect(safetify.util.isPrimitive({})).toBe(false);
+            expect(safetify.util.isPrimitive(function () {})).toBe(false);
         });
     });
 
@@ -93,25 +127,25 @@ describe('Utilities', () => {
             expect(safetify.util.isArray(true)).toBe(false);
             expect(safetify.util.isArray('something')).toBe(false);
             expect(safetify.util.isArray({})).toBe(false);
-            expect(safetify.util.isBoolean(function () {})).toBe(false);
+            expect(safetify.util.isArray(function () {})).toBe(false);
             expect(safetify.util.isArray(NaN)).toBe(false);
         });
     });
 
     describe('isArrayLike()', () => {
         it('should return true if value is array like', () => {
-            expect(safetify.util.isArray([])).toBe(true);
+            expect(safetify.util.isArrayLike([])).toBe(true);
         });
 
         it('should return false if value is not a array like', () => {
-            expect(safetify.util.isArray(null)).toBe(false);
-            expect(safetify.util.isArray(undefined)).toBe(false);
-            expect(safetify.util.isArray(0)).toBe(false);
-            expect(safetify.util.isArray(true)).toBe(false);
-            expect(safetify.util.isArray('something')).toBe(false);
-            expect(safetify.util.isArray({})).toBe(false);
-            expect(safetify.util.isBoolean(function () {})).toBe(false);
-            expect(safetify.util.isArray(NaN)).toBe(false);
+            expect(safetify.util.isArrayLike(null)).toBe(false);
+            expect(safetify.util.isArrayLike(undefined)).toBe(false);
+            expect(safetify.util.isArrayLike(0)).toBe(false);
+            expect(safetify.util.isArrayLike(true)).toBe(false);
+            expect(safetify.util.isArrayLike('something')).toBe(false);
+            expect(safetify.util.isArrayLike({})).toBe(false);
+            expect(safetify.util.isArrayLike(function () {})).toBe(false);
+            expect(safetify.util.isArrayLike(NaN)).toBe(false);
         });
     });
 
