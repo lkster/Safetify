@@ -21,6 +21,14 @@ export class Util {
     }
 
     /**
+     * Returns true if the specified value is null.
+     * @param val Vaiable to test.
+     */
+    public static isNull(val: any): boolean {
+        return val === null;
+    }
+
+    /**
      * Returns true if the specified value is a string.
      * @param {?} val Variable to test.
      */
@@ -42,6 +50,14 @@ export class Util {
      */
     public static isNumber(val: any): boolean {
         return typeof val == 'number';
+    }
+
+    /**
+     * Returns true if the specified value is string, number, boolean, undefined, null or symbol
+     * @param val Variable to test.
+     */
+    public static isPrimitive(val: any): boolean {
+      return this.isString(val) || this.isNumber(val) || this.isBoolean(val) || !this.isDef(val) || this.isNull(val) || typeof val === 'symbol';
     }
 
     /**
