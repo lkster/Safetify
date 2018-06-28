@@ -5,7 +5,7 @@
 export class Util {
 
     /**
-     * Returns true if the specified value is null.
+     * Returns true if the specified value is defined.
      * @param val Variable to test.
      */
     public static isDef(val: any): boolean {
