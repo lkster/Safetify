@@ -19,6 +19,9 @@ export { AnyResolver as AnyResolver } from '@/resolvers/Any';
 export { DictionaryResolver as Dictionary } from '@/resolvers/Dictionary';
 export { DictionaryResolver as DictionaryResolver } from '@/resolvers/Dictionary';
 
+export { TupleResolver as Tuple } from '@/resolvers/Tuple';
+export { TupleResolver as TupleResolver } from '@/resolvers/Tuple';
+
 export { OneOfResolver as OneOf } from '@/resolvers/OneOf';
 export { OneOfResolver as OneOfResolver } from '@/resolvers/OneOf';
 
