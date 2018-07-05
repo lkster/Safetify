@@ -72,7 +72,7 @@ This won't throw any exception of course.
 
 Safetify works both with TypeScript and JavaScript. Look on [unit tests](https://github.com/ThaFog/Safetify/tree/master/spec) or [documentation](https://thafog.github.io/Safetify/index.html) to get more familiar with.
 
-Simple types have no arguments to pass, ie. we can use resolvers:
+Primitive types have no arguments to pass, ie. we can use resolvers:
 - `StringResolver`
 - `NumberResolver`
 - `BooleanResolver`
@@ -81,7 +81,7 @@ just like `StringResolver().resolve(<anyString>)`.
 
 In case of advanced types like `object` we need to pass structure or values (as we did it in example above).
 
-Additional functionality is a possibility to set nullable and default value (default is available only for simple types and enum).
+Additional functionality is a possibility to set nullable and default value (default is available only for primitives and enum).
 
 ```ts
 let personResolver: ObjectResolver = ObjectResolver<IPerson>({
@@ -97,6 +97,24 @@ After resolving any type of data `resolve` method will always return `Result` ob
 - `error` if success is false as `string` or `string[]` type. `Null` otherwise
 
 If resolving was not succeeded then `error` property will always describe what went wrong (and which property in if resolved data was `object` or `array`)
+
+# Resolvers list
+
+Safetify provides resolvers for couple of data types:
+
+- AnyResolver - just returns what it gets on input
+- NumberResolver - resolves `number` values
+- StringResolver - resolves `string` value
+- BooleanResolver - resolves `boolean` values
+- ArrayResolver - resolves `array`s
+- ObjectResolver - resolves object with specific structure (eg. model)
+- DictionaryResolver - resolves `object` which is a dictionary (has *n* key-value pairs with specific type)
+- EnumResolver - resolves `enum` (if input is correct value of given `enum`)
+- DateResolver - resolves `date`s. This includes `Date` object, string-date and timestamp
+- TupleResolver - resolves `tuple` of given structure
+- OneOfResolver - resolves input which can be one of given type
+
+For examples and more look on [documentation](https://thafog.github.io/Safetify/index.html).
 
 # Constraints
 
@@ -157,7 +175,7 @@ positiveResolver.resolve(-5);
 */
 ```
 
-Much better but sometimes it's still not perfect (especially in this example). Say we want change all values to positive if there is failed constraint and value is negative. Default value argument can take also default value transform function:
+Much better but sometimes it's still not perfect (especially in this example). Say we want to change all values to positive if there is failed constraint and value is negative. Default value argument can take also default value transform function:
 
 ```ts
 const positiveResolver: NumberResolver = NumberResolver().constraint((n: number) => n >= 0 || 'Value is not positive', (n: number) => Math.abs(n));

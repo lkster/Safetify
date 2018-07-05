@@ -7,7 +7,19 @@ declare interface IDictionary<T> {
     [key: number]: T;
 }
 
+declare type Primitive = string | number | boolean | undefined | null | symbol;
+
+declare interface ITuple extends Array<Primitive> {
+    [key: number]: Primitive;
+}
+
 declare type IObjectResolver<T> = { [U in keyof T]: Safetify.Resolver<T[U]> }
+
+declare type ITupleResolver<T extends any[]> = { [U in keyof T]:
+    U extends "length" ? T[U] :
+    U extends keyof any[] ? Array<Safetify.Resolver<T[number]>>[U] :
+    Safetify.Resolver<T[U]>
+}
 
 declare namespace Base {
 
@@ -42,6 +54,8 @@ declare namespace Base {
     class ObjectResolver<T> extends Safetify.Resolver<T> {}
 
     class OneOfResolver<T> extends Safetify.Resolver<T> {}
+
+    class TupleResolver<T> extends Safetify.Resolver<T> {}
 }
 
 declare namespace Safetify {
@@ -140,6 +154,9 @@ declare namespace Safetify {
 
     function OneOfResolver<T>(resolvers: Resolver<T>[]): Base.OneOfResolver<T>;
     type OneOfResolver<T> = Base.OneOfResolver<T>;
+
+    function TupleResolver<T extends ITuple>(resolvers: ITupleResolver<T>): Base.TupleResolver<T>;
+    type TupleResolver<T> = Base.TupleResolver<T>;
     
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "safetify",
-  "version": "2.5.0",
-  "description": "Utility for resolving and making types safe",
+  "version": "2.6.0",
+  "description": "Utility for resolving and making values types safe",
   "main": "dist/safetify.js",
   "scripts": {
     "build": "webpack",
