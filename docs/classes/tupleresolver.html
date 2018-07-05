@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DictionaryResolver | safetify</title>
+	<title>TupleResolver | safetify</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="dictionaryresolver.html">DictionaryResolver</a>
+					<a href="tupleresolver.html">TupleResolver</a>
 				</li>
 			</ul>
-			<h1>Class DictionaryResolver&lt;T&gt;</h1>
+			<h1>Class TupleResolver&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -70,16 +70,16 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Resolves dictionary object of given type</p>
+						<p>Resolves tuple object</p>
 					</div>
 					<dl class="tsd-comment-tags">
 						<span class="tag-label">example</span>
 						<dd><pre class="code"><code><caption>
-DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: &#39;Doe&#39; });
-// returns { name: &#39;John&#39;, surname: &#39;Doe&#39; }
+TupleResolver&lt;[string, string, number]>([StringResolver(), StringResolver(), NumberResolver()]).resolve([&#39;John&#39;, &#39;Doe&#39;, 43]);
+// returns [&#39;John&#39;, &#39;Doe&#39;, 43]
 
-DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: 5434 });
-// returns { name: &#39;John&#39;, surname: &#39;&#39; }
+TupleResolver&lt;[string, string, number]>([StringResolver(), StringResolver(), NumberResolver().defaultsTo(0)]).resolve([&#39;John&#39;, 423, &#39;totally a number&#39;]);
+// returns [&#39;John&#39;, &#39;&#39;, 0]
 </caption>
 </code></pre></dd>
 					</dl>
@@ -89,7 +89,7 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>T</h4>
+						<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/ituple.html" class="tsd-signature-type">ITuple</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -97,10 +97,10 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IDictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
+						<a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">DictionaryResolver</span>
+								<span class="target">TupleResolver</span>
 							</li>
 						</ul>
 					</li>
@@ -109,27 +109,27 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 			<section class="tsd-panel">
 				<h3 class="tsd-before-signature">Callable</h3>
 				<ul class="tsd-signatures tsd-kind-class tsd-has-type-parameter tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">Dictionary<wbr>Resolver&lt;T&gt;<span class="tsd-signature-symbol">(</span>resolver<span class="tsd-signature-symbol">: </span><a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dictionaryresolver.html" class="tsd-signature-type">DictionaryResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">Tuple<wbr>Resolver&lt;T&gt;<span class="tsd-signature-symbol">(</span>resolver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITupleResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="tupleresolver.html" class="tsd-signature-type">TupleResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/resolvers/Dictionary.ts#L22">resolvers/Dictionary.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/resolvers/Tuple.ts#L26">resolvers/Tuple.ts:26</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Resolves dictionary object of given type</p>
+								<p>Resolves tuple object</p>
 							</div>
 							<dl class="tsd-comment-tags">
 								<span class="tag-label">example</span>
 								<dd><pre class="code"><code><caption>
-DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: &#39;Doe&#39; });
-// returns { name: &#39;John&#39;, surname: &#39;Doe&#39; }
+TupleResolver&lt;[string, string, number]>([StringResolver(), StringResolver(), NumberResolver()]).resolve([&#39;John&#39;, &#39;Doe&#39;, 43]);
+// returns [&#39;John&#39;, &#39;Doe&#39;, 43]
 
-DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: 5434 });
-// returns { name: &#39;John&#39;, surname: &#39;&#39; }
+TupleResolver&lt;[string, string, number]>([StringResolver(), StringResolver(), NumberResolver().defaultsTo(0)]).resolve([&#39;John&#39;, 423, &#39;totally a number&#39;]);
+// returns [&#39;John&#39;, &#39;&#39;, 0]
 </caption>
 </code></pre></dd>
 							</dl>
@@ -137,13 +137,13 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
 							<li>
-								<h4>T</h4>
+								<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/ituple.html" class="tsd-signature-type">ITuple</a></h4>
 							</li>
 						</ul>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>resolver: <a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>resolver: <span class="tsd-signature-type">ITupleResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<div class="lead">
 										<p>Resolver of given type</p>
@@ -151,7 +151,7 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="dictionaryresolver.html" class="tsd-signature-type">DictionaryResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <a href="tupleresolver.html" class="tsd-signature-type">TupleResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -162,14 +162,14 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="dictionaryresolver.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="tupleresolver.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="dictionaryresolver.html#nullable" class="tsd-kind-icon">nullable</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="dictionaryresolver.html#resolve" class="tsd-kind-icon">resolve</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="tupleresolver.html#nullable" class="tsd-kind-icon">nullable</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="tupleresolver.html#resolve" class="tsd-kind-icon">resolve</a></li>
 							</ul>
 						</section>
 					</div>
@@ -200,7 +200,7 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 					<a name="nullable" class="tsd-anchor"></a>
 					<h3>nullable</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">nullable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IDictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">nullable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -229,7 +229,7 @@ StringResolver().nullable().resolve(undefined);
 </code></pre></dd>
 								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IDictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -237,7 +237,7 @@ StringResolver().nullable().resolve(undefined);
 					<a name="resolve" class="tsd-anchor"></a>
 					<h3>resolve</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IDictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -261,7 +261,7 @@ StringResolver().nullable().resolve(undefined);
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IDictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -289,24 +289,9 @@ StringResolver().nullable().resolve(undefined);
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="dateresolver.html" class="tsd-kind-icon">Date<wbr>Resolver</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class tsd-has-type-parameter tsd-is-external">
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="dictionaryresolver.html" class="tsd-kind-icon">Dictionary<wbr>Resolver</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-								<a href="dictionaryresolver.html#type" class="tsd-kind-icon">type</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-								<a href="dictionaryresolver.html#nullable" class="tsd-kind-icon">nullable</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-								<a href="dictionaryresolver.html#resolve" class="tsd-kind-icon">resolve</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a>
 					</li>
@@ -334,9 +319,24 @@ StringResolver().nullable().resolve(undefined);
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a>
 					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="tupleresolver.html" class="tsd-kind-icon">Tuple<wbr>Resolver</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="tupleresolver.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="tupleresolver.html#nullable" class="tsd-kind-icon">nullable</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="tupleresolver.html#resolve" class="tsd-kind-icon">resolve</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="util.html" class="tsd-kind-icon">Util</a>
 					</li>

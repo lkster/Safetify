@@ -114,7 +114,7 @@ name.toUpperCase();
 				<p>This won&#39;t throw any exception of course.</p>
 				<h1 id="usage">Usage</h1>
 				<p>Safetify works both with TypeScript and JavaScript. Look on <a href="https://github.com/ThaFog/Safetify/tree/master/spec">unit tests</a> or <a href="https://thafog.github.io/Safetify/index.html">documentation</a> to get more familiar with.</p>
-				<p>Simple types have no arguments to pass, ie. we can use resolvers:</p>
+				<p>Primitive types have no arguments to pass, ie. we can use resolvers:</p>
 				<ul>
 					<li><code>StringResolver</code></li>
 					<li><code>NumberResolver</code></li>
@@ -122,7 +122,7 @@ name.toUpperCase();
 				</ul>
 				<p>just like <code>StringResolver().resolve(&lt;anyString&gt;)</code>.</p>
 				<p>In case of advanced types like <code>object</code> we need to pass structure or values (as we did it in example above).</p>
-				<p>Additional functionality is a possibility to set nullable and default value (default is available only for simple types and enum).</p>
+				<p>Additional functionality is a possibility to set nullable and default value (default is available only for primitives and enum).</p>
 				<pre><code class="lang-ts"><span class="hljs-keyword">let</span> personResolver: ObjectResolver = ObjectResolver&lt;IPerson&gt;({
     name: StringResolver().defaultsTo(<span class="hljs-string">'Johnny'</span>),
     age: NumberResolver(),
@@ -136,6 +136,22 @@ name.toUpperCase();
 					<li><code>error</code> if success is false as <code>string</code> or <code>string[]</code> type. <code>Null</code> otherwise</li>
 				</ul>
 				<p>If resolving was not succeeded then <code>error</code> property will always describe what went wrong (and which property in if resolved data was <code>object</code> or <code>array</code>)</p>
+				<h1 id="resolvers-list">Resolvers list</h1>
+				<p>Safetify provides resolvers for couple of data types:</p>
+				<ul>
+					<li>AnyResolver - just returns what it gets on input</li>
+					<li>NumberResolver - resolves <code>number</code> values</li>
+					<li>StringResolver - resolves <code>string</code> value</li>
+					<li>BooleanResolver - resolves <code>boolean</code> values</li>
+					<li>ArrayResolver - resolves <code>array</code>s</li>
+					<li>ObjectResolver - resolves object with specific structure (eg. model)</li>
+					<li>DictionaryResolver - resolves <code>object</code> which is a dictionary (has <em>n</em> key-value pairs with specific type)</li>
+					<li>EnumResolver - resolves <code>enum</code> (if input is correct value of given <code>enum</code>)</li>
+					<li>DateResolver - resolves <code>date</code>s. This includes <code>Date</code> object, string-date and timestamp</li>
+					<li>TupleResolver - resolves <code>tuple</code> of given structure</li>
+					<li>OneOfResolver - resolves input which can be one of given type</li>
+				</ul>
+				<p>For examples and more look on <a href="https://thafog.github.io/Safetify/index.html">documentation</a>.</p>
 				<h1 id="constraints">Constraints</h1>
 				<p>Constraints are simple functions to check resolved value under specified condition. Say we want to get only positive numbers. We can make constraint like this:</p>
 				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span>);
@@ -182,7 +198,7 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
     }
 */</span>
 </code></pre>
-				<p>Much better but sometimes it&#39;s still not perfect (especially in this example). Say we want change all values to positive if there is failed constraint and value is negative. Default value argument can take also default value transform function:</p>
+				<p>Much better but sometimes it&#39;s still not perfect (especially in this example). Say we want to change all values to positive if there is failed constraint and value is negative. Default value argument can take also default value transform function:</p>
 				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>, <span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">Math</span>.abs(n));
 
 positiveResolver.resolve(<span class="hljs-number">-5</span>);
@@ -265,11 +281,20 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/tupleresolver.html" class="tsd-kind-icon">Tuple<wbr>Resolver</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/util.html" class="tsd-kind-icon">Util</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external">
 						<a href="interfaces/iconstraint.html" class="tsd-kind-icon">IConstraint</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/ituple.html" class="tsd-kind-icon">ITuple</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#iprimitive" class="tsd-kind-icon">IPrimitive</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
 						<a href="globals.html#resolverfunction" class="tsd-kind-icon">Resolver<wbr>Function</a>
