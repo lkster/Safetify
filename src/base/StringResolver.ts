@@ -1,9 +1,9 @@
-import { SimpleTypeResolver } from "./SimpleTypeResolver";
+import { PrimitiveResolver } from '@/base/PrimitiveResolver';
 import { ResolverFunction } from "@/ResolverFunction";
 
 
 
-export class StringResolver extends SimpleTypeResolver<string> {
+export class StringResolver extends PrimitiveResolver<string> {
 
     /**
      * @hidden

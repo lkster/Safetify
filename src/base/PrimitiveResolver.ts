@@ -1,4 +1,4 @@
-import { Resolver } from "./Resolver";
+import { Resolver } from "@/base/Resolver";
 import { Result } from "@/Result";
 import { Util } from "@/utils/Util";
 import { ResolverUtil } from "@/utils/ResolverUtil";
@@ -6,7 +6,7 @@ import { IConstraint } from "@/interfaces/IConstraint";
 
 
 
-export class SimpleTypeResolver<T extends string | number | boolean> extends Resolver<T> {
+export class PrimitiveResolver<T extends string | number | boolean> extends Resolver<T> {
 
     /**
      * @hidden
@@ -35,7 +35,7 @@ export class SimpleTypeResolver<T extends string | number | boolean> extends Res
      * // returns default value which is 'option 1'
      * </caption>
      */
-    public defaultsTo(val: T): SimpleTypeResolver<T> {
+    public defaultsTo(val: T): PrimitiveResolver<T> {
         this._defaultValue = super.resolve(val);
         return this;
     }
@@ -62,7 +62,7 @@ export class SimpleTypeResolver<T extends string | number | boolean> extends Res
      * // returns transformed value into that proposed by transform function, in this case 5
      * </caption>
      */
-    public constraint (cond: (val: T) => boolean | string, defaultValue: T | ((val: T) => T) = null): SimpleTypeResolver<T> {
+    public constraint (cond: (val: T) => boolean | string, defaultValue: T | ((val: T) => T) = null): PrimitiveResolver<T> {
         const con: IConstraint<T> = {
             condition: cond,
             defaultValue: null
