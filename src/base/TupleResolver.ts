@@ -1,5 +1,5 @@
 import { ITuple } from '@/interfaces/ITuple';
-import { ITupleResolver } from '@/interfaces/ITupleResolver';
+import { ITupleDefinition } from '@/interfaces/ITupleDefinition';
 import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
@@ -13,7 +13,7 @@ export class TupleResolver<T extends ITuple> extends Resolver<T> {
     /**
      * @hidden
      */
-    constructor (private definition: ITupleResolver<T>) {
+    constructor (private definition: ITupleDefinition<T>) {
         super();
     }
 

@@ -1,5 +1,5 @@
 import { ITuple } from '@/interfaces/ITuple';
-import { ITupleResolver } from '@/interfaces/ITupleResolver';
+import { ITupleDefinition } from '@/interfaces/ITupleDefinition';
 import { Result } from '@/Result';
 import { TupleResolver as TupleResolverBase } from '@/base/TupleResolver';
 import { Util } from '@/utils/Util';
@@ -18,6 +18,6 @@ import { Util } from '@/utils/Util';
  * // returns ['John', '', 0]
  * </caption>
  */
-export function TupleResolver<T extends ITuple>(definition: ITupleResolver<T>) {
+export function TupleResolver<T extends ITuple>(definition: ITupleDefinition<T>) {
     return new TupleResolverBase<T>(definition);
 }
