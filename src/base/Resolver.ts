@@ -13,20 +13,8 @@ export abstract class Resolver<T> {
      */
     protected isNullable: boolean = false;
 
-
-
-    /**
-     * 
-     * @param type Type of data resolver handles
-     * @param resolver Function that resolves given data
-     */
-    constructor (
-        public readonly type: string,
-        /**
-         * @hidden
-         */
-        private resolver: ResolverFunction<T>
-    ) {}
+    protected abstract resolver(input: any): Result<T>;
+    public abstract readonly type: string;
 
     /**
      * Resolves given data

@@ -5,6 +5,12 @@ import { Result } from '@/Result';
 
 export class AnyResolver {
 
+    public type: string = 'any';
+
+    private resolver (input: any): Result<any> {
+        return new Result(true, null, []);
+    }
+    
     /**
      * @hidden
      */
@@ -12,7 +18,7 @@ export class AnyResolver {
         /**
          * @hidden
          */
-        private resolver: ResolverFunction<any>
+        resolver: ResolverFunction<any>
     ) {}
 
     /**
