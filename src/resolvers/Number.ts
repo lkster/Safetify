@@ -1,7 +1,4 @@
 import { NumberResolver as NumberResolverBase } from '@/base/NumberResolver';
-import { Result } from '@/Result';
-import { SafeUtil } from '@/utils/SafeUtil';
-import { Util } from '@/utils/Util';
 
 
 
@@ -17,13 +14,5 @@ import { Util } from '@/utils/Util';
  * </caption>
  */
 export function NumberResolver(): NumberResolverBase {
-    return new NumberResolverBase((input: any) => {
-        let error: string = null;
-    
-        if (!Util.isNumber(input) || !isFinite(input)) {
-            error = 'value is not a number';
-        }
-    
-        return new Result<number>(!Util.isDefAndNotNull(error), SafeUtil.makeSafeNumber(input), error);
-    });
+    return new NumberResolverBase();
 }

@@ -15,7 +15,5 @@ import { Result } from '@/Result';
  * </caption>
  */
 export function AnyResolver(): AnyResolverBase {
-    return new AnyResolverBase((input: any) => {
-        return new Result<any>(true, input, null);
-    });
+    return new AnyResolverBase();
 }

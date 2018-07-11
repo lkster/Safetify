@@ -1,6 +1,6 @@
 import { Resolver } from '@/base/Resolver';
-import { ResolverFunction } from '@/ResolverFunction';
 import { Result } from '@/Result';
+import { Util } from '@/utils/Util';
 
 
 
@@ -9,13 +9,28 @@ export class DateResolver extends Resolver<Date> {
     public type: string = 'date';
 
     protected resolver (input: any): Result<Date> {
-        return new Result(true, new Date(), []);
-    } 
+        let success: boolean = true;
+        let date: Date = new Date(0);
+        let error: string = null;
 
-    /**
-     * @hidden
-     */
-    constructor (resolver: ResolverFunction<Date>) {
-        super();
-    }
+        if (Util.isDateLike(input)) {
+            date = input;
+        } else if (Util.isNumber(input) || Util.isString(input)) {
+            let testDate = new Date(input);
+
+            if (!isNaN(testDate.getTime())) {
+                date = testDate;
+            } else {
+                success = false;
+            }
+        } else {
+            success = false;
+        }
+
+        if (!success) {
+            error = 'value is not a valid date';
+        }
+    
+        return new Result<Date>(!Util.isDefAndNotNull(error), date, error);
+    } 
 }
