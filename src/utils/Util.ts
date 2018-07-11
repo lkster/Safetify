@@ -30,7 +30,7 @@ export class Util {
 
     /**
      * Returns true if the specified value is a string.
-     * @param {?} val Variable to test.
+     * @param val Variable to test.
      */
     public static isString(val: any): boolean {
         return typeof val == 'string';
@@ -38,7 +38,7 @@ export class Util {
     
     /**
      * Returns true if the specified value is a boolean.
-     * @param {?} val Variable to test.
+     * @param val Variable to test.
      */
     public static isBoolean(val: any): boolean {
         return typeof val == 'boolean';
