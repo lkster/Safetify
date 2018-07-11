@@ -1,5 +1,7 @@
 const safetify = require('../..')
 
+
+
 describe('Utilities', () => {
     
     describe('isDef()', () => {

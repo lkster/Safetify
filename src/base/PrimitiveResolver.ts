@@ -1,8 +1,8 @@
+import { IConstraint } from '@/interfaces/IConstraint';
 import { Resolver } from '@/base/Resolver';
+import { ResolverUtil } from '@/utils/ResolverUtil';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
-import { ResolverUtil } from '@/utils/ResolverUtil';
-import { IConstraint } from '@/interfaces/IConstraint';
 
 
 
