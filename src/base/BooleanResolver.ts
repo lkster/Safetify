@@ -8,6 +8,9 @@ export class BooleanResolver extends PrimitiveResolver<boolean> {
 
     public type: string = 'boolean';
 
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<boolean> {
         let error: string = null;
     

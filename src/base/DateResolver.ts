@@ -8,6 +8,9 @@ export class DateResolver extends Resolver<Date> {
 
     public type: string = 'date';
 
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<Date> {
         let success: boolean = true;
         let date: Date = new Date(0);

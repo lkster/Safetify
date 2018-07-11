@@ -9,6 +9,9 @@ export class NumberResolver extends PrimitiveResolver<number> {
 
     public type: string = 'number';
 
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<number> {
         let error: string = null;
     

@@ -13,10 +13,18 @@ export class TupleResolver<T extends ITuple> extends Resolver<T> {
     /**
      * @hidden
      */
-    constructor (private definition: ITupleDefinition<T>) {
+    constructor (
+        /**
+         * @hidden
+         */
+        private definition: ITupleDefinition<T>
+    ) {
         super();
     }
 
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<T> {
         let result: any = [];
         let errors: string[] = [];

@@ -13,10 +13,18 @@ export class DictionaryResolver<T> extends Resolver<IDictionary<T>> {
     /**
      * @hidden
      */
-    constructor (private definition: Resolver<T>) {
+    constructor (
+        /**
+         * @hidden
+         */
+        private definition: Resolver<T>
+    ) {
         super();
     }
 
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<IDictionary<T>> {
         if (!Util.isObject(input)) {
             return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);

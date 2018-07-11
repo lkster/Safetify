@@ -13,10 +13,18 @@ export class ObjectResolver<T> extends Resolver<T> {
     /**
      * @hidden
      */
-    constructor (private definition: IObjectDefinition<T>) {
+    constructor (
+        /**
+         * @hidden
+         */
+        private definition: IObjectDefinition<T>
+    ) {
         super();
     }
 
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<T> {
         if (!Util.isObject(input)) {
             let safe: any = SafeUtil.makeSafeObject(input);

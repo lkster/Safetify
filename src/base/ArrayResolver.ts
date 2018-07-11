@@ -12,10 +12,18 @@ export class ArrayResolver<T> extends Resolver<Array<T>> {
     /**
      * @hidden
      */
-    constructor (private definition: Resolver<T>) {
+    constructor (
+        /**
+         * @hidden
+         */
+        private definition: Resolver<T>
+    ) {
         super();
     }
     
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<Array<T>> {
         if (!Util.isArray(input)) {
             return new Result(false, SafeUtil.makeSafeArray(input), ['value is not an array']);

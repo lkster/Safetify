@@ -13,7 +13,15 @@ export abstract class Resolver<T> {
      */
     protected isNullable: boolean = false;
 
+    /**
+     * Function that resolves data and returns [[Result]] object with defined success, resolved data and optional errors
+     * @param input data to resolve
+     */
     protected abstract resolver(input: any): Result<T>;
+
+    /**
+     * Resolver's type
+     */
     public abstract readonly type: string;
 
     /**

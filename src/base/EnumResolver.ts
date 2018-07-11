@@ -12,10 +12,18 @@ export class EnumResolver<T> extends Resolver<T> {
     /**
      * @hidden
      */
-    constructor (private definition: Array<string | number> | IEnum) {
+    constructor (
+        /**
+         * @hidden
+         */
+        private definition: Array<string | number> | IEnum
+    ) {
         super();
     }
 
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<T> {
         let error = null;
         let result: string | number = 0;

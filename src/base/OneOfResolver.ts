@@ -10,10 +10,18 @@ export class OneOfResolver<T> extends Resolver<T> {
     /**
      * @hidden
      */
-    constructor (private definition: Array<Resolver<T>>) {
+    constructor (
+        /**
+         * @hidden
+         */
+        private definition: Array<Resolver<T>>
+    ) {
         super();
     }
 
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<T> {
         let success: boolean = false;
         let result: T;
