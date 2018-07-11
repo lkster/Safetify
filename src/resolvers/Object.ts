@@ -1,8 +1,5 @@
 import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
 import { ObjectResolver as ObjectResolverBase } from '@/base/ObjectResolver';
-import { Result } from '@/Result';
-import { SafeUtil } from '@/utils/SafeUtil';
-import { Util } from '@/utils/Util';
 
 
 

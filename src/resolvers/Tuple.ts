@@ -1,8 +1,6 @@
 import { ITuple } from '@/interfaces/ITuple';
 import { ITupleDefinition } from '@/interfaces/ITupleDefinition';
-import { Result } from '@/Result';
 import { TupleResolver as TupleResolverBase } from '@/base/TupleResolver';
-import { Util } from '@/utils/Util';
 
 
 
