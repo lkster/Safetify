@@ -104,11 +104,11 @@ Safetify provides resolvers for couple of data types:
 
 - AnyResolver - just returns what it gets on input
 - NumberResolver - resolves `number` values
-- StringResolver - resolves `string` value
+- StringResolver - resolves `string` values
 - BooleanResolver - resolves `boolean` values
 - ArrayResolver - resolves `array`s
 - ObjectResolver - resolves object with specific structure (eg. model)
-- DictionaryResolver - resolves `object` which is a dictionary (has *n* key-value pairs with specific type)
+- DictionaryResolver - resolves `object` which is a dictionary (has *n* key-value pairs of specific type)
 - EnumResolver - resolves `enum` (if input is correct value of given `enum`)
 - DateResolver - resolves `date`s. This includes `Date` object, string-date and timestamp
 - TupleResolver - resolves `tuple` of given structure
