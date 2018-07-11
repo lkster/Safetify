@@ -1,4 +1,5 @@
-import { IPrimitive } from './IPrimitive';
+import { IPrimitive } from '@/interfaces/IPrimitive';
+
 
 
 export interface ITuple extends Array<IPrimitive> {

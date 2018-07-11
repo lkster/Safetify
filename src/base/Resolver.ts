@@ -1,6 +1,6 @@
-import { Util } from '@/utils/Util';
 import { ResolverFunction } from '@/ResolverFunction';
 import { Result } from '@/Result';
+import { Util } from '@/utils/Util';
 
 
 /**

@@ -1,7 +1,5 @@
-import { Util } from '@/utils/Util';
-import { SafeUtil } from '@/utils/SafeUtil';
-import { Resolver } from '@/base/Resolver';
 import { OneOfResolver as OneOfResolverBase } from '@/base/OneOfResolver';
+import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 
 

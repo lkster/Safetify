@@ -81,9 +81,11 @@ declare namespace Safetify {
     class util {
         public static isDef(val: any): boolean;
         public static isDefAndNotNull(val: any): boolean;
+        public static isNull(val: any): boolean;
         public static isString(val: any): boolean;
         public static isBoolean(val: any): boolean;
         public static isNumber(val: any): boolean;
+        public static isPrimitive(val: any): boolean;
         public static isArray(val: any): boolean;
         public static isArrayLike(val: any): boolean;
         public static isObject(val: any): boolean;
