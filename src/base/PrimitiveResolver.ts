@@ -5,21 +5,17 @@ import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
 
 
+/**
+ * @hidden
+ */
+export abstract class PrimitiveResolver<T extends string | number | boolean> extends Resolver<T> {
 
-export class PrimitiveResolver<T extends string | number | boolean> extends Resolver<T> {
-
-    /**
-     * @hidden
-     */
     private _defaultValue: Result<T>;
 
-    /**
-     * @hidden
-     */
     private _constraints: IConstraint<T>[] = [];
 
     /**
-     * Sets default value which will be returned in case of fail validation
+     * Sets default value which will be returned in case of failed resolving
      * @param val default value
      * @example
      * <caption>

@@ -1,32 +1,28 @@
-import { ResolverFunction } from '@/ResolverFunction';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
+
 
 
 /**
  * Base resolver class
  */
-export class Resolver<T> {
+export abstract class Resolver<T> {
 
     /**
      * @hidden
      */
     protected isNullable: boolean = false;
 
-
+    /**
+     * Function that resolves data and returns [[Result]] object with defined success, resolved data and optional errors
+     * @param input data to resolve
+     */
+    protected abstract resolver(input: any): Result<T>;
 
     /**
-     * 
-     * @param type Type of data resolver handles
-     * @param resolver Function that resolves given data
+     * Resolver's type
      */
-    constructor (
-        public readonly type: string,
-        /**
-         * @hidden
-         */
-        private resolver: ResolverFunction<T>
-    ) {}
+    public abstract readonly type: string;
 
     /**
      * Resolves given data

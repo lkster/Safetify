@@ -1,6 +1,4 @@
 import { DateResolver as DateResolverBase } from '@/base/DateResolver';
-import { Result } from '@/Result';
-import { Util } from '@/utils/Util';
 
 
 
@@ -20,29 +18,5 @@ import { Util } from '@/utils/Util';
  * </caption>
  */
 export function DateResolver(): DateResolverBase {
-    return new DateResolverBase((input: any) => {
-        let success: boolean = true;
-        let date: Date = new Date(0);
-        let error: string = null;
-
-        if (Util.isDateLike(input)) {
-            date = input;
-        } else if (Util.isNumber(input) || Util.isString(input)) {
-            let testDate = new Date(input);
-
-            if (!isNaN(testDate.getTime())) {
-                date = testDate;
-            } else {
-                success = false;
-            }
-        } else {
-            success = false;
-        }
-
-        if (!success) {
-            error = 'value is not a valid date';
-        }
-    
-        return new Result<Date>(!Util.isDefAndNotNull(error), date, error);
-    });
+    return new DateResolverBase();
 }

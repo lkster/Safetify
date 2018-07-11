@@ -2,17 +2,24 @@ const { Resolver, Result, StringResolver } = require('../..');
 
 
 
+class TestResolver extends Resolver {
+
+    constructor () {
+        this.type = 'testType';
+    }
+
+    resolver (input) {
+        return new Result(true, input, []);
+    }
+}
+
 describe('Resolver', () => {
     
     describe('initialize', () => {
         it('should correctly use passed decoder', () => {
-            let decoder = (input) => {
-                return new Result(true, input);
-            }
+            let resolver = new TestResolver();
 
-            let resolver = new Resolver('testType', decoder);
-
-            expect(resolver.resolve('test')).toEqual(new Result(true, 'test', undefined));
+            expect(resolver.resolve('test')).toEqual(new Result(true, 'test', []));
         });
     });
 

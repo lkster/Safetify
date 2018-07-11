@@ -1,18 +1,23 @@
-import { Resolver, Result, StringResolver, ResolverFunction } from '../..';
+import { Resolver, Result, StringResolver } from '../..';
 
 
+
+class TestResolver<T> extends Resolver<T> {
+
+    public type: string = 'testType';
+
+    protected resolver (input: any): Result<T> {
+        return new Result(true, input, []);
+    }
+}
 
 describe('Resolver', () => {
-   
+
     describe('initialize', () => {
-        it('should correctly use passed decoder', () => {
-            let decoder: ResolverFunction<any> = (input: any) => {
-                return new Result<any>(true, input);
-            }
+        it('should correctly use implemented resolver', () => {
+            let resolver: Resolver<any> = new TestResolver<string>();
 
-            let resolver: Resolver<any> = new Resolver<any>('testType', decoder);
-
-            expect(resolver.resolve('test')).toEqual(new Result(true, 'test', undefined));
+            expect(resolver.resolve('test')).toEqual(new Result(true, 'test', []));
         });
     });
 
