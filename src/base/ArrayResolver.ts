@@ -12,7 +12,7 @@ export class ArrayResolver<T> extends Resolver<Array<T>> {
     /**
      * @hidden
      */
-    constructor (private resolvingStructure: Resolver<T>) {
+    constructor (private definition: Resolver<T>) {
         super();
     }
     
@@ -26,10 +26,10 @@ export class ArrayResolver<T> extends Resolver<Array<T>> {
         let result: Array<T> = [];
 
         for (let i = 0; i < input.length; i++) {
-            let dec = this.resolvingStructure.resolve(input[i]);
+            let dec = this.definition.resolve(input[i]);
             
             if (!dec.success) {
-                if (this.resolvingStructure.type === 'object' || this.resolvingStructure.type === 'array') {
+                if (this.definition.type === 'object' || this.definition.type === 'array') {
                     for (let i = 0; i < dec.error.length; i++) {
                         errors.push(`${i}.${dec.error[i]}`);
                     }
