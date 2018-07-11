@@ -6,7 +6,7 @@ import { Util } from '@/utils/Util';
 /**
  * Base resolver class
  */
-export class Resolver<T> {
+export abstract class Resolver<T> {
 
     /**
      * @hidden

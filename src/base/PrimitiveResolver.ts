@@ -6,7 +6,7 @@ import { Util } from '@/utils/Util';
 
 
 
-export class PrimitiveResolver<T extends string | number | boolean> extends Resolver<T> {
+export abstract class PrimitiveResolver<T extends string | number | boolean> extends Resolver<T> {
 
     /**
      * @hidden
