@@ -4,10 +4,10 @@ import { Resolver } from '@/base/Resolver';
 import { TupleResolver as TupleResolverBase } from '@/base/TupleResolver';
 import { Result } from '@/Result';
 import { IDictionary } from '@/interfaces/IDictionary';
-import { IObjectResolver } from 'interfaces/IObjectResolver';
-import { StringResolver } from '../..';
-import { ITuple } from 'interfaces/ITuple';
-import { ITupleResolver } from 'interfaces/ITupleResolver';
+import { IObjectResolver } from '@/interfaces/IObjectResolver';
+import { StringResolver } from '@/base/StringResolver';
+import { ITuple } from '@/interfaces/ITuple';
+import { ITupleResolver } from '@/interfaces/ITupleResolver';
 
 
 

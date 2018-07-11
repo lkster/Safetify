@@ -1,5 +1,5 @@
 import { PrimitiveResolver } from '@/base/PrimitiveResolver';
-import { ResolverFunction } from "@/ResolverFunction";
+import { ResolverFunction } from '@/ResolverFunction';
 
 
 

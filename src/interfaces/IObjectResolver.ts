@@ -1,4 +1,4 @@
-import { Resolver } from "@/base/Resolver";
+import { Resolver } from '@/base/Resolver';
 
 /**
  * @hidden
