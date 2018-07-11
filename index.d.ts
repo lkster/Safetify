@@ -23,11 +23,11 @@ declare type ITupleResolver<T extends any[]> = { [U in keyof T]:
 
 declare namespace Base {
 
-    class SimpleTypeResolver<T> extends Safetify.Resolver<T> {
+    class PrimitiveResolver<T> extends Safetify.Resolver<T> {
 
-        public defaultsTo(val: T): SimpleTypeResolver<T>;
+        public defaultsTo(val: T): PrimitiveResolver<T>;
 
-        public constraint (cond: (val: T) => boolean | string, defaultValue?: T | ((val: T) => T)): SimpleTypeResolver<T>;
+        public constraint (cond: (val: T) => boolean | string, defaultValue?: T | ((val: T) => T)): PrimitiveResolver<T>;
     }
 
     class AnyResolver {
@@ -37,11 +37,11 @@ declare namespace Base {
         public resolve(input: any): Safetify.Result<any>;
     }
 
-    class StringResolver extends SimpleTypeResolver<string> {}
+    class StringResolver extends PrimitiveResolver<string> {}
 
-    class NumberResolver extends SimpleTypeResolver<number> {}
+    class NumberResolver extends PrimitiveResolver<number> {}
 
-    class BooleanResolver extends SimpleTypeResolver<boolean> {}
+    class BooleanResolver extends PrimitiveResolver<boolean> {}
 
     class DateResolver extends Safetify.Resolver<Date> {}
 
