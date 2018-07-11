@@ -1,4 +1,4 @@
-import { IObjectResolver } from '@/interfaces/IObjectResolver';
+import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
 import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
@@ -13,7 +13,7 @@ export class ObjectResolver<T> extends Resolver<T> {
     /**
      * @hidden
      */
-    constructor (private definition: IObjectResolver<T>) {
+    constructor (private definition: IObjectDefinition<T>) {
         super();
     }
 

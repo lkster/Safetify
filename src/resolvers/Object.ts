@@ -1,4 +1,4 @@
-import { IObjectResolver } from '@/interfaces/IObjectResolver';
+import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
 import { ObjectResolver as ObjectResolverBase } from '@/base/ObjectResolver';
 import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
@@ -26,6 +26,6 @@ import { Util } from '@/utils/Util';
  * // returns { name: 'John', surname: '', age: 56 }
  * </caption>
  */
-export function ObjectResolver<T>(definition: IObjectResolver<T>) {
+export function ObjectResolver<T>(definition: IObjectDefinition<T>) {
     return new ObjectResolverBase<T>(definition);
 }
