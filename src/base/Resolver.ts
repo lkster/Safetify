@@ -34,15 +34,16 @@ export abstract class Resolver<T> {
      * @param input Data to be resolved
      */
     public resolve(input: any): Result<T> {
+        const isOptionalPositive: boolean = this.isOptional && (Util.isNull(input) || !Util.isDef(input));
+        const isNullPositive: boolean = this.isNullable && Util.isNull(input);
+        
+        if (isOptionalPositive || isNullPositive) {
+            return new Result<T>(true, null, null);
+        }
+
         let resolved = this.resolver(input);
 
-        if (!resolved.success) {
-            if (this.isNullable === true && input === null) {
-                return new Result<T>(true, null, null);
-            } else if (this.isNullable === true) {
-                resolved.result = null;
-            }
-        } else if (!Util.isDef(resolved.result) && this.isNullable === true) {
+        if (!resolved.success && (this.isOptional || this.isNullable)) {
             resolved.result = null;
         }
 
