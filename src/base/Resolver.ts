@@ -14,6 +14,11 @@ export abstract class Resolver<T> {
     protected isNullable: boolean = false;
 
     /**
+     * @hidden
+     */
+    protected isOptional: boolean = false;
+
+    /**
      * Function that resolves data and returns [[Result]] object with defined success, resolved data and optional errors
      * @param input data to resolve
      */
@@ -60,6 +65,11 @@ export abstract class Resolver<T> {
      */
     public nullable(): Resolver<T> {
         this.isNullable = true;
+        return this;
+    }
+
+    public optional(): Resolver<T> {
+        this.isOptional = true;
         return this;
     }
 }
