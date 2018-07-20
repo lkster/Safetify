@@ -5,7 +5,6 @@
   "main": "dist/safetify.js",
   "scripts": {
     "build": "webpack",
-    "test-js": "webpack & node spec/config/jasmine.js",
     "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/ts/**/*.spec.ts",
     "jsdoc": "typedoc src/safetify.ts --mode file --out docs/ --theme typedoc-theme",
     "jsdoc:noerrors": "npm run jsdoc -- --ignoreCompilerErrors"

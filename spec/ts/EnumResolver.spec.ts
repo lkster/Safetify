@@ -1,4 +1,5 @@
 import { EnumResolver, Result } from '../..';
+import { IDictionary } from '@/interfaces/IDictionary';
 
 
 
@@ -65,6 +66,70 @@ describe('Enum Resolver', () => {
             it('should not return error', () => {
                 expect(result.error).toBeNull();
                 expect(result2.error).toBeNull();
+            });
+        });
+
+        //
+        // Vanilla Javascript enum representations
+        //
+
+        describe('array enum representation', () => {
+            let resolver: EnumResolver<testEnumStringValues>;
+
+            beforeEach(() => {
+                resolver = EnumResolver([
+                    'option1',
+                    'option2',
+                    'option3'
+                ]);
+            });
+    
+            it('should return success as true', () => {
+                expect(resolver.resolve('option1').success).toBe(true);
+                expect(resolver.resolve('option3').success).toBe(true);
+            });
+    
+            it('should return result equals to input', () => {
+                expect(resolver.resolve('option1').result).toBe('option1');
+                expect(resolver.resolve('option2').result).toBe('option2');
+            });
+
+            it('should not return error', () => {
+                expect(resolver.resolve('option1').error).toBeNull();
+            });
+        });
+
+        describe('object enum representation', () => {
+            let resolver: EnumResolver<testEnumStringValues>;
+            let resolver2: EnumResolver<testEnumNumberValues>;
+            
+            beforeEach(() => {
+                resolver = EnumResolver(<any> {
+                    opt1: 'option1',
+                    opt2: 'option2',
+                    opt3: 'option3'
+                });
+
+                resolver2 = EnumResolver(<any> {
+                    opt1: 0,
+                    opt2: 1,
+                    opt3: 2
+                });
+            });
+    
+            it('should return success as true', () => {
+                expect(resolver.resolve('option1').success).toBe(true);
+                expect(resolver2.resolve(1).success).toBe(true);
+            });
+    
+            it('should return result equals to input', () => {
+                expect(resolver.resolve('option1').result).toBe('option1');
+                expect(resolver2.resolve(1).result).toBe(1);
+            });
+
+            it('should not return error', () => {
+                expect(resolver.resolve('option1').error).toBeNull();
+                expect(resolver2.resolve(1).error).toBeNull();
             });
         });
     });
