@@ -55,6 +55,6 @@ export class ObjectResolver<T> extends Resolver<T> {
             result[key] = dec.result;
         }
 
-        return new Result<T>(errors.length == 0, result, errors.length > 0 ? errors : null);
+        return new Result<T>(errors.length == 0, result, errors);
     } 
 }

@@ -49,6 +49,6 @@ export class TupleResolver<T extends ITuple> extends Resolver<T> {
             }
         }
 
-        return new Result<T>(errors.length == 0, result, errors.length > 0 ? errors : null);
+        return new Result<T>(errors.length == 0, result, errors);
     } 
 }

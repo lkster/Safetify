@@ -12,12 +12,12 @@ export class BooleanResolver extends PrimitiveResolver<boolean> {
      * @hidden
      */
     protected resolver (input: any): Result<boolean> {
-        let error: string = null;
+        let errors: string[] = [];
     
         if (!Util.isBoolean(input)) {
-            error = 'value is not a boolean';
+            errors.push('value is not a boolean');
         }
     
-        return new Result<boolean>(!Util.isDefAndNotNull(error), !!input, error);
+        return new Result<boolean>(errors.length === 0, !!input, errors);
     }
 }

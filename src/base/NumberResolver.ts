@@ -13,12 +13,12 @@ export class NumberResolver extends PrimitiveResolver<number> {
      * @hidden
      */
     protected resolver (input: any): Result<number> {
-        let error: string = null;
+        let errors: string[] = [];
     
         if (!Util.isNumber(input) || !isFinite(input)) {
-            error = 'value is not a number';
+            errors.push('value is not a number');
         }
     
-        return new Result<number>(!Util.isDefAndNotNull(error), SafeUtil.makeSafeNumber(input), error);
+        return new Result<number>(errors.length === 0, SafeUtil.makeSafeNumber(input), errors);
     } 
 }

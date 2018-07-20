@@ -14,7 +14,7 @@ export class DateResolver extends Resolver<Date> {
     protected resolver (input: any): Result<Date> {
         let success: boolean = true;
         let date: Date = new Date(0);
-        let error: string = null;
+        let errors: string[] = [];
 
         if (Util.isDateLike(input)) {
             date = input;
@@ -31,9 +31,9 @@ export class DateResolver extends Resolver<Date> {
         }
 
         if (!success) {
-            error = 'value is not a valid date';
+            errors.push('value is not a valid date');
         }
     
-        return new Result<Date>(!Util.isDefAndNotNull(error), date, error);
+        return new Result<Date>(success, date, errors);
     } 
 }

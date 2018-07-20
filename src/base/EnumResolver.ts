@@ -25,28 +25,28 @@ export class EnumResolver<T> extends Resolver<T> {
      * @hidden
      */
     protected resolver (input: any): Result<T> {
-        let error = null;
+        let errors: string[] = [];
         let result: string | number = 0;
 
         if (Util.isArray(this.definition)) {
             if ((<Array<string | number>> this.definition).indexOf(input) > -1) {
                 result = input;
             } else {
-                error = 'value is not this enum\'s property';
+                errors.push('value is not this enum\'s property');
                 result = this.definition[0];
             }
         } else if (Util.isObject(this.definition)) {
             if (Object.keys(this.definition).map(e => this.definition[e]).indexOf(input) > -1) {
                 result = input;
             } else {
-                error = 'value is not this enum\'s property';
+                errors.push('value is not this enum\'s property');
                 result = Util.isDef(this.definition[0]) ? 0 : this.definition[Object.keys(this.definition)[0]];
             }
         } else {
-            error = 'Enum definition is not valid';
+            errors.push('Enum definition is not valid');
         }
 
-        return new Result<T>(!Util.isDefAndNotNull(error), <any> result, error);
+        return new Result<T>(errors.length === 0, <any> result, errors);
     } 
 
 

@@ -49,6 +49,6 @@ export class ArrayResolver<T> extends Resolver<Array<T>> {
             result.push(dec.result);
         }
 
-        return new Result<Array<T>>(errors.length == 0, result, errors.length > 0 ? errors : null);
+        return new Result<Array<T>>(errors.length == 0, result, errors);
     }
 }
