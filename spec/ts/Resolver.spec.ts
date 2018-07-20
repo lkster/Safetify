@@ -83,4 +83,86 @@ describe('Resolver', () => {
             });
         });
     });
+
+    describe('optional value', () => {
+        describe('correct value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().optional().resolve('im a string');
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe('im a string');
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeNull();
+            });
+        });
+
+        describe('null value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().optional().resolve(null);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeNull();
+            });
+        });
+
+        describe('undefined value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().optional().resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeNull();
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().optional().resolve(23);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);    
+            });
+
+            it('should return null as result', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).not.toBeNull();
+            });
+        });
+    });
 });

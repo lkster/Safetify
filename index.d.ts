@@ -96,6 +96,8 @@ declare namespace Safetify {
         public resolve (input: any): Result<T>;
     
         public nullable (): Resolver<T>;
+
+        public optional (): Resolver<T>;
     }
 
     class Result<T> {
