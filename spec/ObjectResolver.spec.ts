@@ -1,4 +1,4 @@
-import { ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '../..';
+import { ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '..';
 
 
 

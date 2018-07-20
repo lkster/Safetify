@@ -1,4 +1,4 @@
-import { DictionaryResolver, StringResolver, NumberResolver, Result } from '../..';
+import { DictionaryResolver, StringResolver, NumberResolver, Result } from '..';
 
 
 

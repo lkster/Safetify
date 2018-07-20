@@ -1,4 +1,4 @@
-import { EnumResolver, Result } from '../..';
+import { EnumResolver, Result } from '..';
 import { IDictionary } from '@/interfaces/IDictionary';
 
 

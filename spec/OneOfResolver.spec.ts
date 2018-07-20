@@ -1,4 +1,4 @@
-import { OneOfResolver, StringResolver, NumberResolver, Result } from '../..';
+import { OneOfResolver, StringResolver, NumberResolver, Result } from '..';
 
 
 

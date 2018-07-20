@@ -1,4 +1,4 @@
-import { DateResolver, Result } from '../..';
+import { DateResolver, Result } from '..';
 
 
 

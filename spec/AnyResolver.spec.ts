@@ -1,4 +1,4 @@
-import { AnyResolver, Result } from '../..';
+import { AnyResolver, Result } from '..';
 
 
 

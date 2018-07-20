@@ -1,66 +1,81 @@
-import { StringResolver, Result } from '../..';
+import { NumberResolver, Result } from '..';
 
 
 
-describe('String Resolver', () => {
+describe('Number Resolver', () => {
     
     describe('correct input', () => {
-        let result: Result<string>;
+        let result: Result<number>;
+        let result2: Result<number>;
 
         beforeEach(() => {
-            result = StringResolver().resolve('something');
+            result = NumberResolver().resolve(17);
+            result2 = NumberResolver().resolve(14.5);
         });
 
         it('should return success as true', () => {
             expect(result.success).toBe(true);    
+            expect(result2.success).toBe(true);    
         });
 
-        it('should return result equal to input', () => {
-            expect(result.result).toBe('something');
+        it('should return result equals to input', () => {
+            expect(result.result).toBe(17);
+            expect(result2.result).toBe(14.5);
         });
 
         it('should not return error', () => {
             expect(result.error).toBeNull();
+            expect(result2.error).toBeNull();
         });
     });
 
     describe('incorrect input', () => {
-        let result: Result<string>;
-        let result2: Result<string>;
-        let result3: Result<string>;
+        let result: Result<number>;
 
         beforeEach(() => {
-            result = StringResolver().resolve(undefined);
-            result2 = StringResolver().resolve(null);
-            result3 = StringResolver().resolve(false);
+            result = NumberResolver().resolve(undefined);
         });
 
         it('should return success as false', () => {
-            expect(result.success).toBe(false);
-            expect(result2.success).toBe(false);
-            expect(result3.success).toBe(false);
+            expect(result.success).toBe(false);    
         });
 
         it('should return safe value', () => {
-            expect(result.result).toBe('');
-            expect(result2.result).toBe('');
-            expect(result3.result).toBe('');
+            expect(result.result).toBeNaN();
         });
 
         it('should return error', () => {
             expect(result.error).not.toBeNull();
-            expect(result2.error).not.toBeNull();
-            expect(result3.error).not.toBeNull();
+        });
+    });
+
+    describe('NaN input', () => {
+        let result: Result<number>;
+
+        beforeEach(() => {
+            result = NumberResolver().defaultsTo(6).resolve(NaN);
+        });
+
+        it('should return success as false', () => {
+            expect(result.success).toBe(false);
+        });
+
+        it('should return error', () => {
+            expect(result.error).not.toBeNull();
+        });
+
+        it('should set value to default', () => {
+            expect(result.result).toBe(6);
         });
     });
 
     describe('default value', () => {
         
         describe('correct value', () => {
-            let result: Result<string>;
+            let result: Result<number>;
 
             beforeEach(() => {
-                result = StringResolver().defaultsTo('default value').resolve('im a string');
+                result = NumberResolver().defaultsTo(23).resolve(46);
             });
 
             it('should return success as true', () => {
@@ -68,7 +83,7 @@ describe('String Resolver', () => {
             });
 
             it('should return result equal to input', () => {
-                expect(result.result).toBe('im a string');
+                expect(result.result).toBe(46);
             });
 
             it('should not return error', () => {
@@ -77,10 +92,10 @@ describe('String Resolver', () => {
         });
         
         describe('incorrect value', () => {
-            let result: Result<string>;
+            let result: Result<number>;
 
             beforeEach(() => {
-                result = StringResolver().defaultsTo('default value').resolve(undefined);
+                result = NumberResolver().defaultsTo(23).resolve(undefined);
             });
 
             it('should return success as true', () => {
@@ -88,7 +103,7 @@ describe('String Resolver', () => {
             });
 
             it('should return result as default value', () => {
-                expect(result.result).toBe('default value');
+                expect(result.result).toBe(23);
             });
 
             it('should return error', () => {
@@ -97,10 +112,10 @@ describe('String Resolver', () => {
         });
 
         describe('incorrect value and default value', () => {
-            let result: Result<string>;
+            let result: Result<number>;
 
             beforeEach(() => {
-                result = StringResolver().defaultsTo(undefined).resolve(undefined);
+                result = NumberResolver().defaultsTo(undefined).resolve(undefined);
             });
 
             it('should return success as true', () => {
@@ -108,7 +123,7 @@ describe('String Resolver', () => {
             });
 
             it('should return safe value', () => {
-                expect(result.result).toBe('');
+                expect(result.result).toBeNaN();
             });
 
             it('should return 2 errors', () => {
@@ -120,15 +135,15 @@ describe('String Resolver', () => {
     describe('constraints', () => {
 
         describe('correct value against constraint', () => {
-            let result: Result<string>;
-            let constraintFunction: (n: string) => boolean | string;
+            let result: Result<number>;
+            let constraintFunction: (n: number) => boolean | string;
 
             beforeEach(() => {
-                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+                constraintFunction = jasmine.createSpy().and.callFake((n: number) => n >= 0 || 'value is not a positive number');
 
-                result = StringResolver()
+                result = NumberResolver()
                     .constraint(constraintFunction)
-                    .resolve('test string');
+                    .resolve(23);
             });
 
             it('should return success as true', () => {
@@ -136,7 +151,7 @@ describe('String Resolver', () => {
             });
 
             it('should return output same as input', () => {
-                expect(result.result).toBe('test string');
+                expect(result.result).toBe(23);
             });
 
             it('should call constraint function', () => {
@@ -149,15 +164,15 @@ describe('String Resolver', () => {
         });
 
         describe('incorrect value against constraint', () => {
-            let result: Result<string>;
-            let constraintFunction: (n: string) => boolean | string;
+            let result: Result<number>;
+            let constraintFunction: (n: number) => boolean | string;
 
             beforeEach(() => {
-                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+                constraintFunction = jasmine.createSpy().and.callFake((n: number) => n >= 0 || 'value is not a positive number');
 
-                result = StringResolver()
+                result = NumberResolver()
                     .constraint(constraintFunction)
-                    .resolve('test string longer than 20 characters');
+                    .resolve(-5);
             });
 
             it('should return success as false', () => {
@@ -165,7 +180,7 @@ describe('String Resolver', () => {
             });
 
             it('should return output same as input', () => {
-                expect(result.result).toBe('test string longer than 20 characters');
+                expect(result.result).toBe(-5);
             });
 
             it('should call constraint function', () => {
@@ -173,20 +188,20 @@ describe('String Resolver', () => {
             });
 
             it('should not return errors', () => {
-                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+                expect(result.error).toEqual([ 'value is not a positive number' ]);
             });
         });
 
         describe('incorrect value against constraint with raw default value', () => {
-            let result: Result<string>;
-            let constraintFunction: (n: string) => boolean | string;
+            let result: Result<number>;
+            let constraintFunction: (n: number) => boolean | string;
 
             beforeEach(() => {
-                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+                constraintFunction = jasmine.createSpy().and.callFake((n: number) => n >= 0 || 'value is not a positive number');
 
-                result = StringResolver()
-                    .constraint(constraintFunction, 'default value')
-                    .resolve('test string longer than 20 characters');
+                result = NumberResolver()
+                    .constraint(constraintFunction, 0)
+                    .resolve(-5);
             });
 
             it('should return success as false', () => {
@@ -194,7 +209,7 @@ describe('String Resolver', () => {
             });
 
             it('should return output same as input', () => {
-                expect(result.result).toBe('default value');
+                expect(result.result).toBe(0);
             });
 
             it('should call constraint function', () => {
@@ -202,22 +217,22 @@ describe('String Resolver', () => {
             });
 
             it('should not return errors', () => {
-                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+                expect(result.error).toEqual([ 'value is not a positive number' ]);
             });
         });
 
         describe('incorrect value against constraint with default value transform function', () => {
-            let result: Result<string>;
-            let constraintFunction: (n: string) => boolean | string;
-            let constraintDefaultTransform: (n: string) => string;
+            let result: Result<number>;
+            let constraintFunction: (n: number) => boolean | string;
+            let constraintDefaultTransform: (n: number) => number;
 
             beforeEach(() => {
-                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
-                constraintDefaultTransform = jasmine.createSpy('default').and.callFake((n: string) => n.substr(0, 20));
+                constraintFunction = jasmine.createSpy().and.callFake((n: number) => n >= 0 || 'value is not a positive number');
+                constraintDefaultTransform = jasmine.createSpy('default').and.callFake((n: number) => Math.abs(n));
 
-                result = StringResolver()
+                result = NumberResolver()
                     .constraint(constraintFunction, constraintDefaultTransform)
-                    .resolve('test string longer than 20 characters');
+                    .resolve(-7);
             });
 
             it('should return success as false', () => {
@@ -225,7 +240,7 @@ describe('String Resolver', () => {
             });
 
             it('should return output same as input', () => {
-                expect(result.result).toBe('test string longer t');
+                expect(result.result).toBe(7);
             });
 
             it('should call constraint function', () => {
@@ -237,20 +252,20 @@ describe('String Resolver', () => {
             });
 
             it('should not return errors', () => {
-                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+                expect(result.error).toEqual([ 'value is not a positive number' ]);
             });
         });
 
         describe('incorrect value against resolver', () => {
-            let result: Result<string>;
-            let constraintFunction: (n: string) => boolean | string;
+            let result: Result<number>;
+            let constraintFunction: (n: number) => boolean | string;
 
             beforeEach(() => {
-                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+                constraintFunction = jasmine.createSpy().and.callFake((n: number) => n >= 0 || 'value is not a positive number');
 
-                result = StringResolver()
+                result = NumberResolver()
                     .constraint(constraintFunction)
-                    .resolve(2354346);
+                    .resolve('trust me im number');
             });
 
             it('should return success as false', () => {
@@ -258,7 +273,7 @@ describe('String Resolver', () => {
             });
 
             it('should return output as safe value', () => {
-                expect(result.result).toBe('');
+                expect(result.result).toBeNaN();
             });
 
             it('should not call constraint function', () => {
@@ -271,15 +286,15 @@ describe('String Resolver', () => {
         });
 
         describe('incorrect constraint default value', () => {
-            let result: Result<string>;
-            let constraintFunction: (n: string) => boolean | string;
+            let result: Result<number>;
+            let constraintFunction: (n: number) => boolean | string;
 
             beforeEach(() => {
-                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+                constraintFunction = jasmine.createSpy().and.callFake((n: number) => n >= 0 || 'value is not a positive number');
 
-                result = StringResolver()
-                    .constraint(constraintFunction, <any> 1234234)
-                    .resolve('test string longer than 20 characters');
+                result = NumberResolver()
+                    .constraint(constraintFunction, <any> 'trust me im number')
+                    .resolve(-7);
             });
 
             it('should return success as false', () => {
@@ -287,7 +302,7 @@ describe('String Resolver', () => {
             });
 
             it('should return output same as input', () => {
-                expect(result.result).toBe('');
+                expect(result.result).toBeNaN();
             });
 
             it('should call constraint function', () => {

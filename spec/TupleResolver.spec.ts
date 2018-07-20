@@ -1,4 +1,4 @@
-import { TupleResolver, StringResolver, NumberResolver, BooleanResolver, Result } from '../..';
+import { TupleResolver, StringResolver, NumberResolver, BooleanResolver, Result } from '..';
 
 
 

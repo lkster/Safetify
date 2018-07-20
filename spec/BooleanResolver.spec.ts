@@ -1,4 +1,4 @@
-import { BooleanResolver, Result } from '../..';
+import { BooleanResolver, Result } from '..';
 
 
 
