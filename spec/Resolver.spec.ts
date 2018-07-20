@@ -39,7 +39,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
 
@@ -59,7 +59,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
 
@@ -79,7 +79,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).not.toBeNull();
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
     });
@@ -101,7 +101,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
 
@@ -121,7 +121,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
 
@@ -141,7 +141,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
 
@@ -161,7 +161,7 @@ describe('Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).not.toBeNull();
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
     });

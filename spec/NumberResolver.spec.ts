@@ -24,8 +24,8 @@ describe('Number Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeNull();
-            expect(result2.error).toBeNull();
+            expect(result.error.length).toBe(0);
+            expect(result2.error.length).toBe(0);
         });
     });
 
@@ -45,7 +45,7 @@ describe('Number Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).not.toBeNull();
+            expect(result.error.length).toBeGreaterThan(0);
         });
     });
 
@@ -61,7 +61,7 @@ describe('Number Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).not.toBeNull();
+            expect(result.error.length).toBeGreaterThan(0);
         });
 
         it('should set value to default', () => {
@@ -87,7 +87,7 @@ describe('Number Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
         
@@ -107,7 +107,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return error', () => {
-                expect(result.error).not.toBeNull();
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
 
@@ -159,7 +159,7 @@ describe('Number Resolver', () => {
             });
 
             it('should not return errors', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
 
@@ -187,7 +187,7 @@ describe('Number Resolver', () => {
                 expect(constraintFunction).toHaveBeenCalled();
             });
 
-            it('should not return errors', () => {
+            it('should return error', () => {
                 expect(result.error).toEqual([ 'value is not a positive number' ]);
             });
         });
@@ -216,7 +216,7 @@ describe('Number Resolver', () => {
                 expect(constraintFunction).toHaveBeenCalled();
             });
 
-            it('should not return errors', () => {
+            it('should return error', () => {
                 expect(result.error).toEqual([ 'value is not a positive number' ]);
             });
         });
@@ -281,7 +281,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return errors', () => {
-                expect(result.error).not.toBeNull();
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
 

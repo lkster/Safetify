@@ -39,8 +39,8 @@ describe('Enum Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
-                expect(result2.error).toBeNull();
+                expect(result.error.length).toBe(0);
+                expect(result2.error.length).toBe(0);
             });
         });
 
@@ -64,8 +64,8 @@ describe('Enum Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
-                expect(result2.error).toBeNull();
+                expect(result.error.length).toBe(0);
+                expect(result2.error.length).toBe(0);
             });
         });
 
@@ -95,7 +95,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(resolver.resolve('option1').error).toBeNull();
+                expect(resolver.resolve('option1').error.length).toBe(0);
             });
         });
 
@@ -128,8 +128,8 @@ describe('Enum Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(resolver.resolve('option1').error).toBeNull();
-                expect(resolver2.resolve(1).error).toBeNull();
+                expect(resolver.resolve('option1').error.length).toBe(0);
+                expect(resolver2.resolve(1).error.length).toBe(0);
             });
         });
     });
@@ -158,9 +158,9 @@ describe('Enum Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).not.toBeNull();
-            expect(result2.error).not.toBeNull();
-            expect(result3.error).not.toBeNull();
+            expect(result.error.length).toBeGreaterThan(0);
+            expect(result2.error.length).toBeGreaterThan(0);
+            expect(result3.error.length).toBeGreaterThan(0);
         });
     });
 });
