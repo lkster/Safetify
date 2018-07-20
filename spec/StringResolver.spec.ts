@@ -20,7 +20,7 @@ describe('String Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeNull();
+            expect(result.error.length).toBe(0);
         });
     });
 
@@ -48,9 +48,9 @@ describe('String Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).not.toBeNull();
-            expect(result2.error).not.toBeNull();
-            expect(result3.error).not.toBeNull();
+            expect(result.error.length).toBeGreaterThan(0);
+            expect(result2.error.length).toBeGreaterThan(0);
+            expect(result3.error.length).toBeGreaterThan(0);
         });
     });
 
@@ -72,7 +72,7 @@ describe('String Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
         
@@ -92,7 +92,7 @@ describe('String Resolver', () => {
             });
 
             it('should return error', () => {
-                expect(result.error).not.toBeNull();
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
 
@@ -144,7 +144,7 @@ describe('String Resolver', () => {
             });
 
             it('should not return errors', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
 
@@ -266,7 +266,7 @@ describe('String Resolver', () => {
             });
 
             it('should return errors', () => {
-                expect(result.error).not.toBeNull();
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
 

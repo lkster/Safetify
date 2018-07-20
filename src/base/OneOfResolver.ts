@@ -38,12 +38,12 @@ export class OneOfResolver<T> extends Resolver<T> {
             result = dec.result;
         };
 
-        let error: string = null;
+        let errors: string[] = [];
 
         if (!success) {
-            error = this.definition.map(r => r.type).join(' nor ');
+            errors.push(this.definition.map(r => r.type).join(' nor '));
         }
 
-        return new Result<T>(success, result, error);
+        return new Result<T>(success, result, errors);
     }
 }

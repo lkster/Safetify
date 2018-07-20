@@ -61,7 +61,7 @@ describe('Object Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeNull();
+            expect(result.error.length).toBe(0);
         });
     });
 

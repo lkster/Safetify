@@ -291,7 +291,7 @@ var Resolver = /** @class */ (function () {
         var isOptionalPositive = this.isOptional && (Util_1.Util.isNull(input) || !Util_1.Util.isDef(input));
         var isNullPositive = this.isNullable && Util_1.Util.isNull(input);
         if (isOptionalPositive || isNullPositive) {
-            return new Result_1.Result(true, null, null);
+            return new Result_1.Result(true, null, []);
         }
         var resolved = this.resolver(input);
         if (!resolved.success && (this.isOptional || this.isNullable)) {
@@ -479,7 +479,7 @@ var PrimitiveResolver = /** @class */ (function (_super) {
                 }
             }
         }
-        return new Result_1.Result(errors.length == 0, value, errors.length > 0 ? errors : null);
+        return new Result_1.Result(errors.length == 0, value, errors);
     };
     /**
      * @hidden
@@ -924,7 +924,7 @@ var ArrayResolver = /** @class */ (function (_super) {
             }
             result.push(dec.result);
         }
-        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
+        return new Result_1.Result(errors.length == 0, result, errors);
     };
     return ArrayResolver;
 }(Resolver_1.Resolver));
@@ -962,11 +962,11 @@ var BooleanResolver = /** @class */ (function (_super) {
      * @hidden
      */
     BooleanResolver.prototype.resolver = function (input) {
-        var error = null;
+        var errors = [];
         if (!Util_1.Util.isBoolean(input)) {
-            error = 'value is not a boolean';
+            errors.push('value is not a boolean');
         }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), !!input, error);
+        return new Result_1.Result(errors.length === 0, !!input, errors);
     };
     return BooleanResolver;
 }(PrimitiveResolver_1.PrimitiveResolver));
@@ -1035,11 +1035,11 @@ var NumberResolver = /** @class */ (function (_super) {
      * @hidden
      */
     NumberResolver.prototype.resolver = function (input) {
-        var error = null;
+        var errors = [];
         if (!Util_1.Util.isNumber(input) || !isFinite(input)) {
-            error = 'value is not a number';
+            errors.push('value is not a number');
         }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), SafeUtil_1.SafeUtil.makeSafeNumber(input), error);
+        return new Result_1.Result(errors.length === 0, SafeUtil_1.SafeUtil.makeSafeNumber(input), errors);
     };
     return NumberResolver;
 }(PrimitiveResolver_1.PrimitiveResolver));
@@ -1078,11 +1078,11 @@ var StringResolver = /** @class */ (function (_super) {
      * @hidden
      */
     StringResolver.prototype.resolver = function (input) {
-        var error = null;
+        var errors = [];
         if (!Util_1.Util.isString(input)) {
-            error = 'value is not a string';
+            errors.push('value is not a string');
         }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), SafeUtil_1.SafeUtil.makeSafeString(input), error);
+        return new Result_1.Result(errors.length === 0, SafeUtil_1.SafeUtil.makeSafeString(input), errors);
     };
     return StringResolver;
 }(PrimitiveResolver_1.PrimitiveResolver));
@@ -1152,7 +1152,7 @@ var ObjectResolver = /** @class */ (function (_super) {
             }
             result[key] = dec.result;
         }
-        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
+        return new Result_1.Result(errors.length == 0, result, errors);
     };
     return ObjectResolver;
 }(Resolver_1.Resolver));
@@ -1176,7 +1176,7 @@ var AnyResolver = /** @class */ (function () {
      * @param input Data to be resolved
      */
     AnyResolver.prototype.resolve = function (input) {
-        return new Result_1.Result(true, input, null);
+        return new Result_1.Result(true, input, []);
     };
     return AnyResolver;
 }());
@@ -1242,7 +1242,7 @@ var DictionaryResolver = /** @class */ (function (_super) {
             }
             result[key] = dec.result;
         }
-        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
+        return new Result_1.Result(errors.length == 0, result, errors);
     };
     return DictionaryResolver;
 }(Resolver_1.Resolver));
@@ -1304,7 +1304,7 @@ var TupleResolver = /** @class */ (function (_super) {
                 errors.push(i + ": " + resolved.error);
             }
         }
-        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
+        return new Result_1.Result(errors.length == 0, result, errors);
     };
     return TupleResolver;
 }(Resolver_1.Resolver));
@@ -1361,11 +1361,11 @@ var OneOfResolver = /** @class */ (function (_super) {
             result = dec.result;
         }
         ;
-        var error = null;
+        var errors = [];
         if (!success) {
-            error = this.definition.map(function (r) { return r.type; }).join(' nor ');
+            errors.push(this.definition.map(function (r) { return r.type; }).join(' nor '));
         }
-        return new Result_1.Result(success, result, error);
+        return new Result_1.Result(success, result, errors);
     };
     return OneOfResolver;
 }(Resolver_1.Resolver));
@@ -1412,14 +1412,14 @@ var EnumResolver = /** @class */ (function (_super) {
      */
     EnumResolver.prototype.resolver = function (input) {
         var _this = this;
-        var error = null;
+        var errors = [];
         var result = 0;
         if (Util_1.Util.isArray(this.definition)) {
             if (this.definition.indexOf(input) > -1) {
                 result = input;
             }
             else {
-                error = 'value is not this enum\'s property';
+                errors.push('value is not this enum\'s property');
                 result = this.definition[0];
             }
         }
@@ -1428,14 +1428,14 @@ var EnumResolver = /** @class */ (function (_super) {
                 result = input;
             }
             else {
-                error = 'value is not this enum\'s property';
+                errors.push('value is not this enum\'s property');
                 result = Util_1.Util.isDef(this.definition[0]) ? 0 : this.definition[Object.keys(this.definition)[0]];
             }
         }
         else {
-            error = 'Enum definition is not valid';
+            errors.push('Enum definition is not valid');
         }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), result, error);
+        return new Result_1.Result(errors.length === 0, result, errors);
     };
     return EnumResolver;
 }(Resolver_1.Resolver));
@@ -1475,7 +1475,7 @@ var DateResolver = /** @class */ (function (_super) {
     DateResolver.prototype.resolver = function (input) {
         var success = true;
         var date = new Date(0);
-        var error = null;
+        var errors = [];
         if (Util_1.Util.isDateLike(input)) {
             date = input;
         }
@@ -1492,9 +1492,9 @@ var DateResolver = /** @class */ (function (_super) {
             success = false;
         }
         if (!success) {
-            error = 'value is not a valid date';
+            errors.push('value is not a valid date');
         }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), date, error);
+        return new Result_1.Result(success, date, errors);
     };
     return DateResolver;
 }(Resolver_1.Resolver));

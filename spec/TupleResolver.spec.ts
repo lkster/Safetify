@@ -24,8 +24,8 @@ describe('TupleResolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeNull();
-            expect(result2.error).toBeNull();
+            expect(result.error.length).toBe(0);
+            expect(result2.error.length).toBe(0);
         });
     });
 
@@ -45,7 +45,7 @@ describe('TupleResolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).not.toBeNull();
+            expect(result.error.length).toBeGreaterThan(0);
         });
     });
 });

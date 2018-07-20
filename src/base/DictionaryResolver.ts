@@ -49,6 +49,6 @@ export class DictionaryResolver<T> extends Resolver<IDictionary<T>> {
             result[key] = dec.result;
         }
 
-        return new Result<IDictionary<T>>(errors.length == 0, result, errors.length > 0 ? errors : null);
+        return new Result<IDictionary<T>>(errors.length == 0, result, errors);
     } 
 }

@@ -13,12 +13,12 @@ export class StringResolver extends PrimitiveResolver<string> {
      * @hidden
      */
     protected resolver (input: any): Result<string> {
-        let error: string = null;
+        let errors: string[] = [];
     
         if (!Util.isString(input)) {
-            error = 'value is not a string';
+            errors.push('value is not a string');
         }
     
-        return new Result<string>(!Util.isDefAndNotNull(error), SafeUtil.makeSafeString(input), error);
+        return new Result<string>(errors.length === 0, SafeUtil.makeSafeString(input), errors);
     }     
 }

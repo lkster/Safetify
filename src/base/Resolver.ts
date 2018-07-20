@@ -38,7 +38,7 @@ export abstract class Resolver<T> {
         const isNullPositive: boolean = this.isNullable && Util.isNull(input);
         
         if (isOptionalPositive || isNullPositive) {
-            return new Result<T>(true, null, null);
+            return new Result<T>(true, null, []);
         }
 
         let resolved = this.resolver(input);

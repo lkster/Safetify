@@ -111,7 +111,7 @@ export abstract class PrimitiveResolver<T extends string | number | boolean> ext
             }
         }
 
-        return new Result(errors.length == 0, value, errors.length > 0 ? errors : null);
+        return new Result(errors.length == 0, value, errors);
     }
 
     /**

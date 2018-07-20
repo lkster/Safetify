@@ -11,6 +11,6 @@ export class AnyResolver {
      * @param input Data to be resolved
      */
     public resolve(input: any): Result<any> {
-        return new Result<any>(true, input, null);
+        return new Result<any>(true, input, []);
     }
 }
