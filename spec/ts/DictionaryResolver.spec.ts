@@ -27,6 +27,7 @@ describe('Dictionary Resolver', () => {
 
         it('should return success as true', () => {
             expect(result.success).toBe(true);
+            expect(result2.success).toBe(true);
         });
 
         it('should return result equals to input', () => {
@@ -34,11 +35,17 @@ describe('Dictionary Resolver', () => {
                 a: 'a',
                 b: 'b',
                 c: 'c'
+            });
+            expect(result2.result).toEqual(<any> {
+                a: 3,
+                b: 27,
+                c: 41
             })
         });
 
         it('should not return error', () => {
             expect(result.error).toBeNull();
+            expect(result2.error).toBeNull();
         });
     });
 
