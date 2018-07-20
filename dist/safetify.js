@@ -278,22 +278,23 @@ var Resolver = /** @class */ (function () {
          * @hidden
          */
         this.isNullable = false;
+        /**
+         * @hidden
+         */
+        this.isOptional = false;
     }
     /**
      * Resolves given data
      * @param input Data to be resolved
      */
     Resolver.prototype.resolve = function (input) {
-        var resolved = this.resolver(input);
-        if (!resolved.success) {
-            if (this.isNullable === true && input === null) {
-                return new Result_1.Result(true, null, null);
-            }
-            else if (this.isNullable === true) {
-                resolved.result = null;
-            }
+        var isOptionalPositive = this.isOptional && (Util_1.Util.isNull(input) || !Util_1.Util.isDef(input));
+        var isNullPositive = this.isNullable && Util_1.Util.isNull(input);
+        if (isOptionalPositive || isNullPositive) {
+            return new Result_1.Result(true, null, null);
         }
-        else if (!Util_1.Util.isDef(resolved.result) && this.isNullable === true) {
+        var resolved = this.resolver(input);
+        if (!resolved.success && (this.isOptional || this.isNullable)) {
             resolved.result = null;
         }
         return resolved;
@@ -314,6 +315,10 @@ var Resolver = /** @class */ (function () {
      */
     Resolver.prototype.nullable = function () {
         this.isNullable = true;
+        return this;
+    };
+    Resolver.prototype.optional = function () {
+        this.isOptional = true;
         return this;
     };
     return Resolver;
@@ -375,18 +380,18 @@ var Resolver_1 = __webpack_require__(2);
 var ResolverUtil_1 = __webpack_require__(19);
 var Result_1 = __webpack_require__(0);
 var Util_1 = __webpack_require__(1);
+/**
+ * @hidden
+ */
 var PrimitiveResolver = /** @class */ (function (_super) {
     __extends(PrimitiveResolver, _super);
     function PrimitiveResolver() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        /**
-         * @hidden
-         */
         _this._constraints = [];
         return _this;
     }
     /**
-     * Sets default value which will be returned in case of fail validation
+     * Sets default value which will be returned in case of failed resolving
      * @param val default value
      * @example
      * <caption>
@@ -886,12 +891,19 @@ var ArrayResolver = /** @class */ (function (_super) {
     /**
      * @hidden
      */
-    function ArrayResolver(definition) {
+    function ArrayResolver(
+    /**
+     * @hidden
+     */
+    definition) {
         var _this = _super.call(this) || this;
         _this.definition = definition;
         _this.type = 'array';
         return _this;
     }
+    /**
+     * @hidden
+     */
     ArrayResolver.prototype.resolver = function (input) {
         if (!Util_1.Util.isArray(input)) {
             return new Result_1.Result(false, SafeUtil_1.SafeUtil.makeSafeArray(input), ['value is not an array']);
@@ -946,6 +958,9 @@ var BooleanResolver = /** @class */ (function (_super) {
         _this.type = 'boolean';
         return _this;
     }
+    /**
+     * @hidden
+     */
     BooleanResolver.prototype.resolver = function (input) {
         var error = null;
         if (!Util_1.Util.isBoolean(input)) {
@@ -1016,6 +1031,9 @@ var NumberResolver = /** @class */ (function (_super) {
         _this.type = 'number';
         return _this;
     }
+    /**
+     * @hidden
+     */
     NumberResolver.prototype.resolver = function (input) {
         var error = null;
         if (!Util_1.Util.isNumber(input) || !isFinite(input)) {
@@ -1056,6 +1074,9 @@ var StringResolver = /** @class */ (function (_super) {
         _this.type = 'string';
         return _this;
     }
+    /**
+     * @hidden
+     */
     StringResolver.prototype.resolver = function (input) {
         var error = null;
         if (!Util_1.Util.isString(input)) {
@@ -1094,12 +1115,19 @@ var ObjectResolver = /** @class */ (function (_super) {
     /**
      * @hidden
      */
-    function ObjectResolver(definition) {
+    function ObjectResolver(
+    /**
+     * @hidden
+     */
+    definition) {
         var _this = _super.call(this) || this;
         _this.definition = definition;
         _this.type = 'object';
         return _this;
     }
+    /**
+     * @hidden
+     */
     ObjectResolver.prototype.resolver = function (input) {
         if (!Util_1.Util.isObject(input)) {
             var safe = SafeUtil_1.SafeUtil.makeSafeObject(input);
@@ -1181,12 +1209,19 @@ var DictionaryResolver = /** @class */ (function (_super) {
     /**
      * @hidden
      */
-    function DictionaryResolver(definition) {
+    function DictionaryResolver(
+    /**
+     * @hidden
+     */
+    definition) {
         var _this = _super.call(this) || this;
         _this.definition = definition;
         _this.type = 'object';
         return _this;
     }
+    /**
+     * @hidden
+     */
     DictionaryResolver.prototype.resolver = function (input) {
         if (!Util_1.Util.isObject(input)) {
             return new Result_1.Result(false, SafeUtil_1.SafeUtil.makeSafeObject(input), ['value is not an object']);
@@ -1239,12 +1274,19 @@ var TupleResolver = /** @class */ (function (_super) {
     /**
      * @hidden
      */
-    function TupleResolver(definition) {
+    function TupleResolver(
+    /**
+     * @hidden
+     */
+    definition) {
         var _this = _super.call(this) || this;
         _this.definition = definition;
         _this.type = 'tuple';
         return _this;
     }
+    /**
+     * @hidden
+     */
     TupleResolver.prototype.resolver = function (input) {
         var result = [];
         var errors = [];
@@ -1293,12 +1335,19 @@ var OneOfResolver = /** @class */ (function (_super) {
     /**
      * @hidden
      */
-    function OneOfResolver(definition) {
+    function OneOfResolver(
+    /**
+     * @hidden
+     */
+    definition) {
         var _this = _super.call(this) || this;
         _this.definition = definition;
         _this.type = 'oneof';
         return _this;
     }
+    /**
+     * @hidden
+     */
     OneOfResolver.prototype.resolver = function (input) {
         var success = false;
         var result;
@@ -1348,12 +1397,19 @@ var EnumResolver = /** @class */ (function (_super) {
     /**
      * @hidden
      */
-    function EnumResolver(definition) {
+    function EnumResolver(
+    /**
+     * @hidden
+     */
+    definition) {
         var _this = _super.call(this) || this;
         _this.definition = definition;
         _this.type = 'enum';
         return _this;
     }
+    /**
+     * @hidden
+     */
     EnumResolver.prototype.resolver = function (input) {
         var _this = this;
         var error = null;
@@ -1413,6 +1469,9 @@ var DateResolver = /** @class */ (function (_super) {
         _this.type = 'date';
         return _this;
     }
+    /**
+     * @hidden
+     */
     DateResolver.prototype.resolver = function (input) {
         var success = true;
         var date = new Date(0);
