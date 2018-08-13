@@ -124,7 +124,7 @@ export abstract class PrimitiveResolver<T extends string | number | boolean> ext
         if (!resolved.success && Util.isDef(this._defaultValue)) {
             
             if (!this._defaultValue.success) {
-                resolved.error = ResolverUtil.mergeErrors(resolved.error, `DefaultValue: ${this._defaultValue.error}`);
+                resolved.error.push(`DefaultValue: ${this._defaultValue.error}`);
             } else if (this._defaultValue.success) {
                 resolved.result = this._defaultValue.result;
             }

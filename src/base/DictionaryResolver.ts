@@ -43,7 +43,7 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
                         errors.push(`${key}.${dec.error[i]}`);
                     }
                 } else {
-                    errors.push(`${key}: ` + <string> dec.error);
+                    errors.push(`${key}: ` + dec.error[0]);
                 }
             }
 
