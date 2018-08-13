@@ -3,12 +3,13 @@ import { Resolver } from '@/base/Resolver';
 import { ResolverUtil } from '@/utils/ResolverUtil';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 /**
  * @hidden
  */
-export abstract class PrimitiveResolver<T extends string | number | boolean> extends Resolver<T> {
+export abstract class PrimitiveResolver<T extends string | number | boolean> extends OptionalResolver<T> {
 
     private _defaultValue: Result<T>;
 

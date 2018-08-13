@@ -1,9 +1,10 @@
 import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class OneOfResolver<T> extends Resolver<T> {
+export class OneOfResolver<T> extends OptionalResolver<T> {
 
     public type: string = 'oneof';
 
