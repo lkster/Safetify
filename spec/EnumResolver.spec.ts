@@ -3,13 +3,13 @@ import { IDictionary } from '@/interfaces/IDictionary';
 
 
 
-enum testEnumNumberValues {
+enum TestEnumNumberValues {
     option1,
     option2,
     option3
 }
 
-enum testEnumStringValues {
+enum TestEnumStringValues {
     option1 = 'opt1',
     option2 = 'opt2',
     option3 = 'opt3'
@@ -20,12 +20,12 @@ describe('Enum Resolver', () => {
     describe('correct input', () => {
         
         describe('number valued enum', () => {
-            let result: Result<testEnumNumberValues>;
-            let result2: Result<testEnumNumberValues>;
+            let result: Result<TestEnumNumberValues>;
+            let result2: Result<TestEnumNumberValues>;
 
             beforeEach(() => {
-                result = EnumResolver<testEnumNumberValues>(testEnumNumberValues).resolve(0);
-                result2 = EnumResolver<testEnumNumberValues>(testEnumNumberValues).resolve(2);
+                result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).resolve(0);
+                result2 = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).resolve(2);
             });
 
             it('should return success as true', () => {
@@ -34,8 +34,8 @@ describe('Enum Resolver', () => {
             });
 
             it('should return result equals to input', () => {
-                expect(result.result).toBe(testEnumNumberValues.option1);
-                expect(result2.result).toBe(testEnumNumberValues.option3);
+                expect(result.result).toBe(TestEnumNumberValues.option1);
+                expect(result2.result).toBe(TestEnumNumberValues.option3);
             });
 
             it('should not return error', () => {
@@ -45,12 +45,12 @@ describe('Enum Resolver', () => {
         });
 
         describe('string valued enum', () => {
-            let result: Result<testEnumStringValues>;
-            let result2: Result<testEnumStringValues>;
+            let result: Result<TestEnumStringValues>;
+            let result2: Result<TestEnumStringValues>;
 
             beforeEach(() => {
-                result = EnumResolver<testEnumStringValues>(testEnumStringValues).resolve('opt1');
-                result2 = EnumResolver<testEnumStringValues>(testEnumStringValues).resolve('opt3');
+                result = EnumResolver<TestEnumStringValues>(TestEnumStringValues).resolve('opt1');
+                result2 = EnumResolver<TestEnumStringValues>(TestEnumStringValues).resolve('opt3');
             });
 
             it('should return success as true', () => {
@@ -59,8 +59,8 @@ describe('Enum Resolver', () => {
             });
 
             it('should return result equals to input', () => {
-                expect(result.result).toBe(testEnumStringValues.option1);
-                expect(result2.result).toBe(testEnumStringValues.option3);
+                expect(result.result).toBe(TestEnumStringValues.option1);
+                expect(result2.result).toBe(TestEnumStringValues.option3);
             });
 
             it('should not return error', () => {
@@ -74,7 +74,7 @@ describe('Enum Resolver', () => {
         //
 
         describe('array enum representation', () => {
-            let resolver: EnumResolver<testEnumStringValues>;
+            let resolver: EnumResolver<TestEnumStringValues>;
 
             beforeEach(() => {
                 resolver = EnumResolver([
@@ -100,8 +100,8 @@ describe('Enum Resolver', () => {
         });
 
         describe('object enum representation', () => {
-            let resolver: EnumResolver<testEnumStringValues>;
-            let resolver2: EnumResolver<testEnumNumberValues>;
+            let resolver: EnumResolver<TestEnumStringValues>;
+            let resolver2: EnumResolver<TestEnumNumberValues>;
             
             beforeEach(() => {
                 resolver = EnumResolver(<any> {
@@ -135,14 +135,14 @@ describe('Enum Resolver', () => {
     });
 
     describe('incorrect input', () => {
-        let result: Result<testEnumNumberValues>;
-        let result2: Result<testEnumNumberValues>;
-        let result3: Result<testEnumStringValues>;
+        let result: Result<TestEnumNumberValues>;
+        let result2: Result<TestEnumNumberValues>;
+        let result3: Result<TestEnumStringValues>;
         
         beforeEach(() => {
-            result = EnumResolver<testEnumNumberValues>(testEnumNumberValues).resolve(undefined);
-            result2 = EnumResolver<testEnumNumberValues>(testEnumNumberValues).resolve(5);
-            result3 = EnumResolver<testEnumStringValues>(testEnumStringValues).resolve('nonexistingoption');
+            result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).resolve(undefined);
+            result2 = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).resolve(5);
+            result3 = EnumResolver<TestEnumStringValues>(TestEnumStringValues).resolve('nonexistingoption');
         });
 
         it('should return success as false', () => {
@@ -161,6 +161,151 @@ describe('Enum Resolver', () => {
             expect(result.error.length).toBeGreaterThan(0);
             expect(result2.error.length).toBeGreaterThan(0);
             expect(result3.error.length).toBeGreaterThan(0);
+        });
+    });
+
+    describe('nullable value', () => {
+        
+        describe('correct value', () => {
+            let result: Result<TestEnumNumberValues>;
+
+            beforeEach(() => {
+                result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).nullable().resolve(0);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(TestEnumNumberValues.option1);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('null value', () => {
+            let result: Result<TestEnumNumberValues>;
+
+            beforeEach(() => {
+                result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).nullable().resolve(null);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result: Result<TestEnumNumberValues>;
+
+            beforeEach(() => {
+                result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).nullable().resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);    
+            });
+
+            it('should return null as result', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBeGreaterThan(0);
+            });
+        });
+    });
+
+    describe('optional value', () => {
+        describe('correct value', () => {
+            let result: Result<TestEnumNumberValues>;
+
+            beforeEach(() => {
+                result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).optional().resolve(0);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(TestEnumNumberValues.option1);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('null value', () => {
+            let result: Result<TestEnumNumberValues>;
+
+            beforeEach(() => {
+                result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).optional().resolve(null);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('undefined value', () => {
+            let result: Result<TestEnumNumberValues>;
+
+            beforeEach(() => {
+                result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).optional().resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result: Result<TestEnumNumberValues>;
+
+            beforeEach(() => {
+                result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).optional().resolve('im a string');
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);    
+            });
+
+            it('should return null as result', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBeGreaterThan(0);
+            });
         });
     });
 });
