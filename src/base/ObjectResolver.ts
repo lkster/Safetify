@@ -48,7 +48,7 @@ export class ObjectResolver<T> extends OptionalResolver<T> {
                         errors.push(`${key}.${dec.error[i]}`);
                     }
                 } else {
-                    errors.push(`${key}: ` + <string> dec.error);
+                    errors.push(`${key}: ` + dec.error[0]);
                 }
             }
 

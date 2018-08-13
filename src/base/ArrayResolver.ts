@@ -43,7 +43,7 @@ export class ArrayResolver<T> extends OptionalResolver<Array<T>> {
                         errors.push(`${i}.${dec.error[i]}`);
                     }
                 } else {
-                    errors.push(`${i}: ` + <string> dec.error);
+                    errors.push(`${i}: ` + dec.error[0]);
                 }
             }
 
