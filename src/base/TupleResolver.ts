@@ -3,10 +3,11 @@ import { ITupleDefinition } from '@/interfaces/ITupleDefinition';
 import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class TupleResolver<T extends ITuple> extends Resolver<T> {
+export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
 
     public type: string = 'tuple';
 

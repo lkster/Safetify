@@ -1,10 +1,10 @@
-import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class DateResolver extends Resolver<Date> {
+export class DateResolver extends OptionalResolver<Date> {
 
     public type: string = 'date';
 

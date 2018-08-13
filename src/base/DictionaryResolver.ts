@@ -3,10 +3,11 @@ import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class DictionaryResolver<T> extends Resolver<IDictionary<T>> {
+export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
 
     public type: string = 'object';
 

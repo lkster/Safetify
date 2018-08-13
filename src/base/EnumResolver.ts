@@ -1,11 +1,11 @@
 import { IEnum } from '@/interfaces/IEnum';
-import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class EnumResolver<T> extends Resolver<T> {
+export class EnumResolver<T> extends OptionalResolver<T> {
 
     public type: string = 'enum';
 

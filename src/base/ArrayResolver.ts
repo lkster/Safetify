@@ -2,10 +2,11 @@ import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class ArrayResolver<T> extends Resolver<Array<T>> {
+export class ArrayResolver<T> extends OptionalResolver<Array<T>> {
 
     public type: string = 'array';
 

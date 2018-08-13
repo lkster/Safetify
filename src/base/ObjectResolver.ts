@@ -1,12 +1,12 @@
 import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
-import { Resolver } from '@/base/Resolver';
 import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class ObjectResolver<T> extends Resolver<T> {
+export class ObjectResolver<T> extends OptionalResolver<T> {
 
     public type: string = 'object';
 
