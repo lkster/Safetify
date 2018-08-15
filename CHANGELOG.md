@@ -1,3 +1,14 @@
+## 2.6.1
+### General
+- Added missing utility functions in TypeScript definition file
+- Fixed example in `README.md` file
+
+### Technical
+- Changed name of `SimpleTypeResolver` to `PrimitiveResolver`
+- Removed unnecessary types from jsdoc comments
+
+---
+
 ## 2.6.0
 - Added `TupleResolver`
 - Updated package's description in `package.json` file
