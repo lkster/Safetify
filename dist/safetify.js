@@ -70,6 +70,33 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Resolver's result representation
+ */
+var Result = /** @class */ (function () {
+    /**
+     *
+     * @param success true if data is successfuly resolved, false otherwise
+     * @param result resolved data
+     * @param error has error(s) if resolving failed
+     */
+    function Result(success, result, error) {
+        this.success = success;
+        this.result = result;
+        this.error = error;
+    }
+    return Result;
+}());
+exports.Result = Result;
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Based on Closure Library's Goog Functions by Google
  * https://github.com/google/closure-library
@@ -234,41 +261,14 @@ exports.Util = Util;
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Resolver's result representation
- */
-var Result = /** @class */ (function () {
-    /**
-     *
-     * @param success true if data is successfuly resolved, false otherwise
-     * @param result resolved data
-     * @param error has error(s) if resolving failed
-     */
-    function Result(success, result, error) {
-        this.success = success;
-        this.result = result;
-        this.error = error;
-    }
-    return Result;
-}());
-exports.Result = Result;
-
-
-/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 /**
  * Base resolver class
  */
@@ -339,7 +339,7 @@ exports.Resolver = Resolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 /**
  * @hidden
  */
@@ -383,12 +383,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
-var Result_1 = __webpack_require__(1);
-var Util_1 = __webpack_require__(0);
 var ResolverUtil_1 = __webpack_require__(19);
-var SimpleTypeResolver = /** @class */ (function (_super) {
-    __extends(SimpleTypeResolver, _super);
-    function SimpleTypeResolver() {
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
+var PrimitiveResolver = /** @class */ (function (_super) {
+    __extends(PrimitiveResolver, _super);
+    function PrimitiveResolver() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * @hidden
@@ -413,7 +413,7 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
      * // returns default value which is 'option 1'
      * </caption>
      */
-    SimpleTypeResolver.prototype.defaultsTo = function (val) {
+    PrimitiveResolver.prototype.defaultsTo = function (val) {
         this._defaultValue = _super.prototype.resolve.call(this, val);
         return this;
     };
@@ -439,7 +439,7 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
      * // returns transformed value into that proposed by transform function, in this case 5
      * </caption>
      */
-    SimpleTypeResolver.prototype.constraint = function (cond, defaultValue) {
+    PrimitiveResolver.prototype.constraint = function (cond, defaultValue) {
         if (defaultValue === void 0) { defaultValue = null; }
         var con = {
             condition: cond,
@@ -454,7 +454,7 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
     /**
      * @hidden
      */
-    SimpleTypeResolver.prototype.resolveConstraints = function (input) {
+    PrimitiveResolver.prototype.resolveConstraints = function (input) {
         var len = this._constraints.length;
         var errors = [];
         var value = input;
@@ -490,7 +490,7 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
     /**
      * @hidden
      */
-    SimpleTypeResolver.prototype.resolve = function (input) {
+    PrimitiveResolver.prototype.resolve = function (input) {
         var resolved = _super.prototype.resolve.call(this, input);
         if (!resolved.success && Util_1.Util.isDef(this._defaultValue)) {
             if (!this._defaultValue.success) {
@@ -505,9 +505,9 @@ var SimpleTypeResolver = /** @class */ (function (_super) {
         }
         return resolved;
     };
-    return SimpleTypeResolver;
+    return PrimitiveResolver;
 }(Resolver_1.Resolver));
-exports.SimpleTypeResolver = SimpleTypeResolver;
+exports.PrimitiveResolver = PrimitiveResolver;
 
 
 /***/ }),
@@ -517,10 +517,10 @@ exports.SimpleTypeResolver = SimpleTypeResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
-var SafeUtil_1 = __webpack_require__(3);
 var ArrayResolver_1 = __webpack_require__(17);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves array of given type
  * @param resolver Resolver of given type
@@ -567,9 +567,9 @@ exports.ArrayResolver = ArrayResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
 var BooleanResolver_1 = __webpack_require__(18);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves given data to boolean type
  * @example
@@ -600,10 +600,10 @@ exports.BooleanResolver = BooleanResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
-var SafeUtil_1 = __webpack_require__(3);
 var NumberResolver_1 = __webpack_require__(20);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves given data to number type
  * @example
@@ -634,10 +634,10 @@ exports.NumberResolver = NumberResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
+var Result_1 = __webpack_require__(0);
 var SafeUtil_1 = __webpack_require__(3);
-var Result_1 = __webpack_require__(1);
 var StringResolver_1 = __webpack_require__(21);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves given data to string type
  * @example
@@ -668,10 +668,10 @@ exports.StringResolver = StringResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
-var SafeUtil_1 = __webpack_require__(3);
 var ObjectResolver_1 = __webpack_require__(22);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves object of given structure
  * @param resolver Structure of object filled with resolvers
@@ -731,7 +731,7 @@ exports.ObjectResolver = ObjectResolver;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var AnyResolver_1 = __webpack_require__(23);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
 /**
  * Always return given data in unchanged form
  * @example
@@ -758,10 +758,10 @@ exports.AnyResolver = AnyResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
-var SafeUtil_1 = __webpack_require__(3);
 var DictionaryResolver_1 = __webpack_require__(24);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves dictionary object of given type
  * @param resolver Resolver of given type
@@ -808,9 +808,9 @@ exports.DictionaryResolver = DictionaryResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
+var Result_1 = __webpack_require__(0);
 var TupleResolver_1 = __webpack_require__(25);
-var Result_1 = __webpack_require__(1);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves tuple object
  * @param resolver Resolver of given type
@@ -855,7 +855,7 @@ exports.TupleResolver = TupleResolver;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var OneOfResolver_1 = __webpack_require__(26);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
 /**
  * Resolves input data to first matched type
  * @param resolver Resolver of given type
@@ -900,9 +900,9 @@ exports.OneOfResolver = OneOfResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
 var EnumResolver_1 = __webpack_require__(27);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves enum
  * @param definition enum representation in array, object or passed TypeScript's enum declaration
@@ -961,9 +961,9 @@ exports.EnumResolver = EnumResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
 var DateResolver_1 = __webpack_require__(28);
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 /**
  * Resolves given data to date type
  * @example
@@ -1061,9 +1061,9 @@ var Date_2 = __webpack_require__(15);
 exports.DateResolver = Date_2.DateResolver;
 var Resolver_1 = __webpack_require__(2);
 exports.Resolver = Resolver_1.Resolver;
-var Result_1 = __webpack_require__(1);
+var Result_1 = __webpack_require__(0);
 exports.Result = Result_1.Result;
-var Util_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 exports.util = Util_1.Util;
 
 
@@ -1115,7 +1115,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var SimpleTypeResolver_1 = __webpack_require__(4);
+var PrimitiveResolver_1 = __webpack_require__(4);
 var BooleanResolver = /** @class */ (function (_super) {
     __extends(BooleanResolver, _super);
     /**
@@ -1125,7 +1125,7 @@ var BooleanResolver = /** @class */ (function (_super) {
         return _super.call(this, 'boolean', resolver) || this;
     }
     return BooleanResolver;
-}(SimpleTypeResolver_1.SimpleTypeResolver));
+}(PrimitiveResolver_1.PrimitiveResolver));
 exports.BooleanResolver = BooleanResolver;
 
 
@@ -1136,7 +1136,7 @@ exports.BooleanResolver = BooleanResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var ResolverUtil = /** @class */ (function () {
     function ResolverUtil() {
     }
@@ -1176,7 +1176,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var SimpleTypeResolver_1 = __webpack_require__(4);
+var PrimitiveResolver_1 = __webpack_require__(4);
 var NumberResolver = /** @class */ (function (_super) {
     __extends(NumberResolver, _super);
     /**
@@ -1186,7 +1186,7 @@ var NumberResolver = /** @class */ (function (_super) {
         return _super.call(this, 'number', resolver) || this;
     }
     return NumberResolver;
-}(SimpleTypeResolver_1.SimpleTypeResolver));
+}(PrimitiveResolver_1.PrimitiveResolver));
 exports.NumberResolver = NumberResolver;
 
 
@@ -1207,7 +1207,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var SimpleTypeResolver_1 = __webpack_require__(4);
+var PrimitiveResolver_1 = __webpack_require__(4);
 var StringResolver = /** @class */ (function (_super) {
     __extends(StringResolver, _super);
     /**
@@ -1217,7 +1217,7 @@ var StringResolver = /** @class */ (function (_super) {
         return _super.call(this, 'string', resolver) || this;
     }
     return StringResolver;
-}(SimpleTypeResolver_1.SimpleTypeResolver));
+}(PrimitiveResolver_1.PrimitiveResolver));
 exports.StringResolver = StringResolver;
 
 

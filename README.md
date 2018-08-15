@@ -33,7 +33,7 @@ let personResolver: Safetify.Object = Safetify.Object<IPerson>({
     isSingle: Safetify.Boolean()
 });
 
-let person: IPerson = personResolver.resolve(data);
+let person: IPerson = personResolver.resolve(data).result;
 ```
 
 Or use alternative imports:
@@ -47,7 +47,7 @@ let personResolver: ObjectResolver = ObjectResolver<IPerson>({
     isSingle: BooleanResolver()
 });
 
-let person: IPerson = personResolver.resolve(data);
+let person: IPerson = personResolver.resolve(data).result;
 ```
 
 And then data will always be the exact type no matter if we received correct data or not. It prevents of many cases of using methods dedicated to specific types of data. Say we got `undefined` value in `name` property and now we want to use `toUpperCase` method on that data. Basically it would look like that:
@@ -104,11 +104,11 @@ Safetify provides resolvers for couple of data types:
 
 - AnyResolver - just returns what it gets on input
 - NumberResolver - resolves `number` values
-- StringResolver - resolves `string` value
+- StringResolver - resolves `string` values
 - BooleanResolver - resolves `boolean` values
 - ArrayResolver - resolves `array`s
 - ObjectResolver - resolves object with specific structure (eg. model)
-- DictionaryResolver - resolves `object` which is a dictionary (has *n* key-value pairs with specific type)
+- DictionaryResolver - resolves `object` which is a dictionary (has *n* key-value pairs of specific type)
 - EnumResolver - resolves `enum` (if input is correct value of given `enum`)
 - DateResolver - resolves `date`s. This includes `Date` object, string-date and timestamp
 - TupleResolver - resolves `tuple` of given structure

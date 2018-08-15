@@ -1,5 +1,5 @@
-import { ResolverFunction } from "@/ResolverFunction";
-import { Result } from "@/Result";
+import { ResolverFunction } from '@/ResolverFunction';
+import { Result } from '@/Result';
 
 
 

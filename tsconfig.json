@@ -13,9 +13,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "@/*": [ "*" ]
+      "@/*": [ "./src/*" ]
     }
   }
 }
