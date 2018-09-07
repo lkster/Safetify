@@ -2,7 +2,7 @@ const { PartialResolver, ObjectResolver, StringResolver, NumberResolver, Boolean
 
 
 
-describe('Object Resolver', () => {
+describe('Partial Resolver', () => {
     
     describe('correct input', () => {
         let result;
