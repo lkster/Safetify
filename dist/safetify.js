@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -383,7 +383,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
-var ResolverUtil_1 = __webpack_require__(19);
+var ResolverUtil_1 = __webpack_require__(21);
 var Result_1 = __webpack_require__(0);
 var Util_1 = __webpack_require__(1);
 var PrimitiveResolver = /** @class */ (function (_super) {
@@ -517,7 +517,7 @@ exports.PrimitiveResolver = PrimitiveResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var ArrayResolver_1 = __webpack_require__(17);
+var ArrayResolver_1 = __webpack_require__(19);
 var Result_1 = __webpack_require__(0);
 var SafeUtil_1 = __webpack_require__(3);
 var Util_1 = __webpack_require__(1);
@@ -567,7 +567,7 @@ exports.ArrayResolver = ArrayResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var BooleanResolver_1 = __webpack_require__(18);
+var BooleanResolver_1 = __webpack_require__(20);
 var Result_1 = __webpack_require__(0);
 var Util_1 = __webpack_require__(1);
 /**
@@ -600,7 +600,7 @@ exports.BooleanResolver = BooleanResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var NumberResolver_1 = __webpack_require__(20);
+var NumberResolver_1 = __webpack_require__(22);
 var Result_1 = __webpack_require__(0);
 var SafeUtil_1 = __webpack_require__(3);
 var Util_1 = __webpack_require__(1);
@@ -636,7 +636,7 @@ exports.NumberResolver = NumberResolver;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Result_1 = __webpack_require__(0);
 var SafeUtil_1 = __webpack_require__(3);
-var StringResolver_1 = __webpack_require__(21);
+var StringResolver_1 = __webpack_require__(23);
 var Util_1 = __webpack_require__(1);
 /**
  * Resolves given data to string type
@@ -668,7 +668,7 @@ exports.StringResolver = StringResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var ObjectResolver_1 = __webpack_require__(22);
+var ObjectResolver_1 = __webpack_require__(10);
 var Result_1 = __webpack_require__(0);
 var SafeUtil_1 = __webpack_require__(3);
 var Util_1 = __webpack_require__(1);
@@ -729,8 +729,101 @@ exports.ObjectResolver = ObjectResolver;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var AnyResolver_1 = __webpack_require__(23);
+var Resolver_1 = __webpack_require__(2);
+var ObjectResolver = /** @class */ (function (_super) {
+    __extends(ObjectResolver, _super);
+    /**
+     * @hidden
+     */
+    function ObjectResolver(resolver) {
+        return _super.call(this, 'object', resolver) || this;
+    }
+    return ObjectResolver;
+}(Resolver_1.Resolver));
+exports.ObjectResolver = ObjectResolver;
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ObjectResolver_1 = __webpack_require__(10);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
+/**
+ * Resolves partial object of given structure
+ * @param resolver Structure of a complete object filled with resolvers
+ * @example
+ * <caption>
+ * PartialResolver<IPerson>({
+ *   name: StringResolver(),
+ *   surname: StringResolver(),
+ *   age: NumberResolver(),
+ * }).resolve({ name: 'John', surname: 'Doe' });
+ * // returns { name: 'John', surname: 'Doe' }
+ *
+ * PartialResolver<IPerson>({
+ *   name: StringResolver(),
+ *   surname: StringResolver(),
+ *   age: NumberResolver(),
+ * }).resolve({ name: 'John', surname: false, age: 56 });
+ * // returns { name: 'John', surname: '', age: 56 }
+ * </caption>
+ */
+function PartialResolver(resolver) {
+    return new ObjectResolver_1.ObjectResolver(function (input) {
+        if (!Util_1.Util.isObject(input)) {
+            var safe = SafeUtil_1.SafeUtil.makeSafeObject(input);
+            return new Result_1.Result(false, safe, ['input is not an object']);
+        }
+        var errors = [];
+        var result = {};
+        for (var key in resolver) {
+            if (!(key in input)) {
+                continue;
+            }
+            var dec = resolver[key].resolve(input[key]);
+            if (!dec.success) {
+                if (resolver[key].type === 'object' || resolver[key].type === 'array') {
+                    for (var i = 0; i < dec.error.length; i++) {
+                        errors.push(key + "." + dec.error[i]);
+                    }
+                }
+                else {
+                    errors.push(key + ": " + dec.error);
+                }
+            }
+            result[key] = dec.result;
+        }
+        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
+    });
+}
+exports.PartialResolver = PartialResolver;
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var AnyResolver_1 = __webpack_require__(24);
 var Result_1 = __webpack_require__(0);
 /**
  * Always return given data in unchanged form
@@ -752,13 +845,13 @@ exports.AnyResolver = AnyResolver;
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var DictionaryResolver_1 = __webpack_require__(24);
+var DictionaryResolver_1 = __webpack_require__(25);
 var Result_1 = __webpack_require__(0);
 var SafeUtil_1 = __webpack_require__(3);
 var Util_1 = __webpack_require__(1);
@@ -802,14 +895,14 @@ exports.DictionaryResolver = DictionaryResolver;
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Result_1 = __webpack_require__(0);
-var TupleResolver_1 = __webpack_require__(25);
+var TupleResolver_1 = __webpack_require__(26);
 var Util_1 = __webpack_require__(1);
 /**
  * Resolves tuple object
@@ -848,13 +941,13 @@ exports.TupleResolver = TupleResolver;
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var OneOfResolver_1 = __webpack_require__(26);
+var OneOfResolver_1 = __webpack_require__(27);
 var Result_1 = __webpack_require__(0);
 /**
  * Resolves input data to first matched type
@@ -894,13 +987,13 @@ exports.OneOfResolver = OneOfResolver;
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var EnumResolver_1 = __webpack_require__(27);
+var EnumResolver_1 = __webpack_require__(28);
 var Result_1 = __webpack_require__(0);
 var Util_1 = __webpack_require__(1);
 /**
@@ -955,13 +1048,13 @@ exports.EnumResolver = EnumResolver;
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var DateResolver_1 = __webpack_require__(28);
+var DateResolver_1 = __webpack_require__(29);
 var Result_1 = __webpack_require__(0);
 var Util_1 = __webpack_require__(1);
 /**
@@ -1009,7 +1102,7 @@ exports.DateResolver = DateResolver;
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1035,29 +1128,33 @@ var Object_1 = __webpack_require__(9);
 exports.Object = Object_1.ObjectResolver;
 var Object_2 = __webpack_require__(9);
 exports.ObjectResolver = Object_2.ObjectResolver;
-var Any_1 = __webpack_require__(10);
+var Partial_1 = __webpack_require__(11);
+exports.Partial = Partial_1.PartialResolver;
+var Partial_2 = __webpack_require__(11);
+exports.PartialResolver = Partial_2.PartialResolver;
+var Any_1 = __webpack_require__(12);
 exports.Any = Any_1.AnyResolver;
-var Any_2 = __webpack_require__(10);
+var Any_2 = __webpack_require__(12);
 exports.AnyResolver = Any_2.AnyResolver;
-var Dictionary_1 = __webpack_require__(11);
+var Dictionary_1 = __webpack_require__(13);
 exports.Dictionary = Dictionary_1.DictionaryResolver;
-var Dictionary_2 = __webpack_require__(11);
+var Dictionary_2 = __webpack_require__(13);
 exports.DictionaryResolver = Dictionary_2.DictionaryResolver;
-var Tuple_1 = __webpack_require__(12);
+var Tuple_1 = __webpack_require__(14);
 exports.Tuple = Tuple_1.TupleResolver;
-var Tuple_2 = __webpack_require__(12);
+var Tuple_2 = __webpack_require__(14);
 exports.TupleResolver = Tuple_2.TupleResolver;
-var OneOf_1 = __webpack_require__(13);
+var OneOf_1 = __webpack_require__(15);
 exports.OneOf = OneOf_1.OneOfResolver;
-var OneOf_2 = __webpack_require__(13);
+var OneOf_2 = __webpack_require__(15);
 exports.OneOfResolver = OneOf_2.OneOfResolver;
-var Enum_1 = __webpack_require__(14);
+var Enum_1 = __webpack_require__(16);
 exports.Enum = Enum_1.EnumResolver;
-var Enum_2 = __webpack_require__(14);
+var Enum_2 = __webpack_require__(16);
 exports.EnumResolver = Enum_2.EnumResolver;
-var Date_1 = __webpack_require__(15);
+var Date_1 = __webpack_require__(17);
 exports.Date = Date_1.DateResolver;
-var Date_2 = __webpack_require__(15);
+var Date_2 = __webpack_require__(17);
 exports.DateResolver = Date_2.DateResolver;
 var Resolver_1 = __webpack_require__(2);
 exports.Resolver = Resolver_1.Resolver;
@@ -1068,7 +1165,7 @@ exports.util = Util_1.Util;
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1196,7 @@ exports.ArrayResolver = ArrayResolver;
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1130,7 +1227,7 @@ exports.BooleanResolver = BooleanResolver;
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1160,7 +1257,7 @@ exports.ResolverUtil = ResolverUtil;
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1191,7 +1288,7 @@ exports.NumberResolver = NumberResolver;
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1222,38 +1319,7 @@ exports.StringResolver = StringResolver;
 
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Resolver_1 = __webpack_require__(2);
-var ObjectResolver = /** @class */ (function (_super) {
-    __extends(ObjectResolver, _super);
-    /**
-     * @hidden
-     */
-    function ObjectResolver(resolver) {
-        return _super.call(this, 'object', resolver) || this;
-    }
-    return ObjectResolver;
-}(Resolver_1.Resolver));
-exports.ObjectResolver = ObjectResolver;
-
-
-/***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1283,7 +1349,7 @@ exports.AnyResolver = AnyResolver;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1314,7 +1380,7 @@ exports.DictionaryResolver = DictionaryResolver;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1345,7 +1411,7 @@ exports.TupleResolver = TupleResolver;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1376,7 +1442,7 @@ exports.OneOfResolver = OneOfResolver;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1407,7 +1473,7 @@ exports.EnumResolver = EnumResolver;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -13,6 +13,9 @@ export { StringResolver as StringResolver } from '@/resolvers/String';
 export { ObjectResolver as Object } from '@/resolvers/Object';
 export { ObjectResolver as ObjectResolver } from '@/resolvers/Object';
 
+export { PartialResolver as Partial } from '@/resolvers/Partial';
+export { PartialResolver as PartialResolver } from '@/resolvers/Partial';
+
 export { AnyResolver as Any } from '@/resolvers/Any';
 export { AnyResolver as AnyResolver } from '@/resolvers/Any';
 
