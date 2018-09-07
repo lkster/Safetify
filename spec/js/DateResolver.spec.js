@@ -10,9 +10,9 @@ describe('Date Resolver', () => {
         let result3;
 
         beforeEach(() => {
-            result = DateResolver().resolve('2018-04-14 21:45');
+            result = DateResolver().resolve('2018-04-14 21:45 +0200');
             result2 = DateResolver().resolve(1523742351657);
-            result3 = DateResolver().resolve(new Date('2018-04-12 15:24'));
+            result3 = DateResolver().resolve(new Date('2018-04-12 15:24 +0200'));
         });
 
         it('should return success as true', () => {
