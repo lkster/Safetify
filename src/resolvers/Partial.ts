@@ -1,5 +1,5 @@
 import { IObjectResolver } from '@/interfaces/IObjectResolver';
-import { ObjectResolver as ObjectResolverBase } from '@/base/ObjectResolver';
+import { PartialResolver as PartialResolverBase } from '@/base/PartialResolver';
 import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Util } from '@/utils/Util';
@@ -27,7 +27,7 @@ import { Util } from '@/utils/Util';
  * </caption>
  */
 export function PartialResolver<T>(resolver: IObjectResolver<T>) {
-    return new ObjectResolverBase<Partial<T>>((input: any) => {
+    return new PartialResolverBase<T>((input: any) => {
   
         if (!Util.isObject(input)) {
             let safe: any = SafeUtil.makeSafeObject(input);
