@@ -78,11 +78,12 @@
 DateResolver().resolve(1523742351657);
 // returns Date 2018-04-14T21:45:51.657Z
 
-<p>DateResolver().resolve(&#39;2018-04-14 21:45&#39;);
-// returns Date 2018-04-14T19:45:00.000Z</p>
-<p>DateResolver().resolve(&#39;im boolean&#39;);
+DateResolver().resolve(&#39;2018-04-14 21:45&#39;);
+// returns Date 2018-04-14T19:45:00.000Z
+
+DateResolver().resolve(&#39;im boolean&#39;);
 DateResolver().resolve(true);
-// returns Date 1970-01-01T00:00:00.000Z</p>
+// returns Date 1970-01-01T00:00:00.000Z
 </caption>
 </code></pre></dd>
 					</dl>
@@ -110,7 +111,7 @@ DateResolver().resolve(true);
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/guitarino/Safetify/blob/7ee85d3/src/resolvers/Date.ts#L22">resolvers/Date.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/resolvers/Date.ts#L23">resolvers/Date.ts:23</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -123,11 +124,12 @@ DateResolver().resolve(true);
 DateResolver().resolve(1523742351657);
 // returns Date 2018-04-14T21:45:51.657Z
 
-<p>DateResolver().resolve(&#39;2018-04-14 21:45&#39;);
-// returns Date 2018-04-14T19:45:00.000Z</p>
-<p>DateResolver().resolve(&#39;im boolean&#39;);
+DateResolver().resolve(&#39;2018-04-14 21:45&#39;);
+// returns Date 2018-04-14T19:45:00.000Z
+
+DateResolver().resolve(&#39;im boolean&#39;);
 DateResolver().resolve(true);
-// returns Date 1970-01-01T00:00:00.000Z</p>
+// returns Date 1970-01-01T00:00:00.000Z
 </caption>
 </code></pre></dd>
 							</dl>
@@ -165,7 +167,7 @@ DateResolver().resolve(true);
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/guitarino/Safetify/blob/7ee85d3/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,7 +190,7 @@ DateResolver().resolve(true);
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#nullable">nullable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/guitarino/Safetify/blob/7ee85d3/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -198,13 +200,14 @@ DateResolver().resolve(true);
 								<dl class="tsd-comment-tags">
 									<span class="tag-label">example</span>
 									<dd><pre class="code"><code><caption>
-StringResolver().nullable().resolve('John Doe');
-// returns 'John Doe'
+StringResolver().nullable().resolve(&#39;John Doe&#39;);
+// returns &#39;John Doe&#39;
 
-<p>StringResolver().nullable().resolve(null);
-// returns null without any errors</p>
-<p>StringResolver().nullable().resolve(undefined);
-// returns null with false success and input type error</p>
+StringResolver().nullable().resolve(null);
+// returns null without any errors
+
+StringResolver().nullable().resolve(undefined);
+// returns null with false success and input type error
 </caption>
 </code></pre></dd>
 								</dl>
@@ -224,7 +227,7 @@ StringResolver().nullable().resolve('John Doe');
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#resolve">resolve</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/guitarino/Safetify/blob/7ee85d3/src/base/Resolver.ts#L35">base/Resolver.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L35">base/Resolver.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -300,12 +303,6 @@ StringResolver().nullable().resolve('John Doe');
 						<a href="oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="primitiveresolver.html" class="tsd-kind-icon">Primitive<wbr>Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
@@ -313,6 +310,9 @@ StringResolver().nullable().resolve('John Doe');
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="result.html" class="tsd-kind-icon">Result</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="simpletyperesolver.html" class="tsd-kind-icon">Simple<wbr>Type<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a>

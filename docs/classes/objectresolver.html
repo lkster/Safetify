@@ -79,15 +79,15 @@ ObjectResolver<IPerson>({
   name: StringResolver(),
   surname: StringResolver(),
   age: NumberResolver(),
-}).resolve({ name: 'John', surname: 'Doe', age: 56 });
-// returns { name: 'John', surname: 'Doe', age: 56 }
+}).resolve({ name: &#39;John&#39;, surname: &#39;Doe&#39;, age: 56 });
+// returns { name: &#39;John&#39;, surname: &#39;Doe&#39;, age: 56 }
 
-<p>ObjectResolver<IPerson>({
+ObjectResolver<IPerson>({
   name: StringResolver(),
   surname: StringResolver(),
   age: NumberResolver(),
 }).resolve({ name: &#39;John&#39;, surname: false, age: 56 });
-// returns { name: &#39;John&#39;, surname: &#39;&#39;, age: 56 }</p>
+// returns { name: &#39;John&#39;, surname: &#39;&#39;, age: 56 }
 </caption>
 </code></pre></dd>
 					</dl>
@@ -123,7 +123,7 @@ ObjectResolver<IPerson>({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/guitarino/Safetify/blob/7ee85d3/src/resolvers/Object.ts#L29">resolvers/Object.ts:29</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/resolvers/Object.ts#L30">resolvers/Object.ts:30</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -137,15 +137,15 @@ ObjectResolver<IPerson>({
   name: StringResolver(),
   surname: StringResolver(),
   age: NumberResolver(),
-}).resolve({ name: 'John', surname: 'Doe', age: 56 });
-// returns { name: 'John', surname: 'Doe', age: 56 }
+}).resolve({ name: &#39;John&#39;, surname: &#39;Doe&#39;, age: 56 });
+// returns { name: &#39;John&#39;, surname: &#39;Doe&#39;, age: 56 }
 
-<p>ObjectResolver<IPerson>({
+ObjectResolver<IPerson>({
   name: StringResolver(),
   surname: StringResolver(),
   age: NumberResolver(),
 }).resolve({ name: &#39;John&#39;, surname: false, age: 56 });
-// returns { name: &#39;John&#39;, surname: &#39;&#39;, age: 56 }</p>
+// returns { name: &#39;John&#39;, surname: &#39;&#39;, age: 56 }
 </caption>
 </code></pre></dd>
 							</dl>
@@ -200,7 +200,7 @@ ObjectResolver<IPerson>({
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/guitarino/Safetify/blob/7ee85d3/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -223,7 +223,7 @@ ObjectResolver<IPerson>({
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#nullable">nullable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/guitarino/Safetify/blob/7ee85d3/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -233,13 +233,14 @@ ObjectResolver<IPerson>({
 								<dl class="tsd-comment-tags">
 									<span class="tag-label">example</span>
 									<dd><pre class="code"><code><caption>
-StringResolver().nullable().resolve('John Doe');
-// returns 'John Doe'
+StringResolver().nullable().resolve(&#39;John Doe&#39;);
+// returns &#39;John Doe&#39;
 
-<p>StringResolver().nullable().resolve(null);
-// returns null without any errors</p>
-<p>StringResolver().nullable().resolve(undefined);
-// returns null with false success and input type error</p>
+StringResolver().nullable().resolve(null);
+// returns null without any errors
+
+StringResolver().nullable().resolve(undefined);
+// returns null with false success and input type error
 </caption>
 </code></pre></dd>
 								</dl>
@@ -259,7 +260,7 @@ StringResolver().nullable().resolve('John Doe');
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#resolve">resolve</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/guitarino/Safetify/blob/7ee85d3/src/base/Resolver.ts#L35">base/Resolver.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L35">base/Resolver.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -335,12 +336,6 @@ StringResolver().nullable().resolve('John Doe');
 						<a href="oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="primitiveresolver.html" class="tsd-kind-icon">Primitive<wbr>Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
@@ -348,6 +343,9 @@ StringResolver().nullable().resolve('John Doe');
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="result.html" class="tsd-kind-icon">Result</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="simpletyperesolver.html" class="tsd-kind-icon">Simple<wbr>Type<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a>
