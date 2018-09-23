@@ -75,11 +75,11 @@
 					<dl class="tsd-comment-tags">
 						<span class="tag-label">example</span>
 						<dd><pre class="code"><code><caption>
-DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: &#39;Doe&#39; });
-// returns { name: &#39;John&#39;, surname: &#39;Doe&#39; }
+DictionaryResolver<string\>(StringResolver()).resolve({ name: 'John', surname: 'Doe' });
+// returns { name: 'John', surname: 'Doe' }
 
-DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: 5434 });
-// returns { name: &#39;John&#39;, surname: &#39;&#39; }
+<p>DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: 5434 });
+// returns { name: &#39;John&#39;, surname: &#39;&#39; }</p>
 </caption>
 </code></pre></dd>
 					</dl>
@@ -115,7 +115,7 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/resolvers/Dictionary.ts#L22">resolvers/Dictionary.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/resolvers/Dictionary.ts#L22">resolvers/Dictionary.ts:22</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -125,11 +125,11 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 							<dl class="tsd-comment-tags">
 								<span class="tag-label">example</span>
 								<dd><pre class="code"><code><caption>
-DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: &#39;Doe&#39; });
-// returns { name: &#39;John&#39;, surname: &#39;Doe&#39; }
+DictionaryResolver<string\>(StringResolver()).resolve({ name: 'John', surname: 'Doe' });
+// returns { name: 'John', surname: 'Doe' }
 
-DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: 5434 });
-// returns { name: &#39;John&#39;, surname: &#39;&#39; }
+<p>DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, surname: 5434 });
+// returns { name: &#39;John&#39;, surname: &#39;&#39; }</p>
 </caption>
 </code></pre></dd>
 							</dl>
@@ -184,7 +184,7 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -207,7 +207,7 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#nullable">nullable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -217,14 +217,13 @@ DictionaryResolver&lt;string>(StringResolver()).resolve({ name: &#39;John&#39;, 
 								<dl class="tsd-comment-tags">
 									<span class="tag-label">example</span>
 									<dd><pre class="code"><code><caption>
-StringResolver().nullable().resolve(&#39;John Doe&#39;);
-// returns &#39;John Doe&#39;
+StringResolver().nullable().resolve('John Doe');
+// returns 'John Doe'
 
-StringResolver().nullable().resolve(null);
-// returns null without any errors
-
-StringResolver().nullable().resolve(undefined);
-// returns null with false success and input type error
+<p>StringResolver().nullable().resolve(null);
+// returns null without any errors</p>
+<p>StringResolver().nullable().resolve(undefined);
+// returns null with false success and input type error</p>
 </caption>
 </code></pre></dd>
 								</dl>
@@ -244,7 +243,7 @@ StringResolver().nullable().resolve(undefined);
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#resolve">resolve</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L35">base/Resolver.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/base/Resolver.ts#L35">base/Resolver.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -320,6 +319,12 @@ StringResolver().nullable().resolve(undefined);
 						<a href="oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="primitiveresolver.html" class="tsd-kind-icon">Primitive<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
@@ -327,9 +332,6 @@ StringResolver().nullable().resolve(undefined);
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="result.html" class="tsd-kind-icon">Result</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="simpletyperesolver.html" class="tsd-kind-icon">Simple<wbr>Type<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a>
