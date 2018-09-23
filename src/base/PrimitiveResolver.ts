@@ -3,23 +3,20 @@ import { Resolver } from '@/base/Resolver';
 import { ResolverUtil } from '@/utils/ResolverUtil';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
+/**
+ * @hidden
+ */
+export abstract class PrimitiveResolver<T extends string | number | boolean> extends OptionalResolver<T> {
 
-export class PrimitiveResolver<T extends string | number | boolean> extends Resolver<T> {
-
-    /**
-     * @hidden
-     */
     private _defaultValue: Result<T>;
 
-    /**
-     * @hidden
-     */
     private _constraints: IConstraint<T>[] = [];
 
     /**
-     * Sets default value which will be returned in case of fail validation
+     * Sets default value which will be returned in case of failed resolving
      * @param val default value
      * @example
      * <caption>
@@ -115,7 +112,7 @@ export class PrimitiveResolver<T extends string | number | boolean> extends Reso
             }
         }
 
-        return new Result(errors.length == 0, value, errors.length > 0 ? errors : null);
+        return new Result(errors.length == 0, value, errors);
     }
 
     /**
@@ -127,7 +124,7 @@ export class PrimitiveResolver<T extends string | number | boolean> extends Reso
         if (!resolved.success && Util.isDef(this._defaultValue)) {
             
             if (!this._defaultValue.success) {
-                resolved.error = ResolverUtil.mergeErrors(resolved.error, `DefaultValue: ${this._defaultValue.error}`);
+                resolved.error.push(`DefaultValue: ${this._defaultValue.error}`);
             } else if (this._defaultValue.success) {
                 resolved.result = this._defaultValue.result;
             }

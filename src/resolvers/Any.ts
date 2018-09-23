@@ -1,5 +1,4 @@
 import { AnyResolver as AnyResolverBase } from '@/base/AnyResolver';
-import { Result } from '@/Result';
 
 
 
@@ -15,7 +14,5 @@ import { Result } from '@/Result';
  * </caption>
  */
 export function AnyResolver(): AnyResolverBase {
-    return new AnyResolverBase((input: any) => {
-        return new Result<any>(true, input, null);
-    });
+    return new AnyResolverBase();
 }

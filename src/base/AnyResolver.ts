@@ -1,25 +1,16 @@
-import { ResolverFunction } from '@/ResolverFunction';
 import { Result } from '@/Result';
+import { Resolver } from '@/base/Resolver';
 
 
 
-export class AnyResolver {
+export class AnyResolver extends Resolver<any> {
+
+    public type: string = 'any';
 
     /**
      * @hidden
      */
-    constructor (
-        /**
-         * @hidden
-         */
-        private resolver: ResolverFunction<any>
-    ) {}
-
-    /**
-     * Resolves given data
-     * @param input Data to be resolved
-     */
-    public resolve(input: any): Result<any> {
-        return this.resolver(input);
+    protected resolver(input: any): Result<any> {
+        return new Result<any>(true, input, []);
     }
 }

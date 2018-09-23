@@ -273,38 +273,28 @@ var Util_1 = __webpack_require__(1);
  * Base resolver class
  */
 var Resolver = /** @class */ (function () {
-    /**
-     *
-     * @param type Type of data resolver handles
-     * @param resolver Function that resolves given data
-     */
-    function Resolver(type, 
-    /**
-     * @hidden
-     */
-    resolver) {
-        this.type = type;
-        this.resolver = resolver;
+    function Resolver() {
         /**
          * @hidden
          */
         this.isNullable = false;
+        /**
+         * @hidden
+         */
+        this.isOptional = false;
     }
     /**
      * Resolves given data
      * @param input Data to be resolved
      */
     Resolver.prototype.resolve = function (input) {
-        var resolved = this.resolver(input);
-        if (!resolved.success) {
-            if (this.isNullable === true && input === null) {
-                return new Result_1.Result(true, null, null);
-            }
-            else if (this.isNullable === true) {
-                resolved.result = null;
-            }
+        var isOptionalPositive = this.isOptional && (Util_1.Util.isNull(input) || !Util_1.Util.isDef(input));
+        var isNullPositive = this.isNullable && Util_1.Util.isNull(input);
+        if (isOptionalPositive || isNullPositive) {
+            return new Result_1.Result(true, null, []);
         }
-        else if (!Util_1.Util.isDef(resolved.result) && this.isNullable === true) {
+        var resolved = this.resolver(input);
+        if (!resolved.success && (this.isOptional || this.isNullable)) {
             resolved.result = null;
         }
         return resolved;
@@ -325,6 +315,10 @@ var Resolver = /** @class */ (function () {
      */
     Resolver.prototype.nullable = function () {
         this.isNullable = true;
+        return this;
+    };
+    Resolver.prototype.optional = function () {
+        this.isOptional = true;
         return this;
     };
     return Resolver;
@@ -386,18 +380,18 @@ var Resolver_1 = __webpack_require__(2);
 var ResolverUtil_1 = __webpack_require__(20);
 var Result_1 = __webpack_require__(0);
 var Util_1 = __webpack_require__(1);
+/**
+ * @hidden
+ */
 var PrimitiveResolver = /** @class */ (function (_super) {
     __extends(PrimitiveResolver, _super);
     function PrimitiveResolver() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        /**
-         * @hidden
-         */
         _this._constraints = [];
         return _this;
     }
     /**
-     * Sets default value which will be returned in case of fail validation
+     * Sets default value which will be returned in case of failed resolving
      * @param val default value
      * @example
      * <caption>
@@ -485,7 +479,7 @@ var PrimitiveResolver = /** @class */ (function (_super) {
                 }
             }
         }
-        return new Result_1.Result(errors.length == 0, value, errors.length > 0 ? errors : null);
+        return new Result_1.Result(errors.length == 0, value, errors);
     };
     /**
      * @hidden
@@ -534,28 +528,7 @@ var Util_1 = __webpack_require__(1);
  * </caption>
  */
 function ArrayResolver(resolver) {
-    return new ArrayResolver_1.ArrayResolver(function (input) {
-        if (!Util_1.Util.isArray(input)) {
-            return new Result_1.Result(false, SafeUtil_1.SafeUtil.makeSafeArray(input), ['value is not an array']);
-        }
-        var errors = [];
-        var result = [];
-        for (var i = 0; i < input.length; i++) {
-            var dec = resolver.resolve(input[i]);
-            if (!dec.success) {
-                if (resolver.type === 'object' || resolver.type === 'array') {
-                    for (var i_1 = 0; i_1 < dec.error.length; i_1++) {
-                        errors.push(i_1 + "." + dec.error[i_1]);
-                    }
-                }
-                else {
-                    errors.push(i + ": " + dec.error);
-                }
-            }
-            result.push(dec.result);
-        }
-        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
-    });
+    return new ArrayResolver_1.ArrayResolver(resolver);
 }
 exports.ArrayResolver = ArrayResolver;
 
@@ -582,13 +555,7 @@ var Util_1 = __webpack_require__(1);
  * </caption>
  */
 function BooleanResolver() {
-    return new BooleanResolver_1.BooleanResolver(function (input) {
-        var error = null;
-        if (!Util_1.Util.isBoolean(input)) {
-            error = 'value is not a boolean';
-        }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), !!input, error);
-    });
+    return new BooleanResolver_1.BooleanResolver();
 }
 exports.BooleanResolver = BooleanResolver;
 
@@ -616,13 +583,7 @@ var Util_1 = __webpack_require__(1);
  * </caption>
  */
 function NumberResolver() {
-    return new NumberResolver_1.NumberResolver(function (input) {
-        var error = null;
-        if (!Util_1.Util.isNumber(input) || !isFinite(input)) {
-            error = 'value is not a number';
-        }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), SafeUtil_1.SafeUtil.makeSafeNumber(input), error);
-    });
+    return new NumberResolver_1.NumberResolver();
 }
 exports.NumberResolver = NumberResolver;
 
@@ -650,13 +611,7 @@ var Util_1 = __webpack_require__(1);
  * </caption>
  */
 function StringResolver() {
-    return new StringResolver_1.StringResolver(function (input) {
-        var error = null;
-        if (!Util_1.Util.isString(input)) {
-            error = 'value is not a string';
-        }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), SafeUtil_1.SafeUtil.makeSafeString(input), error);
-    });
+    return new StringResolver_1.StringResolver();
 }
 exports.StringResolver = StringResolver;
 
@@ -692,33 +647,8 @@ var Util_1 = __webpack_require__(1);
  * // returns { name: 'John', surname: '', age: 56 }
  * </caption>
  */
-function ObjectResolver(resolver) {
-    return new ObjectResolver_1.ObjectResolver(function (input) {
-        if (!Util_1.Util.isObject(input)) {
-            var safe = SafeUtil_1.SafeUtil.makeSafeObject(input);
-            for (var key in resolver) {
-                safe[key] = resolver[key].resolve(undefined).result;
-            }
-            return new Result_1.Result(false, safe, ['input is not an object']);
-        }
-        var errors = [];
-        var result = {};
-        for (var key in resolver) {
-            var dec = resolver[key].resolve(input[key]);
-            if (!dec.success) {
-                if (resolver[key].type === 'object' || resolver[key].type === 'array') {
-                    for (var i = 0; i < dec.error.length; i++) {
-                        errors.push(key + "." + dec.error[i]);
-                    }
-                }
-                else {
-                    errors.push(key + ": " + dec.error);
-                }
-            }
-            result[key] = dec.result;
-        }
-        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
-    });
+function ObjectResolver(definition) {
+    return new ObjectResolver_1.ObjectResolver(definition);
 }
 exports.ObjectResolver = ObjectResolver;
 
@@ -806,9 +736,7 @@ var Result_1 = __webpack_require__(0);
  * </caption>
  */
 function AnyResolver() {
-    return new AnyResolver_1.AnyResolver(function (input) {
-        return new Result_1.Result(true, input, null);
-    });
+    return new AnyResolver_1.AnyResolver();
 }
 exports.AnyResolver = AnyResolver;
 
@@ -837,28 +765,7 @@ var Util_1 = __webpack_require__(1);
  * </caption>
  */
 function DictionaryResolver(resolver) {
-    return new DictionaryResolver_1.DictionaryResolver(function (input) {
-        if (!Util_1.Util.isObject(input)) {
-            return new Result_1.Result(false, SafeUtil_1.SafeUtil.makeSafeObject(input), ['value is not an object']);
-        }
-        var errors = [];
-        var result = {};
-        for (var key in input) {
-            var dec = resolver.resolve(input[key]);
-            if (!dec.success) {
-                if (resolver.type === 'object' || resolver.type === 'array') {
-                    for (var i = 0; i < dec.error.length; i++) {
-                        errors.push(key + "." + dec.error[i]);
-                    }
-                }
-                else {
-                    errors.push(key + ": " + dec.error);
-                }
-            }
-            result[key] = dec.result;
-        }
-        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
-    });
+    return new DictionaryResolver_1.DictionaryResolver(resolver);
 }
 exports.DictionaryResolver = DictionaryResolver;
 
@@ -885,26 +792,8 @@ var Util_1 = __webpack_require__(1);
  * // returns ['John', '', 0]
  * </caption>
  */
-function TupleResolver(resolver) {
-    return new TupleResolver_1.TupleResolver(function (input) {
-        var result = [];
-        var errors = [];
-        var len = resolver.length;
-        if (!Util_1.Util.isArray(input)) {
-            for (var i = 0; i < len; i++) {
-                result.push(resolver[i].resolve(undefined));
-            }
-            return new Result_1.Result(false, result, ['value is not a tuple']);
-        }
-        for (var i = 0; i < len; i++) {
-            var resolved = resolver[i].resolve(input[i]);
-            result.push(resolved.result);
-            if (!resolved.success) {
-                errors.push(i + ": " + resolved.error);
-            }
-        }
-        return new Result_1.Result(errors.length == 0, result, errors.length > 0 ? errors : null);
-    });
+function TupleResolver(definition) {
+    return new TupleResolver_1.TupleResolver(definition);
 }
 exports.TupleResolver = TupleResolver;
 
@@ -931,26 +820,8 @@ var Result_1 = __webpack_require__(0);
  * // output will be converted to last mentioned type in array of resolvers, in this case 'NaN'
  * </caption>
  */
-function OneOfResolver(resolvers) {
-    return new OneOfResolver_1.OneOfResolver(function (input) {
-        var success = false;
-        var result;
-        for (var i = 0; i < resolvers.length; i++) {
-            var dec = resolvers[i].resolve(input);
-            if (dec.success) {
-                success = true;
-                result = dec.result;
-                break;
-            }
-            result = dec.result;
-        }
-        ;
-        var error = null;
-        if (!success) {
-            error = resolvers.map(function (r) { return r.type; }).join(' nor ');
-        }
-        return new Result_1.Result(success, result, error);
-    });
+function OneOfResolver(definition) {
+    return new OneOfResolver_1.OneOfResolver(definition);
 }
 exports.OneOfResolver = OneOfResolver;
 
@@ -986,32 +857,7 @@ var Util_1 = __webpack_require__(1);
  * </caption>
  */
 function EnumResolver(definition) {
-    return new EnumResolver_1.EnumResolver(function (input) {
-        var error = null;
-        var result = 0;
-        if (Util_1.Util.isArray(definition)) {
-            if (definition.indexOf(input) > -1) {
-                result = input;
-            }
-            else {
-                error = 'value is not this enum\'s property';
-                result = definition[0];
-            }
-        }
-        else if (Util_1.Util.isObject(definition)) {
-            if (Object.keys(definition).map(function (e) { return definition[e]; }).indexOf(input) > -1) {
-                result = input;
-            }
-            else {
-                error = 'value is not this enum\'s property';
-                result = Util_1.Util.isDef(definition[0]) ? 0 : definition[Object.keys(definition)[0]];
-            }
-        }
-        else {
-            error = 'Enum definition is not valid';
-        }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), result, error);
-    });
+    return new EnumResolver_1.EnumResolver(definition);
 }
 exports.EnumResolver = EnumResolver;
 
@@ -1042,30 +888,7 @@ var Util_1 = __webpack_require__(1);
  * </caption>
  */
 function DateResolver() {
-    return new DateResolver_1.DateResolver(function (input) {
-        var success = true;
-        var date = new Date(0);
-        var error = null;
-        if (Util_1.Util.isDateLike(input)) {
-            date = input;
-        }
-        else if (Util_1.Util.isNumber(input) || Util_1.Util.isString(input)) {
-            var testDate = new Date(input);
-            if (!isNaN(testDate.getTime())) {
-                date = testDate;
-            }
-            else {
-                success = false;
-            }
-        }
-        else {
-            success = false;
-        }
-        if (!success) {
-            error = 'value is not a valid date';
-        }
-        return new Result_1.Result(!Util_1.Util.isDefAndNotNull(error), date, error);
-    });
+    return new DateResolver_1.DateResolver();
 }
 exports.DateResolver = DateResolver;
 
@@ -1151,14 +974,49 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 var ArrayResolver = /** @class */ (function (_super) {
     __extends(ArrayResolver, _super);
     /**
      * @hidden
      */
-    function ArrayResolver(resolver) {
-        return _super.call(this, 'array', resolver) || this;
+    function ArrayResolver(
+    /**
+     * @hidden
+     */
+    definition) {
+        var _this = _super.call(this) || this;
+        _this.definition = definition;
+        _this.type = 'array';
+        return _this;
     }
+    /**
+     * @hidden
+     */
+    ArrayResolver.prototype.resolver = function (input) {
+        if (!Util_1.Util.isArray(input)) {
+            return new Result_1.Result(false, SafeUtil_1.SafeUtil.makeSafeArray(input), ['value is not an array']);
+        }
+        var errors = [];
+        var result = [];
+        for (var i = 0; i < input.length; i++) {
+            var dec = this.definition.resolve(input[i]);
+            if (!dec.success) {
+                if (this.definition.type === 'object' || this.definition.type === 'array') {
+                    for (var i_1 = 0; i_1 < dec.error.length; i_1++) {
+                        errors.push(i_1 + "." + dec.error[i_1]);
+                    }
+                }
+                else {
+                    errors.push(i + ": " + dec.error);
+                }
+            }
+            result.push(dec.result);
+        }
+        return new Result_1.Result(errors.length == 0, result, errors);
+    };
     return ArrayResolver;
 }(Resolver_1.Resolver));
 exports.ArrayResolver = ArrayResolver;
@@ -1182,14 +1040,25 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var PrimitiveResolver_1 = __webpack_require__(4);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var BooleanResolver = /** @class */ (function (_super) {
     __extends(BooleanResolver, _super);
+    function BooleanResolver() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'boolean';
+        return _this;
+    }
     /**
      * @hidden
      */
-    function BooleanResolver(resolver) {
-        return _super.call(this, 'boolean', resolver) || this;
-    }
+    BooleanResolver.prototype.resolver = function (input) {
+        var errors = [];
+        if (!Util_1.Util.isBoolean(input)) {
+            errors.push('value is not a boolean');
+        }
+        return new Result_1.Result(errors.length === 0, !!input, errors);
+    };
     return BooleanResolver;
 }(PrimitiveResolver_1.PrimitiveResolver));
 exports.BooleanResolver = BooleanResolver;
@@ -1243,14 +1112,26 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var PrimitiveResolver_1 = __webpack_require__(4);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 var NumberResolver = /** @class */ (function (_super) {
     __extends(NumberResolver, _super);
+    function NumberResolver() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'number';
+        return _this;
+    }
     /**
      * @hidden
      */
-    function NumberResolver(resolver) {
-        return _super.call(this, 'number', resolver) || this;
-    }
+    NumberResolver.prototype.resolver = function (input) {
+        var errors = [];
+        if (!Util_1.Util.isNumber(input) || !isFinite(input)) {
+            errors.push('value is not a number');
+        }
+        return new Result_1.Result(errors.length === 0, SafeUtil_1.SafeUtil.makeSafeNumber(input), errors);
+    };
     return NumberResolver;
 }(PrimitiveResolver_1.PrimitiveResolver));
 exports.NumberResolver = NumberResolver;
@@ -1274,14 +1155,26 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var PrimitiveResolver_1 = __webpack_require__(4);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 var StringResolver = /** @class */ (function (_super) {
     __extends(StringResolver, _super);
+    function StringResolver() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'string';
+        return _this;
+    }
     /**
      * @hidden
      */
-    function StringResolver(resolver) {
-        return _super.call(this, 'string', resolver) || this;
-    }
+    StringResolver.prototype.resolver = function (input) {
+        var errors = [];
+        if (!Util_1.Util.isString(input)) {
+            errors.push('value is not a string');
+        }
+        return new Result_1.Result(errors.length === 0, SafeUtil_1.SafeUtil.makeSafeString(input), errors);
+    };
     return StringResolver;
 }(PrimitiveResolver_1.PrimitiveResolver));
 exports.StringResolver = StringResolver;
@@ -1305,14 +1198,53 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 var ObjectResolver = /** @class */ (function (_super) {
     __extends(ObjectResolver, _super);
     /**
      * @hidden
      */
-    function ObjectResolver(resolver) {
-        return _super.call(this, 'object', resolver) || this;
+    function ObjectResolver(
+    /**
+     * @hidden
+     */
+    definition) {
+        var _this = _super.call(this) || this;
+        _this.definition = definition;
+        _this.type = 'object';
+        return _this;
     }
+    /**
+     * @hidden
+     */
+    ObjectResolver.prototype.resolver = function (input) {
+        if (!Util_1.Util.isObject(input)) {
+            var safe = SafeUtil_1.SafeUtil.makeSafeObject(input);
+            for (var key in this.definition) {
+                safe[key] = this.definition[key].resolve(undefined).result;
+            }
+            return new Result_1.Result(false, safe, ['input is not an object']);
+        }
+        var errors = [];
+        var result = {};
+        for (var key in this.definition) {
+            var dec = this.definition[key].resolve(input[key]);
+            if (!dec.success) {
+                if (this.definition[key].type === 'object' || this.definition[key].type === 'array') {
+                    for (var i = 0; i < dec.error.length; i++) {
+                        errors.push(key + "." + dec.error[i]);
+                    }
+                }
+                else {
+                    errors.push(key + ": " + dec.error);
+                }
+            }
+            result[key] = dec.result;
+        }
+        return new Result_1.Result(errors.length == 0, result, errors);
+    };
     return ObjectResolver;
 }(Resolver_1.Resolver));
 exports.ObjectResolver = ObjectResolver;
@@ -1356,23 +1288,17 @@ exports.PartialResolver = PartialResolver;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var Result_1 = __webpack_require__(0);
 var AnyResolver = /** @class */ (function () {
-    /**
-     * @hidden
-     */
-    function AnyResolver(
-    /**
-     * @hidden
-     */
-    resolver) {
-        this.resolver = resolver;
+    function AnyResolver() {
+        this.type = 'any';
     }
     /**
      * Resolves given data
      * @param input Data to be resolved
      */
     AnyResolver.prototype.resolve = function (input) {
-        return this.resolver(input);
+        return new Result_1.Result(true, input, []);
     };
     return AnyResolver;
 }());
@@ -1397,14 +1323,49 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var SafeUtil_1 = __webpack_require__(3);
+var Util_1 = __webpack_require__(1);
 var DictionaryResolver = /** @class */ (function (_super) {
     __extends(DictionaryResolver, _super);
     /**
      * @hidden
      */
-    function DictionaryResolver(resolver) {
-        return _super.call(this, 'object', resolver) || this;
+    function DictionaryResolver(
+    /**
+     * @hidden
+     */
+    definition) {
+        var _this = _super.call(this) || this;
+        _this.definition = definition;
+        _this.type = 'object';
+        return _this;
     }
+    /**
+     * @hidden
+     */
+    DictionaryResolver.prototype.resolver = function (input) {
+        if (!Util_1.Util.isObject(input)) {
+            return new Result_1.Result(false, SafeUtil_1.SafeUtil.makeSafeObject(input), ['value is not an object']);
+        }
+        var errors = [];
+        var result = {};
+        for (var key in input) {
+            var dec = this.definition.resolve(input[key]);
+            if (!dec.success) {
+                if (this.definition.type === 'object' || this.definition.type === 'array') {
+                    for (var i = 0; i < dec.error.length; i++) {
+                        errors.push(key + "." + dec.error[i]);
+                    }
+                }
+                else {
+                    errors.push(key + ": " + dec.error);
+                }
+            }
+            result[key] = dec.result;
+        }
+        return new Result_1.Result(errors.length == 0, result, errors);
+    };
     return DictionaryResolver;
 }(Resolver_1.Resolver));
 exports.DictionaryResolver = DictionaryResolver;
@@ -1428,14 +1389,45 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var TupleResolver = /** @class */ (function (_super) {
     __extends(TupleResolver, _super);
     /**
      * @hidden
      */
-    function TupleResolver(resolver) {
-        return _super.call(this, 'tuple', resolver) || this;
+    function TupleResolver(
+    /**
+     * @hidden
+     */
+    definition) {
+        var _this = _super.call(this) || this;
+        _this.definition = definition;
+        _this.type = 'tuple';
+        return _this;
     }
+    /**
+     * @hidden
+     */
+    TupleResolver.prototype.resolver = function (input) {
+        var result = [];
+        var errors = [];
+        var len = this.definition.length;
+        if (!Util_1.Util.isArray(input)) {
+            for (var i = 0; i < len; i++) {
+                result.push(this.definition[i].resolve(undefined));
+            }
+            return new Result_1.Result(false, result, ['value is not a tuple']);
+        }
+        for (var i = 0; i < len; i++) {
+            var resolved = this.definition[i].resolve(input[i]);
+            result.push(resolved.result);
+            if (!resolved.success) {
+                errors.push(i + ": " + resolved.error);
+            }
+        }
+        return new Result_1.Result(errors.length == 0, result, errors);
+    };
     return TupleResolver;
 }(Resolver_1.Resolver));
 exports.TupleResolver = TupleResolver;
@@ -1459,14 +1451,44 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
 var OneOfResolver = /** @class */ (function (_super) {
     __extends(OneOfResolver, _super);
     /**
      * @hidden
      */
-    function OneOfResolver(resolver) {
-        return _super.call(this, 'oneof', resolver) || this;
+    function OneOfResolver(
+    /**
+     * @hidden
+     */
+    definition) {
+        var _this = _super.call(this) || this;
+        _this.definition = definition;
+        _this.type = 'oneof';
+        return _this;
     }
+    /**
+     * @hidden
+     */
+    OneOfResolver.prototype.resolver = function (input) {
+        var success = false;
+        var result;
+        for (var i = 0; i < this.definition.length; i++) {
+            var dec = this.definition[i].resolve(input);
+            if (dec.success) {
+                success = true;
+                result = dec.result;
+                break;
+            }
+            result = dec.result;
+        }
+        ;
+        var errors = [];
+        if (!success) {
+            errors.push(this.definition.map(function (r) { return r.type; }).join(' nor '));
+        }
+        return new Result_1.Result(success, result, errors);
+    };
     return OneOfResolver;
 }(Resolver_1.Resolver));
 exports.OneOfResolver = OneOfResolver;
@@ -1490,14 +1512,53 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var EnumResolver = /** @class */ (function (_super) {
     __extends(EnumResolver, _super);
     /**
      * @hidden
      */
-    function EnumResolver(resolver) {
-        return _super.call(this, 'enum', resolver) || this;
+    function EnumResolver(
+    /**
+     * @hidden
+     */
+    definition) {
+        var _this = _super.call(this) || this;
+        _this.definition = definition;
+        _this.type = 'enum';
+        return _this;
     }
+    /**
+     * @hidden
+     */
+    EnumResolver.prototype.resolver = function (input) {
+        var _this = this;
+        var errors = [];
+        var result = 0;
+        if (Util_1.Util.isArray(this.definition)) {
+            if (this.definition.indexOf(input) > -1) {
+                result = input;
+            }
+            else {
+                errors.push('value is not this enum\'s property');
+                result = this.definition[0];
+            }
+        }
+        else if (Util_1.Util.isObject(this.definition)) {
+            if (Object.keys(this.definition).map(function (e) { return _this.definition[e]; }).indexOf(input) > -1) {
+                result = input;
+            }
+            else {
+                errors.push('value is not this enum\'s property');
+                result = Util_1.Util.isDef(this.definition[0]) ? 0 : this.definition[Object.keys(this.definition)[0]];
+            }
+        }
+        else {
+            errors.push('Enum definition is not valid');
+        }
+        return new Result_1.Result(errors.length === 0, result, errors);
+    };
     return EnumResolver;
 }(Resolver_1.Resolver));
 exports.EnumResolver = EnumResolver;
@@ -1521,14 +1582,42 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var DateResolver = /** @class */ (function (_super) {
     __extends(DateResolver, _super);
+    function DateResolver() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'date';
+        return _this;
+    }
     /**
      * @hidden
      */
-    function DateResolver(resolver) {
-        return _super.call(this, 'date', resolver) || this;
-    }
+    DateResolver.prototype.resolver = function (input) {
+        var success = true;
+        var date = new Date(0);
+        var errors = [];
+        if (Util_1.Util.isDateLike(input)) {
+            date = input;
+        }
+        else if (Util_1.Util.isNumber(input) || Util_1.Util.isString(input)) {
+            var testDate = new Date(input);
+            if (!isNaN(testDate.getTime())) {
+                date = testDate;
+            }
+            else {
+                success = false;
+            }
+        }
+        else {
+            success = false;
+        }
+        if (!success) {
+            errors.push('value is not a valid date');
+        }
+        return new Result_1.Result(success, date, errors);
+    };
     return DateResolver;
 }(Resolver_1.Resolver));
 exports.DateResolver = DateResolver;

@@ -89,7 +89,7 @@ StringResolver().resolve(3842);
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="simpletyperesolver.html" class="tsd-signature-type">SimpleTypeResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>
+						<span class="tsd-signature-type">PrimitiveResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">StringResolver</span>
@@ -107,7 +107,7 @@ StringResolver().resolve(3842);
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/resolvers/String.ts#L20">resolvers/String.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/resolvers/String.ts#L16">resolvers/String.ts:16</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -134,10 +134,10 @@ StringResolver().resolve(3842);
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="stringresolver.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="stringresolver.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
@@ -151,23 +151,18 @@ StringResolver().resolve(3842);
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-external">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 					<a name="type" class="tsd-anchor"></a>
 					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;string&quot;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#type">type</a></p>
+						<p>Overrides <a href="resolver.html">Resolver</a>.<a href="resolver.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/StringResolver.ts#L10">base/StringResolver.ts:10</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Type of data resolver handles</p>
-						</div>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-external">
@@ -176,14 +171,14 @@ StringResolver().resolve(3842);
 					<a name="constraint" class="tsd-anchor"></a>
 					<h3>constraint</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">constraint<span class="tsd-signature-symbol">(</span>cond<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, defaultValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="simpletyperesolver.html" class="tsd-signature-type">SimpleTypeResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">constraint<span class="tsd-signature-symbol">(</span>cond<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, defaultValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PrimitiveResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="simpletyperesolver.html">SimpleTypeResolver</a>.<a href="simpletyperesolver.html#constraint">constraint</a></p>
+								<p>Inherited from PrimitiveResolver.constraint</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/SimpleTypeResolver.ts#L65">base/SimpleTypeResolver.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/PrimitiveResolver.ts#L61">base/PrimitiveResolver.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,7 +242,7 @@ NumberResolver().constraint((n: number) =&gt; n &gt;= 0, (n: number) =&gt; Math.
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="simpletyperesolver.html" class="tsd-signature-type">SimpleTypeResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PrimitiveResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -255,19 +250,19 @@ NumberResolver().constraint((n: number) =&gt; n &gt;= 0, (n: number) =&gt; Math.
 					<a name="defaultsto" class="tsd-anchor"></a>
 					<h3>defaults<wbr>To</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">defaults<wbr>To<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="simpletyperesolver.html" class="tsd-signature-type">SimpleTypeResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">defaults<wbr>To<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PrimitiveResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="simpletyperesolver.html">SimpleTypeResolver</a>.<a href="simpletyperesolver.html#defaultsto">defaultsTo</a></p>
+								<p>Inherited from PrimitiveResolver.defaultsTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/SimpleTypeResolver.ts#L38">base/SimpleTypeResolver.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/PrimitiveResolver.ts#L34">base/PrimitiveResolver.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sets default value which will be returned in case of fail validation</p>
+									<p>Sets default value which will be returned in case of failed resolving</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<span class="tag-label">example</span>
@@ -295,7 +290,7 @@ EnumResolver&lt;TestEnum>(TestEnum).defaultsTo(&#39;option 1&#39;).resolve(&#39;
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="simpletyperesolver.html" class="tsd-signature-type">SimpleTypeResolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PrimitiveResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -310,7 +305,7 @@ EnumResolver&lt;TestEnum>(TestEnum).defaultsTo(&#39;option 1&#39;).resolve(&#39;
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#nullable">nullable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/Resolver.ts#L61">base/Resolver.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -384,15 +379,12 @@ StringResolver().nullable().resolve(undefined);
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="result.html" class="tsd-kind-icon">Result</a>
 					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="simpletyperesolver.html" class="tsd-kind-icon">Simple<wbr>Type<wbr>Resolver</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-is-external">
 						<a href="stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="stringresolver.html#type" class="tsd-kind-icon">type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
@@ -414,17 +406,17 @@ StringResolver().nullable().resolve(undefined);
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="util.html" class="tsd-kind-icon">Util</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external">
-						<a href="../interfaces/iconstraint.html" class="tsd-kind-icon">IConstraint</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/ituple.html" class="tsd-kind-icon">ITuple</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="../globals.html#iobjectdefinition" class="tsd-kind-icon">IObject<wbr>Definition</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="../globals.html#iprimitive" class="tsd-kind-icon">IPrimitive</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
-						<a href="../globals.html#resolverfunction" class="tsd-kind-icon">Resolver<wbr>Function</a>
+						<a href="../globals.html#itupledefinition" class="tsd-kind-icon">ITuple<wbr>Definition</a>
 					</li>
 				</ul>
 			</nav>

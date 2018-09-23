@@ -1,12 +1,14 @@
-const { AnyResolver } = require('../..');
+import { AnyResolver, Result } from '..';
 
 
 
 describe('Any Resolver', () => {
-
+    
     describe('input', () => {
-        let result;
-        let result2;
+        let result: Result<any>;
+        let result2: Result<any>;
+        let result3: Result<any>;
+        let result4: Result<any>;
 
         beforeEach(() => {
             result = AnyResolver().resolve(17);
@@ -30,10 +32,10 @@ describe('Any Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeNull();
-            expect(result2.error).toBeNull();
-            expect(result3.error).toBeNull();
-            expect(result4.error).toBeNull();
+            expect(result.error.length).toBe(0);
+            expect(result2.error.length).toBe(0);
+            expect(result3.error.length).toBe(0);
+            expect(result4.error.length).toBe(0);
         });
     });
 });

@@ -1,4 +1,4 @@
-import { StringResolver, Result } from '../..';
+import { StringResolver, Result } from '..';
 
 
 
@@ -20,7 +20,7 @@ describe('String Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeNull();
+            expect(result.error.length).toBe(0);
         });
     });
 
@@ -48,9 +48,9 @@ describe('String Resolver', () => {
         });
 
         it('should return error', () => {
-            expect(result.error).not.toBeNull();
-            expect(result2.error).not.toBeNull();
-            expect(result3.error).not.toBeNull();
+            expect(result.error.length).toBeGreaterThan(0);
+            expect(result2.error.length).toBeGreaterThan(0);
+            expect(result3.error.length).toBeGreaterThan(0);
         });
     });
 
@@ -72,7 +72,7 @@ describe('String Resolver', () => {
             });
 
             it('should not return error', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
         
@@ -92,7 +92,7 @@ describe('String Resolver', () => {
             });
 
             it('should return error', () => {
-                expect(result.error).not.toBeNull();
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
 
@@ -144,7 +144,7 @@ describe('String Resolver', () => {
             });
 
             it('should not return errors', () => {
-                expect(result.error).toBeNull();
+                expect(result.error.length).toBe(0);
             });
         });
 
@@ -266,7 +266,7 @@ describe('String Resolver', () => {
             });
 
             it('should return errors', () => {
-                expect(result.error).not.toBeNull();
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
 
@@ -296,6 +296,151 @@ describe('String Resolver', () => {
 
             it('should not return errors', () => {
                 expect(result.error.length).toBe(2);
+            });
+        });
+    });
+
+    describe('nullable value', () => {
+        
+        describe('correct value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().nullable().resolve('im a string');
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe('im a string');
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('null value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().nullable().resolve(null);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().nullable().resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);    
+            });
+
+            it('should return null as result', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBeGreaterThan(0);
+            });
+        });
+    });
+
+    describe('optional value', () => {
+        describe('correct value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().optional().resolve('im a string');
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe('im a string');
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('null value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().optional().resolve(null);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('undefined value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().optional().resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result: Result<string>;
+
+            beforeEach(() => {
+                result = StringResolver().optional().resolve(23);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);    
+            });
+
+            it('should return null as result', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBeGreaterThan(0);
             });
         });
     });

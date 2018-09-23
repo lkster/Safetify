@@ -88,7 +88,7 @@
     isSingle: Safetify.Boolean()
 });
 
-<span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data);
+<span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data).result;
 </code></pre>
 				<p>Or use alternative imports:</p>
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { ObjectResolver, StringResolver, NumberResolver, BooleanResolver } <span class="hljs-keyword">from</span> <span class="hljs-string">'safetify'</span>;
@@ -99,7 +99,7 @@
     isSingle: BooleanResolver()
 });
 
-<span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data);
+<span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data).result;
 </code></pre>
 				<p>And then data will always be the exact type no matter if we received correct data or not. It prevents of many cases of using methods dedicated to specific types of data. Say we got <code>undefined</code> value in <code>name</code> property and now we want to use <code>toUpperCase</code> method on that data. Basically it would look like that:</p>
 				<pre><code class="lang-ts"><span class="hljs-keyword">let</span> name = person.name; <span class="hljs-comment">// it's undefined</span>
@@ -141,11 +141,11 @@ name.toUpperCase();
 				<ul>
 					<li>AnyResolver - just returns what it gets on input</li>
 					<li>NumberResolver - resolves <code>number</code> values</li>
-					<li>StringResolver - resolves <code>string</code> value</li>
+					<li>StringResolver - resolves <code>string</code> values</li>
 					<li>BooleanResolver - resolves <code>boolean</code> values</li>
 					<li>ArrayResolver - resolves <code>array</code>s</li>
 					<li>ObjectResolver - resolves object with specific structure (eg. model)</li>
-					<li>DictionaryResolver - resolves <code>object</code> which is a dictionary (has <em>n</em> key-value pairs with specific type)</li>
+					<li>DictionaryResolver - resolves <code>object</code> which is a dictionary (has <em>n</em> key-value pairs of specific type)</li>
 					<li>EnumResolver - resolves <code>enum</code> (if input is correct value of given <code>enum</code>)</li>
 					<li>DateResolver - resolves <code>date</code>s. This includes <code>Date</code> object, string-date and timestamp</li>
 					<li>TupleResolver - resolves <code>tuple</code> of given structure</li>
@@ -275,9 +275,6 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/result.html" class="tsd-kind-icon">Result</a>
 					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="classes/simpletyperesolver.html" class="tsd-kind-icon">Simple<wbr>Type<wbr>Resolver</a>
-					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a>
 					</li>
@@ -287,17 +284,17 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/util.html" class="tsd-kind-icon">Util</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external">
-						<a href="interfaces/iconstraint.html" class="tsd-kind-icon">IConstraint</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="interfaces/ituple.html" class="tsd-kind-icon">ITuple</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="globals.html#iobjectdefinition" class="tsd-kind-icon">IObject<wbr>Definition</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="globals.html#iprimitive" class="tsd-kind-icon">IPrimitive</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
-						<a href="globals.html#resolverfunction" class="tsd-kind-icon">Resolver<wbr>Function</a>
+						<a href="globals.html#itupledefinition" class="tsd-kind-icon">ITuple<wbr>Definition</a>
 					</li>
 				</ul>
 			</nav>

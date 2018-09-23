@@ -5,9 +5,9 @@
   "main": "dist/safetify.js",
   "scripts": {
     "build": "webpack",
-    "test-js": "webpack & node spec/config/jasmine.js",
-    "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/ts/**/*.spec.ts",
-    "jsdoc": "typedoc src/safetify.ts --mode file --out docs/ --theme typedoc-theme"
+    "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/**/*.spec.ts",
+    "jsdoc": "typedoc src/safetify.ts --mode file --out docs/ --theme typedoc-theme",
+    "jsdoc:noerrors": "npm run jsdoc -- --ignoreCompilerErrors"
   },
   "keywords": [
     "var",
@@ -38,7 +38,7 @@
     "jasmine-ts": "^0.2.1",
     "ts-loader": "^3.4.0",
     "typedoc": "^0.12.0",
-    "typescript": "^2.6.2",
+    "typescript": "^2.9.2",
     "webpack": "^3.10.0",
     "webpack-node-externals": "^1.6.0"
   },
