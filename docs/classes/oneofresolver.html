@@ -75,12 +75,12 @@
 					<dl class="tsd-comment-tags">
 						<span class="tag-label">example</span>
 						<dd><pre class="code"><code><caption>
-OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(&#39;john doe&#39;);
+OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve('john doe');
 OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(3473);
 // output will be the same as input
 
-OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(false);
-// output will be converted to last mentioned type in array of resolvers, in this case &#39;NaN&#39;
+<p>OneOfResolver&lt;string | number>([ StringResolver(), NumberResolver() ]).resolve(false);
+// output will be converted to last mentioned type in array of resolvers, in this case &#39;NaN&#39;</p>
 </caption>
 </code></pre></dd>
 					</dl>
@@ -116,7 +116,7 @@ OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/resolvers/OneOf.ts#L22">resolvers/OneOf.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/resolvers/OneOf.ts#L20">resolvers/OneOf.ts:20</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -126,12 +126,12 @@ OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(
 							<dl class="tsd-comment-tags">
 								<span class="tag-label">example</span>
 								<dd><pre class="code"><code><caption>
-OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(&#39;john doe&#39;);
+OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve('john doe');
 OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(3473);
 // output will be the same as input
 
-OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(false);
-// output will be converted to last mentioned type in array of resolvers, in this case &#39;NaN&#39;
+<p>OneOfResolver&lt;string | number>([ StringResolver(), NumberResolver() ]).resolve(false);
+// output will be converted to last mentioned type in array of resolvers, in this case &#39;NaN&#39;</p>
 </caption>
 </code></pre></dd>
 							</dl>
@@ -181,7 +181,7 @@ OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/base/Resolver.ts#L24">base/Resolver.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -204,7 +204,7 @@ OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#nullable">nullable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/base/Resolver.ts#L65">base/Resolver.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -214,14 +214,13 @@ OneOfResolver<string | number\>([ StringResolver(), NumberResolver() ]).resolve(
 								<dl class="tsd-comment-tags">
 									<span class="tag-label">example</span>
 									<dd><pre class="code"><code><caption>
-StringResolver().nullable().resolve(&#39;John Doe&#39;);
-// returns &#39;John Doe&#39;
+StringResolver().nullable().resolve('John Doe');
+// returns 'John Doe'
 
-StringResolver().nullable().resolve(null);
-// returns null without any errors
-
-StringResolver().nullable().resolve(undefined);
-// returns null with false success and input type error
+<p>StringResolver().nullable().resolve(null);
+// returns null without any errors</p>
+<p>StringResolver().nullable().resolve(undefined);
+// returns null with false success and input type error</p>
 </caption>
 </code></pre></dd>
 								</dl>
@@ -241,7 +240,7 @@ StringResolver().nullable().resolve(undefined);
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#resolve">resolve</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/eba1282/src/base/Resolver.ts#L35">base/Resolver.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/base/Resolver.ts#L35">base/Resolver.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -317,6 +316,12 @@ StringResolver().nullable().resolve(undefined);
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="primitiveresolver.html" class="tsd-kind-icon">Primitive<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
@@ -324,9 +329,6 @@ StringResolver().nullable().resolve(undefined);
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="result.html" class="tsd-kind-icon">Result</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="simpletyperesolver.html" class="tsd-kind-icon">Simple<wbr>Type<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a>
