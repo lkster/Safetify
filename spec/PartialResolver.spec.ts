@@ -1,4 +1,4 @@
-import { PartialResolver, ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '../..';
+import { PartialResolver, ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '..';
 
 
 
@@ -59,7 +59,7 @@ describe('Partial Resolver', () => {
         });
 
         it('should not return error', () => {
-            expect(result.error).toBeNull();
+            expect(result.error.length).toBe(0);
         });
     });
 
