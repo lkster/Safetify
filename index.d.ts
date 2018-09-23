@@ -174,6 +174,9 @@ declare namespace Safetify {
     function ObjectResolver<T>(definition: IObjectResolver<T>): Base.ObjectResolver<T>;
     type ObjectResolver<T> = Base.ObjectResolver<T>;
 
+    function PartialResolver<T>(definition: IObjectResolver<T>): Base.ObjectResolver<Partial<T>>;
+    type PartialResolver<T> = Base.ObjectResolver<Partial<T>>;
+
     function ArrayResolver<T>(definition: Resolver<T>): Base.ArrayResolver<T>;
     type ArrayResolver<T> = Base.ArrayResolver<T>;
     
