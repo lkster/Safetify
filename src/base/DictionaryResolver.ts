@@ -28,22 +28,24 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
      */
     protected resolver (input: any): Result<IDictionary<T>> {
         if (!Util.isObject(input)) {
-            return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), ['value is not an object']);
+            return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), [`${this.nested ? ': ' : ''}${typeof input} is not an object`]);
         }
         
         let errors: string[] = [];
         let result: any = {};
 
         for (let key in input) {
+            this.definition.nested = true;
+
             let dec = this.definition.resolve(input[key]);
 
             if (!dec.success) {
-                if (this.definition.type === 'object' || this.definition.type === 'array') {
+                if (this.definition.type === 'object' || this.definition.type === 'array' || this.definition.type === 'tuple') {
                     for (let i = 0; i < dec.error.length; i++) {
-                        errors.push(`${key}.${dec.error[i]}`);
+                        errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
                     }
                 } else {
-                    errors.push(`${key}: ` + dec.error[0]);
+                    errors.push(`${this.nested ? '.' : ''}${key}: ${dec.error[0]}`);
                 }
             }
 

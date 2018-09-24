@@ -27,7 +27,7 @@ export class ArrayResolver<T> extends OptionalResolver<Array<T>> {
      */
     protected resolver (input: any): Result<Array<T>> {
         if (!Util.isArray(input)) {
-            return new Result(false, SafeUtil.makeSafeArray(input), ['value is not an array']);
+            return new Result(false, SafeUtil.makeSafeArray(input), [`${this.nested ? ': ' : ''}${typeof input} is not an array`]);
         }
 
         let errors: string[] = [];
@@ -35,15 +35,21 @@ export class ArrayResolver<T> extends OptionalResolver<Array<T>> {
         let result: Array<T> = [];
 
         for (let i = 0; i < input.length; i++) {
+            this.definition.nested = true;
+
             let dec = this.definition.resolve(input[i]);
             
             if (!dec.success) {
-                if (this.definition.type === 'object' || this.definition.type === 'array') {
-                    for (let i = 0; i < dec.error.length; i++) {
-                        errors.push(`${i}.${dec.error[i]}`);
+                if (this.definition.type === 'object' || this.definition.type === 'array' || this.definition.type === 'tuple') {
+                    for (let j = 0; j < dec.error.length; j++) {
+                        errors.push(`[${i}]${dec.error[j]}`);
                     }
                 } else {
-                    errors.push(`${i}: ` + dec.error[0]);
+                    if (this.nested) {
+                        errors.push(`[${i}]: ${dec.error[0]}`);
+                    } else {
+                        errors.push(`element at index ${i}: ${dec.error[0]}`)
+                    }
                 }
             }
 

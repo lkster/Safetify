@@ -16,7 +16,7 @@ export class StringResolver extends PrimitiveResolver<string> {
         let errors: string[] = [];
     
         if (!Util.isString(input)) {
-            errors.push('value is not a string');
+            errors.push(`${typeof input} is not a string`);
         }
     
         return new Result<string>(errors.length === 0, SafeUtil.makeSafeString(input), errors);

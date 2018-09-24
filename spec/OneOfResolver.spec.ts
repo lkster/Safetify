@@ -48,9 +48,14 @@ describe('OneOf Resolver', () => {
             expect(result2.result).toBe('');
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
-            expect(result2.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+            expect(result2.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('object is not a string nor number');
+            expect(result2.error[0]).toBe('object is not a number nor string');
         });
     });
 
@@ -111,8 +116,12 @@ describe('OneOf Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a string nor number');
             });
         });
     });
@@ -193,8 +202,12 @@ describe('OneOf Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('boolean is not a string nor number');
             });
         });
     });

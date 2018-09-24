@@ -28,7 +28,7 @@ export class PartialResolver<T> extends NullableResolver<Partial<T>> {
     protected resolver (input: any): Result<Partial<T>> {
         if (!Util.isObject(input)) {
             let safe: any = SafeUtil.makeSafeObject(input);
-            return new Result<Partial<T>>(false, safe, ['input is not an object']);
+            return new Result<Partial<T>>(false, safe, [`${this.nested ? ': ' : ''}${typeof input} is not an object`]);
         }
         
         let errors: string[] = [];
@@ -39,15 +39,17 @@ export class PartialResolver<T> extends NullableResolver<Partial<T>> {
                 continue;
             }
 
+            this.definition[key].nested = true;
+            
             let dec = this.definition[key].resolve(input[key]);
 
             if (!dec.success) {
-                if (this.definition[key].type === 'object' || this.definition[key].type === 'array') {
+                if (this.definition[key].type === 'object' || this.definition[key].type === 'array' || this.definition[key].type === 'tuple') {
                     for (let i = 0; i < dec.error.length; i++) {
-                        errors.push(`${key}.${dec.error[i]}`);
+                        errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
                     }
                 } else {
-                    errors.push(`${key}: ` + dec.error[0]);
+                    errors.push(`${this.nested ? '.' : ''}${key}: ${dec.error[0]}`);
                 }
             }
 

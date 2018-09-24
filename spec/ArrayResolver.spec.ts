@@ -1,4 +1,4 @@
-import { ArrayResolver, StringResolver, NumberResolver, Result } from '..';
+import { ArrayResolver, StringResolver, NumberResolver, Result, ObjectResolver } from '..';
 
 
 
@@ -44,8 +44,12 @@ describe('Array Resolver', () => {
             expect(result.result).toEqual([]);
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('undefined is not an array');
         });
     });
 
@@ -66,6 +70,12 @@ describe('Array Resolver', () => {
 
         it('should return 3 errors', () => {
             expect(result.error.length).toBe(3);
+        });
+
+        it('should return proper errors descriptions', () => {
+            expect(result.error[0]).toBe('element at index 1: boolean is not a string');
+            expect(result.error[1]).toBe('element at index 3: undefined is not a string');
+            expect(result.error[2]).toBe('element at index 4: number is not a string');
         });
     });
 
@@ -126,8 +136,12 @@ describe('Array Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not an array');
             });
         });
     });
@@ -208,9 +222,33 @@ describe('Array Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
             });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not an array');
+            });
+        });
+    });
+
+    describe('combined errors description', () => {
+        it('should create proper error description with ArrayResolver at the start of chain', () => {
+            const result: Result<any> = ArrayResolver(ObjectResolver({ a: StringResolver() })).resolve([{ a: 4234 }]);
+
+            expect(result.error[0]).toBe('[0].a: number is not a string');
+        });
+
+        it('should create proper error description with ArrayResolver inside chain', () => {
+            const result: Result<any> = ObjectResolver({ a: ArrayResolver(ObjectResolver({ b: StringResolver() }))}).resolve({ a: [{ b: 2342 }]});
+
+            expect(result.error[0]).toBe('a[0].b: number is not a string');
+        });
+
+        it('should create proper error description with ArrayResolver at the end of chain', () => {
+            const result: Result<any> = ObjectResolver({ a: ArrayResolver(StringResolver())}).resolve({ a: [12312]});
+
+            expect(result.error[0]).toBe('a[0]: number is not a string');
         });
     });
 });

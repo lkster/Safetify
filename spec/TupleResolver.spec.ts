@@ -1,4 +1,4 @@
-import { TupleResolver, StringResolver, NumberResolver, BooleanResolver, Result } from '..';
+import { TupleResolver, StringResolver, NumberResolver, BooleanResolver, Result, ArrayResolver } from '..';
 
 
 
@@ -44,8 +44,14 @@ describe('TupleResolver', () => {
             expect(result.result).toEqual(['', '', 1]);
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(3);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('element at index 0: undefined is not a string');
+            expect(result.error[1]).toBe('element at index 1: number is not a string');
+            expect(result.error[2]).toBe('element at index 2: boolean is not a number');
         });
     });
 
@@ -106,8 +112,12 @@ describe('TupleResolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a tuple');
             });
         });
     });
@@ -188,9 +198,23 @@ describe('TupleResolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
             });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not a tuple');
+            });
+        });
+    });
+
+    describe('combined errors description', () => {
+        // there is only one unit test as tuple can't be at the start or inside the chain because it takes only primitive value types
+
+        it('should create proper error description with TupleResolver at the end of chain', () => {
+            const result: Result<any> = ArrayResolver(TupleResolver([StringResolver(), StringResolver(), StringResolver()])).resolve([['im a string', 'im a string too!', 34234]]);
+
+            expect(result.error[0]).toBe('[0][2]: number is not a string');
         });
     });
 });

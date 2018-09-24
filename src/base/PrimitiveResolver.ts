@@ -98,14 +98,14 @@ export abstract class PrimitiveResolver<T extends string | number | boolean> ext
                         value = defResult.result;
 
                         if (!defResult.success) {
-                            errors.push(`Constraint default value: ${defResult.error}`);
+                            errors.push(`Constraint #${i} default value transform function result: ${defResult.error}`);
                         }
                     } else {
                         const defResult: Result<T> = super.resolve(this._constraints[i].defaultValue);
                         value = defResult.result;
 
                         if (!defResult.success) {
-                            errors.push(`Constraint default value: ${defResult.error}`);
+                            errors.push(`Constraint #${i} default value: ${defResult.error}`);
                         }
                     }
                 }

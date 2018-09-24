@@ -57,10 +57,16 @@ describe('Date Resolver', () => {
             expect(result3.result.getTime()).toBe(0);
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
-            expect(result2.error.length).toBeGreaterThan(0);
-            expect(result3.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+            expect(result2.error.length).toBe(1);
+            expect(result3.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('undefined is not a valid date');
+            expect(result2.error[0]).toBe('object is not a valid date');
+            expect(result3.error[0]).toBe('this string is not a valid date');
         });
     });
 
@@ -121,8 +127,12 @@ describe('Date Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a valid date');
             });
         });
     });
@@ -203,8 +213,12 @@ describe('Date Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('this string is not a valid date');
             });
         });
     });
