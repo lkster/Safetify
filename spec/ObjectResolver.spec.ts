@@ -115,6 +115,13 @@ describe('Object Resolver', () => {
         it('should return 4 errors', () => {
             expect(result.error.length).toBe(4);
         });
+
+        it('should return proper errors descriptions', () => {
+            expect(result.error[0]).toBe('a: boolean is not a string');
+            expect(result.error[1]).toBe('c.e: string is not a boolean');
+            expect(result.error[2]).toBe('f: string is not an array');
+            expect(result.error[3]).toBe('g: string is not an object');
+        });
     });
 
     describe('nullable value', () => {
@@ -209,8 +216,12 @@ describe('Object Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not an object');
             });
         });
     });
@@ -333,8 +344,12 @@ describe('Object Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not an object');
             });
         });
     });

@@ -111,5 +111,12 @@ describe('Partial Resolver', () => {
         it('should return 4 errors', () => {
             expect(result.error.length).toBe(4);
         });
+
+        it('should return proper errors descriptions', () => {
+            expect(result.error[0]).toBe('a: boolean is not a string');
+            expect(result.error[1]).toBe('c.e: string is not a boolean');
+            expect(result.error[2]).toBe('f: string is not an array');
+            expect(result.error[3]).toBe('g: string is not an object');
+        });
     });
 }); 

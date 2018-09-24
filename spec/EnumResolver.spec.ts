@@ -157,10 +157,16 @@ describe('Enum Resolver', () => {
             expect(result3.result).toBe('opt1');
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
-            expect(result2.error.length).toBeGreaterThan(0);
-            expect(result3.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+            expect(result2.error.length).toBe(1);
+            expect(result3.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('undefined is not this enum\'s property');
+            expect(result2.error[0]).toBe('number of 5 is not this enum\'s property');
+            expect(result3.error[0]).toBe('"nonexistingoption" string is not this enum\'s property');
         });
     });
 
@@ -221,8 +227,12 @@ describe('Enum Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not this enum\'s property');
             });
         });
     });
@@ -303,8 +313,12 @@ describe('Enum Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('"im a string" string is not this enum\'s property');
             });
         });
     });

@@ -64,8 +64,12 @@ describe('Dictionary Resolver', () => {
             expect(result.result).toEqual({});
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('undefined is not an object');
         });
     });
 
@@ -97,6 +101,11 @@ describe('Dictionary Resolver', () => {
 
         it('should return 2 errors', () => {
             expect(result.error.length).toBe(2);
+        });
+
+        it('should return proper errors descriptions', () => {
+            expect(result.error[0]).toBe('b: number is not a string');
+            expect(result.error[1]).toBe('c: object is not a string');
         });
     });
 
@@ -165,8 +174,12 @@ describe('Dictionary Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not an object');
             });
         });
     });
@@ -255,8 +268,12 @@ describe('Dictionary Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not an object');
             });
         });
     });

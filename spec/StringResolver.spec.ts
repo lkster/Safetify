@@ -47,10 +47,16 @@ describe('String Resolver', () => {
             expect(result3.result).toBe('');
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
-            expect(result2.error.length).toBeGreaterThan(0);
-            expect(result3.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+            expect(result2.error.length).toBe(1);
+            expect(result3.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('undefined is not a string');
+            expect(result2.error[0]).toBe('object is not a string');
+            expect(result3.error[0]).toBe('boolean is not a string');
         });
     });
 
@@ -91,8 +97,12 @@ describe('String Resolver', () => {
                 expect(result.result).toBe('default value');
             });
 
-            it('should return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a string');
             });
         });
 
@@ -113,6 +123,11 @@ describe('String Resolver', () => {
 
             it('should return 2 errors', () => {
                 expect(result.error.length).toBe(2);
+            });
+
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('undefined is not a string');
+                expect(result.error[1]).toBe('DefaultValue: undefined is not a string');
             });
         });
     });
@@ -172,8 +187,12 @@ describe('String Resolver', () => {
                 expect(constraintFunction).toHaveBeenCalled();
             });
 
-            it('should not return errors', () => {
-                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('value is longer than 20 characters');
             });
         });
 
@@ -201,8 +220,12 @@ describe('String Resolver', () => {
                 expect(constraintFunction).toHaveBeenCalled();
             });
 
-            it('should not return errors', () => {
-                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('value is longer than 20 characters');
             });
         });
 
@@ -236,8 +259,12 @@ describe('String Resolver', () => {
                 expect(constraintDefaultTransform).toHaveBeenCalled();
             });
 
-            it('should not return errors', () => {
-                expect(result.error).toEqual([ 'value is longer than 20 characters' ]);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('value is longer than 20 characters');
             });
         });
 
@@ -265,12 +292,16 @@ describe('String Resolver', () => {
                 expect(constraintFunction).not.toHaveBeenCalled();
             });
 
-            it('should return errors', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not a string');
             });
         });
 
-        describe('incorrect constraint default value', () => {
+        describe('incorrect constraint raw default value', () => {
             let result: Result<string>;
             let constraintFunction: (n: string) => boolean | string;
 
@@ -294,8 +325,49 @@ describe('String Resolver', () => {
                 expect(constraintFunction).toHaveBeenCalled();
             });
 
-            it('should not return errors', () => {
+            it('should return 2 errors', () => {
                 expect(result.error.length).toBe(2);
+            });
+
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('value is longer than 20 characters');
+                expect(result.error[1]).toBe('Constraint #0 default value: number is not a string');
+            });
+        });
+
+        describe('incorrect constraint default value transform function result', () => {
+            let result: Result<string>;
+            let constraintFunction: (n: string) => boolean | string;
+            let constraintDefaultTransform: (n: string) => string;
+            
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+                constraintDefaultTransform = jasmine.createSpy('default').and.callFake((n: string) => <any> 234235);
+
+                result = StringResolver()
+                    .constraint(constraintFunction, constraintDefaultTransform)
+                    .resolve('test string longer than 20 characters');
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return output same as input', () => {
+                expect(result.result).toBe('');
+            });
+
+            it('should call constraint function', () => {
+                expect(constraintFunction).toHaveBeenCalled();
+            });
+
+            it('should return 2 errors', () => {
+                expect(result.error.length).toBe(2);
+            });
+
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('value is longer than 20 characters');
+                expect(result.error[1]).toBe('Constraint #0 default value transform function result: number is not a string');
             });
         });
     });
@@ -357,8 +429,12 @@ describe('String Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a string');
             });
         });
     });
@@ -439,8 +515,12 @@ describe('String Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not a string');
             });
         });
     });

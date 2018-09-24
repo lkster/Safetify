@@ -44,8 +44,14 @@ describe('TupleResolver', () => {
             expect(result.result).toEqual(['', '', 1]);
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(3);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('element at index 0: undefined is not a string');
+            expect(result.error[1]).toBe('element at index 1: number is not a string');
+            expect(result.error[2]).toBe('element at index 2: boolean is not a number');
         });
     });
 
@@ -106,8 +112,12 @@ describe('TupleResolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a tuple');
             });
         });
     });
@@ -188,8 +198,12 @@ describe('TupleResolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not a tuple');
             });
         });
     });

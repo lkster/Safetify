@@ -44,8 +44,12 @@ describe('Number Resolver', () => {
             expect(result.result).toBeNaN();
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('undefined is not a number');
         });
     });
 
@@ -60,8 +64,12 @@ describe('Number Resolver', () => {
             expect(result.success).toBe(false);
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('NaN value is not true number');
         });
 
         it('should set value to default', () => {
@@ -106,8 +114,12 @@ describe('Number Resolver', () => {
                 expect(result.result).toBe(23);
             });
 
-            it('should return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a number');
             });
         });
 
@@ -128,6 +140,11 @@ describe('Number Resolver', () => {
 
             it('should return 2 errors', () => {
                 expect(result.error.length).toBe(2);
+            });
+
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('undefined is not a number');
+                expect(result.error[1]).toBe('DefaultValue: undefined is not a number');
             });
         });
     });
@@ -187,8 +204,12 @@ describe('Number Resolver', () => {
                 expect(constraintFunction).toHaveBeenCalled();
             });
 
-            it('should return error', () => {
-                expect(result.error).toEqual([ 'value is not a positive number' ]);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('value is not a positive number');
             });
         });
 
@@ -216,8 +237,12 @@ describe('Number Resolver', () => {
                 expect(constraintFunction).toHaveBeenCalled();
             });
 
-            it('should return error', () => {
-                expect(result.error).toEqual([ 'value is not a positive number' ]);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('value is not a positive number');
             });
         });
 
@@ -251,8 +276,12 @@ describe('Number Resolver', () => {
                 expect(constraintDefaultTransform).toHaveBeenCalled();
             });
 
-            it('should not return errors', () => {
-                expect(result.error).toEqual([ 'value is not a positive number' ]);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('value is not a positive number');
             });
         });
 
@@ -280,12 +309,16 @@ describe('Number Resolver', () => {
                 expect(constraintFunction).not.toHaveBeenCalled();
             });
 
-            it('should return errors', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('string is not a number');
             });
         });
 
-        describe('incorrect constraint default value', () => {
+        describe('incorrect constraint raw default value', () => {
             let result: Result<number>;
             let constraintFunction: (n: number) => boolean | string;
 
@@ -309,8 +342,49 @@ describe('Number Resolver', () => {
                 expect(constraintFunction).toHaveBeenCalled();
             });
 
-            it('should not return errors', () => {
+            it('should return 2 errors', () => {
                 expect(result.error.length).toBe(2);
+            });
+
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('value is not a positive number');
+                expect(result.error[1]).toBe('Constraint #0 default value: string is not a number');
+            });
+        });
+
+        describe('incorrect constraint default value transform function result', () => {
+            let result: Result<number>;
+            let constraintFunction: (n: number) => boolean | string;
+            let constraintDefaultTransform: (n: number) => number;
+
+            beforeEach(() => {
+                constraintFunction = jasmine.createSpy().and.callFake((n: number) => n >= 0 || 'value is not a positive number');
+                constraintDefaultTransform = jasmine.createSpy('default').and.callFake((n: number) => <any> 'im a number');
+
+                result = NumberResolver()
+                    .constraint(constraintFunction, constraintDefaultTransform)
+                    .resolve(-7);
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return output same as input', () => {
+                expect(result.result).toBeNaN();
+            });
+
+            it('should call constraint function', () => {
+                expect(constraintFunction).toHaveBeenCalled();
+            });
+
+            it('should return 2 errors', () => {
+                expect(result.error.length).toBe(2);
+            });
+
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('value is not a positive number');
+                expect(result.error[1]).toBe('Constraint #0 default value transform function result: string is not a number');
             });
         });
     });
@@ -372,8 +446,12 @@ describe('Number Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a number');
             });
         });
     });
@@ -454,8 +532,12 @@ describe('Number Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('string is not a number');
             });
         });
     });

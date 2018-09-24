@@ -44,8 +44,12 @@ describe('Array Resolver', () => {
             expect(result.result).toEqual([]);
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('undefined is not an array');
         });
     });
 
@@ -66,6 +70,12 @@ describe('Array Resolver', () => {
 
         it('should return 3 errors', () => {
             expect(result.error.length).toBe(3);
+        });
+
+        it('should return proper errors descriptions', () => {
+            expect(result.error[0]).toBe('element at index 1: boolean is not a string');
+            expect(result.error[1]).toBe('element at index 3: undefined is not a string');
+            expect(result.error[2]).toBe('element at index 4: number is not a string');
         });
     });
 
@@ -126,8 +136,12 @@ describe('Array Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not an array');
             });
         });
     });
@@ -208,8 +222,12 @@ describe('Array Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not an array');
             });
         });
     });

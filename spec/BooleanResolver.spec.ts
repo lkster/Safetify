@@ -38,9 +38,14 @@ describe('Boolean Resolver', () => {
             expect(result2.result).toBe(true);
         });
 
-        it('should return error', () => {
-            expect(result.error.length).toBeGreaterThan(0);
-            expect(result2.error.length).toBeGreaterThan(0);
+        it('should return 1 error', () => {
+            expect(result.error.length).toBe(1);
+            expect(result2.error.length).toBe(1);
+        });
+
+        it('should return proper error description', () => {
+            expect(result.error[0]).toBe('undefined is not a boolean');
+            expect(result2.error[0]).toBe('string is not a boolean');
         });
     });
 
@@ -81,8 +86,12 @@ describe('Boolean Resolver', () => {
                 expect(result.result).toBe(true);
             });
 
-            it('should return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a boolean');
             });
         });
 
@@ -103,6 +112,11 @@ describe('Boolean Resolver', () => {
 
             it('should return 2 errors', () => {
                 expect(result.error.length).toBe(2);
+            });
+
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('undefined is not a boolean');
+                expect(result.error[1]).toBe('DefaultValue: undefined is not a boolean');
             });
         });
     });
@@ -164,8 +178,12 @@ describe('Boolean Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not a boolean');
             });
         });
     });
@@ -246,8 +264,12 @@ describe('Boolean Resolver', () => {
                 expect(result.result).toBe(null);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBeGreaterThan(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not a boolean');
             });
         });
     });
