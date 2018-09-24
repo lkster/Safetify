@@ -1,4 +1,4 @@
-import { PartialResolver, ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result } from '..';
+import { PartialResolver, ObjectResolver, StringResolver, NumberResolver, BooleanResolver, ArrayResolver, Result, DictionaryResolver } from '..';
 
 
 
@@ -117,6 +117,26 @@ describe('Partial Resolver', () => {
             expect(result.error[1]).toBe('c.e: string is not a boolean');
             expect(result.error[2]).toBe('f: string is not an array');
             expect(result.error[3]).toBe('g: string is not an object');
+        });
+    });
+
+    describe('combined errors description', () => {
+        it('should create proper error description with PartialResolver at the start of chain', () => {
+            const result: Result<any> = PartialResolver({ a: DictionaryResolver(StringResolver())}).resolve({ a: { b: 23423 }});
+
+            expect(result.error[0]).toBe('a.b: number is not a string');
+        });
+
+        it('should create proper error description with PartialResolver inside chain', () => {
+            const result: Result<any> = DictionaryResolver(PartialResolver({ b: DictionaryResolver(StringResolver())})).resolve({ a: { b: { c: 23423 }}});
+
+            expect(result.error[0]).toBe('a.b.c: number is not a string');
+        });
+
+        it('should create proper error description with PartialResolver at the end of chain', () => {
+            const result: Result<any> = DictionaryResolver(PartialResolver({ b: StringResolver() })).resolve({ a: { b: 2423 }});
+
+            expect(result.error[0]).toBe('a.b: number is not a string');
         });
     });
 }); 

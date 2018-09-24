@@ -1,4 +1,4 @@
-import { TupleResolver, StringResolver, NumberResolver, BooleanResolver, Result } from '..';
+import { TupleResolver, StringResolver, NumberResolver, BooleanResolver, Result, ArrayResolver } from '..';
 
 
 
@@ -205,6 +205,16 @@ describe('TupleResolver', () => {
             it('should return proper error description', () => {
                 expect(result.error[0]).toBe('number is not a tuple');
             });
+        });
+    });
+
+    describe('combined errors description', () => {
+        // there is only one unit test as tuple can't be at the start or inside the chain because it takes only primitive value types
+
+        it('should create proper error description with TupleResolver at the end of chain', () => {
+            const result: Result<any> = ArrayResolver(TupleResolver([StringResolver(), StringResolver(), StringResolver()])).resolve([['im a string', 'im a string too!', 34234]]);
+
+            expect(result.error[0]).toBe('[0][2]: number is not a string');
         });
     });
 });

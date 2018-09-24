@@ -1,4 +1,4 @@
-import { DictionaryResolver, StringResolver, NumberResolver, Result } from '..';
+import { DictionaryResolver, StringResolver, NumberResolver, Result, ObjectResolver } from '..';
 
 
 
@@ -275,6 +275,26 @@ describe('Dictionary Resolver', () => {
             it('should return proper error description', () => {
                 expect(result.error[0]).toBe('number is not an object');
             });
+        });
+    });
+
+    describe('combined errors description', () => {
+        it('should create proper error description with DictionaryResolver at the start of chain', () => {
+            const result: Result<any> = DictionaryResolver(ObjectResolver({ b: StringResolver() })).resolve({ a: { b: 2423 }});
+
+            expect(result.error[0]).toBe('a.b: number is not a string');
+        });
+
+        it('should create proper error description with DictionaryResolver inside chain', () => {
+            const result: Result<any> = ObjectResolver({ a: DictionaryResolver(ObjectResolver({ c: StringResolver() }))}).resolve({ a: { b: { c: 23423 }}});
+
+            expect(result.error[0]).toBe('a.b.c: number is not a string');
+        });
+
+        it('should create proper error description with DictionaryResolver at the end of chain', () => {
+            const result: Result<any> = ObjectResolver({ a: DictionaryResolver(StringResolver())}).resolve({ a: { b: 23423 }});
+
+            expect(result.error[0]).toBe('a.b: number is not a string');
         });
     });
 });

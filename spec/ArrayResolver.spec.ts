@@ -1,4 +1,4 @@
-import { ArrayResolver, StringResolver, NumberResolver, Result } from '..';
+import { ArrayResolver, StringResolver, NumberResolver, Result, ObjectResolver } from '..';
 
 
 
@@ -229,6 +229,26 @@ describe('Array Resolver', () => {
             it('should return proper error description', () => {
                 expect(result.error[0]).toBe('number is not an array');
             });
+        });
+    });
+
+    describe('combined errors description', () => {
+        it('should create proper error description with ArrayResolver at the start of chain', () => {
+            const result: Result<any> = ArrayResolver(ObjectResolver({ a: StringResolver() })).resolve([{ a: 4234 }]);
+
+            expect(result.error[0]).toBe('[0].a: number is not a string');
+        });
+
+        it('should create proper error description with ArrayResolver inside chain', () => {
+            const result: Result<any> = ObjectResolver({ a: ArrayResolver(ObjectResolver({ b: StringResolver() }))}).resolve({ a: [{ b: 2342 }]});
+
+            expect(result.error[0]).toBe('a[0].b: number is not a string');
+        });
+
+        it('should create proper error description with ArrayResolver at the end of chain', () => {
+            const result: Result<any> = ObjectResolver({ a: ArrayResolver(StringResolver())}).resolve({ a: [12312]});
+
+            expect(result.error[0]).toBe('a[0]: number is not a string');
         });
     });
 });
