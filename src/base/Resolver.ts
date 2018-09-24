@@ -20,6 +20,11 @@ export abstract class Resolver<T> {
     public abstract readonly type: string;
 
     /**
+     * True if current resolver is resolved in another resolver
+     */
+    public nested: boolean = false;
+
+    /**
      * Resolves given data
      * @param input Data to be resolved
      */

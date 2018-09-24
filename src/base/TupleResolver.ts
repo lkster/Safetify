@@ -36,17 +36,24 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
                 result.push(this.definition[i].resolve(undefined));
             }
 
-            return new Result<T>(false, result, [ 'value is not a tuple' ]);
+            return new Result<T>(false, result, [`${typeof input} is not a tuple`]);
         }
 
         
 
         for (let i = 0; i < len; i++) {
+            this.definition[i].nested = true;
+
             const resolved: Result<any> = this.definition[i].resolve(input[i]);
             
             result.push(resolved.result);
+            
             if (!resolved.success) {
-                errors.push(`${i}: ${resolved.error}`);
+                if (this.nested) {
+                    errors.push(`[${i}]: ${resolved.error[0]}`);
+                } else {
+                    errors.push(`element at index ${i}: ${resolved.error[0]}`);
+                }
             }
         }
 

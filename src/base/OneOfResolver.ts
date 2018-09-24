@@ -42,7 +42,7 @@ export class OneOfResolver<T> extends OptionalResolver<T> {
         let errors: string[] = [];
 
         if (!success) {
-            errors.push(this.definition.map(r => r.type).join(' nor '));
+            errors.push(`${typeof input} is not a ` + this.definition.map(r => r.type).join(' nor '));
         }
 
         return new Result<T>(success, result, errors);

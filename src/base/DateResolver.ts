@@ -31,7 +31,11 @@ export class DateResolver extends OptionalResolver<Date> {
         }
 
         if (!success) {
-            errors.push('value is not a valid date');
+            if (Util.isString(input)) {
+                errors.push(`this ${typeof input} is not a valid date`);
+            } else {
+                errors.push(`${typeof input} is not a valid date`);
+            }
         }
     
         return new Result<Date>(success, date, errors);
