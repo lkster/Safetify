@@ -40,13 +40,9 @@ export class ArrayResolver<T> extends OptionalResolver<Array<T>> {
             let dec = this.definition.resolve(input[i]);
             
             if (!dec.success) {
-                if (this.definition.type === 'object' || this.definition.type === 'array') {
+                if (this.definition.type === 'object' || this.definition.type === 'array' || this.definition.type === 'tuple') {
                     for (let j = 0; j < dec.error.length; j++) {
-                        if (this.nested) {
-                            errors.push(`[${j}]${dec.error[j]}`);
-                        } else {
-                            errors.push(`${j}${dec.error[j]}`);
-                        }
+                        errors.push(`[${i}]${dec.error[j]}`);
                     }
                 } else {
                     if (this.nested) {

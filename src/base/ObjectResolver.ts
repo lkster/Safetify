@@ -45,7 +45,7 @@ export class ObjectResolver<T> extends OptionalResolver<T> {
             let dec = this.definition[key].resolve(input[key]);
 
             if (!dec.success) {
-                if (this.definition[key].type === 'object' || this.definition[key].type === 'array') {
+                if (this.definition[key].type === 'object' || this.definition[key].type === 'array' || this.definition[key].type === 'tuple') {
                     for (let i = 0; i < dec.error.length; i++) {
                         errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
                     }

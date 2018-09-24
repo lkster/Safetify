@@ -40,7 +40,7 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
             let dec = this.definition.resolve(input[key]);
 
             if (!dec.success) {
-                if (this.definition.type === 'object' || this.definition.type === 'array') {
+                if (this.definition.type === 'object' || this.definition.type === 'array' || this.definition.type === 'tuple') {
                     for (let i = 0; i < dec.error.length; i++) {
                         errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
                     }
