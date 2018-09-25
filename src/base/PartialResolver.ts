@@ -17,12 +17,12 @@ export class PartialResolver<T> extends Resolver<Partial<T>> {
     /**
      * @hidden
      */
-    public resolve(input: any): Result<T> {
+    public resolve(input: any): Result<Partial<T>> {
         let resolved = this.resolver(input);
 
         if (!resolved.success) {
             if (this.isNullable === true && input === null) {
-                return new Result<T>(true, null, null);
+                return new Result<Partial<T>>(true, null, null);
             } else if (this.isNullable === true && !Util.isObject(input)) {
                 resolved.result = null;
             }
