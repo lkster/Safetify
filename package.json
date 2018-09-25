@@ -1,6 +1,6 @@
 {
   "name": "safetify",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Utility for resolving and making values types safe",
   "main": "dist/safetify.js",
   "scripts": {

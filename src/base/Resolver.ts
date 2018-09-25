@@ -25,7 +25,7 @@ export class Resolver<T> {
         /**
          * @hidden
          */
-        private resolver: ResolverFunction<T>
+        protected resolver: ResolverFunction<T>
     ) {}
 
     /**

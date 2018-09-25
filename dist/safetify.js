@@ -1151,6 +1151,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var ArrayResolver = /** @class */ (function (_super) {
     __extends(ArrayResolver, _super);
     /**
@@ -1159,6 +1161,24 @@ var ArrayResolver = /** @class */ (function (_super) {
     function ArrayResolver(resolver) {
         return _super.call(this, 'array', resolver) || this;
     }
+    /**
+     * @hidden
+     */
+    ArrayResolver.prototype.resolve = function (input) {
+        var resolved = this.resolver(input);
+        if (!resolved.success) {
+            if (this.isNullable === true && input === null) {
+                return new Result_1.Result(true, null, null);
+            }
+            else if (this.isNullable === true && !Util_1.Util.isArrayLike(input)) {
+                resolved.result = null;
+            }
+        }
+        else if (!Util_1.Util.isDef(resolved.result) && this.isNullable === true) {
+            resolved.result = null;
+        }
+        return resolved;
+    };
     return ArrayResolver;
 }(Resolver_1.Resolver));
 exports.ArrayResolver = ArrayResolver;
@@ -1305,6 +1325,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var ObjectResolver = /** @class */ (function (_super) {
     __extends(ObjectResolver, _super);
     /**
@@ -1313,6 +1335,24 @@ var ObjectResolver = /** @class */ (function (_super) {
     function ObjectResolver(resolver) {
         return _super.call(this, 'object', resolver) || this;
     }
+    /**
+     * @hidden
+     */
+    ObjectResolver.prototype.resolve = function (input) {
+        var resolved = this.resolver(input);
+        if (!resolved.success) {
+            if (this.isNullable === true && input === null) {
+                return new Result_1.Result(true, null, null);
+            }
+            else if (this.isNullable === true && !Util_1.Util.isObject(input)) {
+                resolved.result = null;
+            }
+        }
+        else if (!Util_1.Util.isDef(resolved.result) && this.isNullable === true) {
+            resolved.result = null;
+        }
+        return resolved;
+    };
     return ObjectResolver;
 }(Resolver_1.Resolver));
 exports.ObjectResolver = ObjectResolver;
@@ -1336,6 +1376,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var PartialResolver = /** @class */ (function (_super) {
     __extends(PartialResolver, _super);
     /**
@@ -1344,6 +1386,24 @@ var PartialResolver = /** @class */ (function (_super) {
     function PartialResolver(resolver) {
         return _super.call(this, 'object', resolver) || this;
     }
+    /**
+     * @hidden
+     */
+    PartialResolver.prototype.resolve = function (input) {
+        var resolved = this.resolver(input);
+        if (!resolved.success) {
+            if (this.isNullable === true && input === null) {
+                return new Result_1.Result(true, null, null);
+            }
+            else if (this.isNullable === true && !Util_1.Util.isObject(input)) {
+                resolved.result = null;
+            }
+        }
+        else if (!Util_1.Util.isDef(resolved.result) && this.isNullable === true) {
+            resolved.result = null;
+        }
+        return resolved;
+    };
     return PartialResolver;
 }(Resolver_1.Resolver));
 exports.PartialResolver = PartialResolver;
@@ -1428,6 +1488,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Resolver_1 = __webpack_require__(2);
+var Result_1 = __webpack_require__(0);
+var Util_1 = __webpack_require__(1);
 var TupleResolver = /** @class */ (function (_super) {
     __extends(TupleResolver, _super);
     /**
@@ -1436,6 +1498,24 @@ var TupleResolver = /** @class */ (function (_super) {
     function TupleResolver(resolver) {
         return _super.call(this, 'tuple', resolver) || this;
     }
+    /**
+     * @hidden
+     */
+    TupleResolver.prototype.resolve = function (input) {
+        var resolved = this.resolver(input);
+        if (!resolved.success) {
+            if (this.isNullable === true && input === null) {
+                return new Result_1.Result(true, null, null);
+            }
+            else if (this.isNullable === true && !Util_1.Util.isArrayLike(input)) {
+                resolved.result = null;
+            }
+        }
+        else if (!Util_1.Util.isDef(resolved.result) && this.isNullable === true) {
+            resolved.result = null;
+        }
+        return resolved;
+    };
     return TupleResolver;
 }(Resolver_1.Resolver));
 exports.TupleResolver = TupleResolver;
