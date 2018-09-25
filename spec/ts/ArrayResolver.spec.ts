@@ -68,4 +68,87 @@ describe('Array Resolver', () => {
             expect(result.error.length).toBe(3);
         });
     });
+
+    describe('nullable value', () => {
+        
+        describe('correct input', () => {
+            let result: Result<string[]>;
+
+            beforeEach(() => {
+                result = ArrayResolver<string>(StringResolver()).nullable().resolve(['im a string']);
+            });
+            
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);
+            });
+
+            it('should return result equals to input', () => {
+                expect(result.result).toEqual(['im a string']);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeNull();
+            });
+        });
+
+        describe('null input', () => {
+            let result: Result<string[]>;
+
+            beforeEach(() => {
+                result = ArrayResolver<string>(StringResolver()).nullable().resolve(null);
+            });
+            
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);
+            });
+
+            it('should return result equals to input', () => {
+                expect(result.result).toEqual(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error).toBeNull();
+            });
+        });
+
+        describe('incorrect item', () => {
+            let result: Result<string[]>;
+
+            beforeEach(() => {
+                result = ArrayResolver<string>(StringResolver()).nullable().resolve(['im a string', 12312]);
+            });
+            
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toEqual(['im a string', '']);
+            });
+
+            it('should return error', () => {
+                expect(result.error.length).toBe(1);
+            });
+        });
+
+        describe('incorrect input', () => {
+            let result: Result<string[]>;
+
+            beforeEach(() => {
+                result = ArrayResolver<string>(StringResolver()).nullable().resolve(345345);
+            });
+            
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return result as null', () => {
+                expect(result.result).toEqual(null);
+            });
+
+            it('should return error', () => {
+                expect(result.error.length).toBe(1);
+            });
+        });
+    });
 });
