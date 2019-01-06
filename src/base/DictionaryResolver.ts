@@ -14,11 +14,11 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
     /**
      * @hidden
      */
-    constructor (
+    public constructor (
         /**
          * @hidden
          */
-        private definition: Resolver<T>
+        private definition: Resolver<T>,
     ) {
         super();
     }
@@ -31,27 +31,31 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
             return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), [`${this.nested ? ': ' : ''}${typeof input} is not an object`]);
         }
         
-        let errors: string[] = [];
-        let result: any = {};
+        const errors: string[] = [];
+        const result: any = {};
 
-        for (let key in input) {
+        for (const key in input) {
             this.definition.nested = true;
 
-            let dec = this.definition.resolve(input[key]);
+            const dec = this.definition.resolve(input[key]);
 
-            if (!dec.success) {
-                if (this.definition.type === 'object' || this.definition.type === 'array' || this.definition.type === 'tuple') {
+            switch (this.definition.type) {
+                case 'object':
+                case 'array':
+                case 'tuple':
                     for (let i = 0; i < dec.error.length; i++) {
                         errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
                     }
-                } else {
+                    break;
+
+                default:
                     errors.push(`${this.nested ? '.' : ''}${key}: ${dec.error[0]}`);
-                }
+                    break;
             }
 
             result[key] = dec.result;
         }
 
-        return new Result<IDictionary<T>>(errors.length == 0, result, errors);
-    } 
+        return new Result<IDictionary<T>>(errors.length === 0, result, errors);
+    }
 }

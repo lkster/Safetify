@@ -12,11 +12,11 @@ export class EnumResolver<T> extends OptionalResolver<T> {
     /**
      * @hidden
      */
-    constructor (
+    public constructor (
         /**
          * @hidden
          */
-        private definition: Array<string | number> | IEnum
+        private definition: (string | number)[] | IEnum,
     ) {
         super();
     }
@@ -25,11 +25,12 @@ export class EnumResolver<T> extends OptionalResolver<T> {
      * @hidden
      */
     protected resolver (input: any): Result<T> {
-        let errors: string[] = [];
+        const errors: string[] = [];
         let result: string | number = 0;
 
+        // TODO: split this array into separate functions
         if (Util.isArray(this.definition)) {
-            if ((<Array<string | number>> this.definition).indexOf(input) > -1) {
+            if ((<(string | number)[]> this.definition).indexOf(input) > -1) {
                 result = input;
             } else {
                 if (Util.isString(input)) {
@@ -59,7 +60,5 @@ export class EnumResolver<T> extends OptionalResolver<T> {
         }
 
         return new Result<T>(errors.length === 0, <any> result, errors);
-    } 
-
-
+    }
 }

@@ -12,11 +12,12 @@ export class SafeUtil {
     }
 
     public static makeSafeNumber(val: any, safeValue = NaN): number {
-        let parsed = Number(val);
+        const parsed = Number(val);
+
         return isFinite(parsed) ? parsed : safeValue;
     }
 
-    public static makeSafeArray(val: any): Array<any> {
+    public static makeSafeArray(val: any): any[] {
         return Util.isArray(val) ? val : [];
     }
 

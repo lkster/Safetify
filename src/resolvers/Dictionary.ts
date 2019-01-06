@@ -10,7 +10,7 @@ import { Resolver } from '@/base/Resolver';
  * <caption>
  * DictionaryResolver<string\>(StringResolver()).resolve({ name: 'John', surname: 'Doe' });
  * // returns { name: 'John', surname: 'Doe' }
- * 
+ *
  * DictionaryResolver<string\>(StringResolver()).resolve({ name: 'John', surname: 5434 });
  * // returns { name: 'John', surname: '' }
  * </caption>

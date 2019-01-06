@@ -12,7 +12,7 @@ export class BooleanResolver extends PrimitiveResolver<boolean> {
      * @hidden
      */
     protected resolver (input: any): Result<boolean> {
-        let errors: string[] = [];
+        const errors: string[] = [];
     
         if (!Util.isBoolean(input)) {
             errors.push(`${typeof input} is not a boolean`);

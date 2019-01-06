@@ -33,7 +33,7 @@ export class Util {
      * @param val Variable to test.
      */
     public static isString(val: any): boolean {
-        return typeof val == 'string';
+        return typeof val === 'string';
     }
     
     /**
@@ -41,7 +41,7 @@ export class Util {
      * @param val Variable to test.
      */
     public static isBoolean(val: any): boolean {
-        return typeof val == 'boolean';
+        return typeof val === 'boolean';
     }
 
     /**
@@ -49,7 +49,7 @@ export class Util {
      * @param val Variable to test.
      */
     public static isNumber(val: any): boolean {
-        return typeof val == 'number';
+        return typeof val === 'number';
     }
 
     /**
@@ -65,7 +65,7 @@ export class Util {
      * @param val Variable to test.
      */
     public static isArray(val: any): boolean {
-        return this._typeOf(val) == 'array';
+        return this._typeOf(val) === 'array';
     }
 
     /**
@@ -79,7 +79,7 @@ export class Util {
     public static isArrayLike(val: any): boolean {
       const type: string = this._typeOf(val);
 
-      return type == 'array' || type == 'object' && typeof val.length == 'number';
+      return type === 'array' || type === 'object' && typeof val.length === 'number';
     }
 
     /**
@@ -88,8 +88,9 @@ export class Util {
      * @param val Variable to test.
      */
     public static isObject(val: any): boolean {
-        let type = typeof val;
-        return type == 'object' && val != null || type == 'function';
+        const type = typeof val;
+
+        return type === 'object' && val != null || type === 'function';
     }
 
     /**
@@ -98,11 +99,11 @@ export class Util {
      * @param val Variable to test.
      */
     public static isDateLike(val: any): boolean {
-      return this.isObject(val) && typeof val.getFullYear == 'function';
+      return this.isObject(val) && typeof val.getFullYear === 'function';
     }
 
     /**
-     * Returns true if the specified value is a valid date (can be string, 
+     * Returns true if the specified value is a valid date (can be string,
      * unix timestamp but also custom library like Moment)
      * @param val Variable to test
      */
@@ -115,7 +116,7 @@ export class Util {
      * @param val Variable to test.
      */
     public static isFunction(val: any): boolean {
-      return this._typeOf(val) == 'function';
+      return this._typeOf(val) === 'function';
     }
 
     /**
@@ -134,9 +135,9 @@ export class Util {
      * @param val The value to get the type of.
      */
     private static _typeOf(val: any): string {
-        let s: string = typeof val;
+        const s: string = typeof val;
 
-        if (s == 'object') {
+        if (s === 'object') {
           if (val) {
 
             if (val instanceof Array) {
@@ -145,24 +146,24 @@ export class Util {
               return s;
             }
       
-            let className: string = Object.prototype.toString.call(val);
+            const className: string = Object.prototype.toString.call(val);
 
-            if (className == '[object Window]') {
+            if (className === '[object Window]') {
               return 'object';
             }
 
-            if (className == '[object Array]' ||
-                    typeof val.length == 'number' &&
-                    typeof val.splice != 'undefined' &&
-                    typeof val.propertyIsEnumerable != 'undefined' &&
+            if (className === '[object Array]' ||
+                    typeof val.length === 'number' &&
+                    typeof val.splice !== 'undefined' &&
+                    typeof val.propertyIsEnumerable !== 'undefined' &&
                     !val.propertyIsEnumerable('splice')
                 ) {
               return 'array';
             }
 
-            if (className == '[object Function]' ||
-                    typeof val.call != 'undefined' &&
-                    typeof val.propertyIsEnumerable != 'undefined' &&
+            if (className === '[object Function]' ||
+                    typeof val.call !== 'undefined' &&
+                    typeof val.propertyIsEnumerable !== 'undefined' &&
                     !val.propertyIsEnumerable('call')
                 ) {
               return 'function';
@@ -171,9 +172,10 @@ export class Util {
             return 'null';
           }
       
-        } else if (s == 'function' && typeof val.call == 'undefined') {
+        } else if (s === 'function' && typeof val.call === 'undefined') {
           return 'object';
         }
-      return s;
+
+        return s;
     }
 }

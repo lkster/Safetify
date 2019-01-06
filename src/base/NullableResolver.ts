@@ -19,7 +19,7 @@ export abstract class NullableResolver<T> extends Resolver<T> {
             return new Result<T>(true, null, []);
         }
 
-        let resolved = super.resolve(input);
+        const resolved = super.resolve(input);
 
         if (!resolved.success && this.isNullable) {
             resolved.result = null;
@@ -34,16 +34,17 @@ export abstract class NullableResolver<T> extends Resolver<T> {
      * <caption>
      * StringResolver().nullable().resolve('John Doe');
      * // returns 'John Doe'
-     * 
+     *
      * StringResolver().nullable().resolve(null);
      * // returns null without any errors
-     * 
+     *
      * StringResolver().nullable().resolve(undefined);
      * // returns null with false success and input type error
      * </caption>
      */
     public nullable(): Resolver<T> {
         this.isNullable = true;
+
         return this;
     }
 }

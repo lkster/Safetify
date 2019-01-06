@@ -23,6 +23,7 @@ export abstract class OptionalResolver<T> extends NullableResolver<T> {
     public optional(): Resolver<T> {
         this.isOptional = true;
         this.isNullable = true;
+
         return this;
     }
 }

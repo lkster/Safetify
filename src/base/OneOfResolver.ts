@@ -11,11 +11,11 @@ export class OneOfResolver<T> extends OptionalResolver<T> {
     /**
      * @hidden
      */
-    constructor (
+    public constructor (
         /**
          * @hidden
          */
-        private definition: Array<Resolver<T>>
+        private definition: Resolver<T>[],
     ) {
         super();
     }
@@ -28,7 +28,7 @@ export class OneOfResolver<T> extends OptionalResolver<T> {
         let result: T;
 
         for (let i = 0; i < this.definition.length; i++) {
-            let dec: Result<T> = this.definition[i].resolve(input);
+            const dec: Result<T> = this.definition[i].resolve(input);
 
             if (dec.success) {
                 success = true;
@@ -37,9 +37,9 @@ export class OneOfResolver<T> extends OptionalResolver<T> {
             }
 
             result = dec.result;
-        };
+        }
 
-        let errors: string[] = [];
+        const errors: string[] = [];
 
         if (!success) {
             errors.push(`${typeof input} is not a ` + this.definition.map(r => r.type).join(' nor '));

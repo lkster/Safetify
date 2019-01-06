@@ -8,7 +8,7 @@ import { StringResolver as StringResolverBase } from '@/base/StringResolver';
  * <caption>
  * StringResolver().resolve('john doe');
  * // returns 'john doe'
- * 
+ *
  * StringResolver().resolve(3842);
  * // returns ''
  * </caption>

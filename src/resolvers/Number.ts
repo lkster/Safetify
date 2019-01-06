@@ -8,7 +8,7 @@ import { NumberResolver as NumberResolverBase } from '@/base/NumberResolver';
  * <caption>
  * NumberResolver().resolve(5);
  * // returns 5
- * 
+ *
  * NumberResolver().resolve('');
  * // returns NaN
  * </caption>

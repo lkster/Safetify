@@ -6,18 +6,18 @@ import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class ArrayResolver<T> extends OptionalResolver<Array<T>> {
+export class ArrayResolver<T> extends OptionalResolver<T[]> {
 
     public type: string = 'array';
 
     /**
      * @hidden
      */
-    constructor (
+    public constructor (
         /**
          * @hidden
          */
-        private definition: Resolver<T>
+        private definition: Resolver<T>,
     ) {
         super();
     }
@@ -25,37 +25,43 @@ export class ArrayResolver<T> extends OptionalResolver<Array<T>> {
     /**
      * @hidden
      */
-    protected resolver (input: any): Result<Array<T>> {
+    protected resolver (input: any): Result<T[]> {
         if (!Util.isArray(input)) {
             return new Result(false, SafeUtil.makeSafeArray(input), [`${this.nested ? ': ' : ''}${typeof input} is not an array`]);
         }
 
-        let errors: string[] = [];
+        const errors: string[] = [];
 
-        let result: Array<T> = [];
+        const result: T[] = [];
 
         for (let i = 0; i < input.length; i++) {
             this.definition.nested = true;
 
-            let dec = this.definition.resolve(input[i]);
+            const dec = this.definition.resolve(input[i]);
             
             if (!dec.success) {
-                if (this.definition.type === 'object' || this.definition.type === 'array' || this.definition.type === 'tuple') {
-                    for (let j = 0; j < dec.error.length; j++) {
-                        errors.push(`[${i}]${dec.error[j]}`);
-                    }
-                } else {
-                    if (this.nested) {
-                        errors.push(`[${i}]: ${dec.error[0]}`);
-                    } else {
-                        errors.push(`element at index ${i}: ${dec.error[0]}`)
-                    }
+                switch (this.definition.type) {
+                    case 'object':
+                    case 'array':
+                    case 'tuple':
+                        for (let j = 0; j < dec.error.length; j++) {
+                            errors.push(`[${i}]${dec.error[j]}`);
+                        }
+                        break;
+
+                    default:
+                        if (this.nested) {
+                            errors.push(`[${i}]: ${dec.error[0]}`);
+                        } else {
+                            errors.push(`element at index ${i}: ${dec.error[0]}`);
+                        }
+                        break;
                 }
             }
 
             result.push(dec.result);
         }
 
-        return new Result<Array<T>>(errors.length == 0, result, errors);
+        return new Result<T[]>(errors.length === 0, result, errors);
     }
 }
