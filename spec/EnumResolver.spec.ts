@@ -6,13 +6,13 @@ import { IDictionary } from '@/interfaces/IDictionary';
 enum TestEnumNumberValues {
     option1,
     option2,
-    option3
+    option3,
 }
 
 enum TestEnumStringValues {
     option1 = 'opt1',
     option2 = 'opt2',
-    option3 = 'opt3'
+    option3 = 'opt3',
 }
 
 describe('Enum Resolver', () => {
@@ -80,7 +80,7 @@ describe('Enum Resolver', () => {
                 resolver = EnumResolver([
                     'option1',
                     'option2',
-                    'option3'
+                    'option3',
                 ]);
             });
     
@@ -107,13 +107,13 @@ describe('Enum Resolver', () => {
                 resolver = EnumResolver(<any> {
                     opt1: 'option1',
                     opt2: 'option2',
-                    opt3: 'option3'
+                    opt3: 'option3',
                 });
 
                 resolver2 = EnumResolver(<any> {
                     opt1: 0,
                     opt2: 1,
-                    opt3: 2
+                    opt3: 2,
                 });
             });
     
@@ -180,7 +180,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -200,7 +200,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -220,7 +220,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {
@@ -246,7 +246,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -266,7 +266,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -286,7 +286,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -306,7 +306,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {

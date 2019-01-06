@@ -39,18 +39,20 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
 
             const dec = this.definition.resolve(input[key]);
 
-            switch (this.definition.type) {
-                case 'object':
-                case 'array':
-                case 'tuple':
-                    for (let i = 0; i < dec.error.length; i++) {
-                        errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
-                    }
-                    break;
-
-                default:
-                    errors.push(`${this.nested ? '.' : ''}${key}: ${dec.error[0]}`);
-                    break;
+            if (!dec.success) {
+                switch (this.definition.type) {
+                    case 'object':
+                    case 'array':
+                    case 'tuple':
+                        for (let i = 0; i < dec.error.length; i++) {
+                            errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
+                        }
+                        break;
+    
+                    default:
+                        errors.push(`${this.nested ? '.' : ''}${key}: ${dec.error[0]}`);
+                        break;
+                }
             }
 
             result[key] = dec.result;
