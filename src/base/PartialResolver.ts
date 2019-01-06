@@ -1,12 +1,12 @@
-import { NullableResolver } from '@/base/NullableResolver';
 import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
 import { Util } from '@/utils/Util';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Result } from '@/Result';
+import { OptionalResolver } from './OptionalResolver';
 
 
 
-export class PartialResolver<T> extends NullableResolver<Partial<T>> {
+export class PartialResolver<T> extends OptionalResolver<Partial<T>> {
     
     public type: string = 'object';
     

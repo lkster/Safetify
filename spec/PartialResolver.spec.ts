@@ -120,6 +120,232 @@ describe('Partial Resolver', () => {
         });
     });
 
+    describe('nullable value', () => {
+        
+        describe('correct value', () => {
+            let result: Result<Partial<ITest>>;
+
+            beforeEach(() => {
+                result = PartialResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver()
+                    })
+                }).nullable().resolve({
+                    a: 'a',
+                    c: {
+                        d: 'd',
+                        e: true
+                    }
+                });
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toEqual({
+                    a: 'a',
+                    c: {
+                        d: 'd',
+                        e: true
+                    }
+                });
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('null value', () => {
+            let result: Result<Partial<ITest>>;
+
+            beforeEach(() => {
+                result = PartialResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver()
+                    })
+                }).nullable().resolve(null);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result: Result<Partial<ITest>>;
+
+            beforeEach(() => {
+                result = PartialResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver()
+                    })
+                }).nullable().resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);    
+            });
+
+            it('should return null as result', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('undefined is not an object');
+            });
+        });
+    });
+
+    describe('optional value', () => {
+        describe('correct value', () => {
+            let result: Result<Partial<ITest>>;
+
+            beforeEach(() => {
+                result = PartialResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver()
+                    })
+                }).optional().resolve({
+                    a: 'a',
+                    c: {
+                        d: 'd',
+                        e: true
+                    }
+                });
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toEqual({
+                    a: 'a',
+                    c: {
+                        d: 'd',
+                        e: true
+                    }
+                });
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('null value', () => {
+            let result: Result<Partial<ITest>>;
+
+            beforeEach(() => {
+                result = PartialResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver()
+                    })
+                }).optional().resolve(null);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('undefined value', () => {
+            let result: Result<Partial<ITest>>;
+
+            beforeEach(() => {
+                result = PartialResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver()
+                    })
+                }).optional().resolve(undefined);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(true);    
+            });
+
+            it('should return result equal to input', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should not return error', () => {
+                expect(result.error.length).toBe(0);
+            });
+        });
+
+        describe('incorrect value', () => {
+            let result: Result<Partial<ITest>>;
+
+            beforeEach(() => {
+                result = PartialResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver()
+                    })
+                }).optional().resolve(23);
+            });
+
+            it('should return success as true', () => {
+                expect(result.success).toBe(false);    
+            });
+
+            it('should return null as result', () => {
+                expect(result.result).toBe(null);
+            });
+
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('number is not an object');
+            });
+        });
+    });
+
     describe('combined errors description', () => {
         it('should create proper error description with PartialResolver at the start of chain', () => {
             const result: Result<any> = PartialResolver({ a: DictionaryResolver(StringResolver())}).resolve({ a: { b: 23423 }});
