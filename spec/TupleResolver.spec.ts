@@ -30,28 +30,85 @@ describe('TupleResolver', () => {
     });
 
     describe('incorrect input', () => {
-        let result: Result<[string, string, number]>;
+        
+        describe('incorrect input with correct amount of items', () => {
+            let result: Result<[string, string, number]>;
 
-        beforeEach(() => {
-            result = TupleResolver<[string, string, number]>([StringResolver(), StringResolver(), NumberResolver()]).resolve([undefined, 1234124, true]);
+            beforeEach(() => {
+                result = TupleResolver<[string, string, number]>([StringResolver(), StringResolver(), NumberResolver()]).resolve([undefined, 1234124, true]);
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toEqual(['', '', 1]);
+            });
+
+            it('should return 3 errors', () => {
+                expect(result.error.length).toBe(3);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('element at index 0: undefined is not a string');
+                expect(result.error[1]).toBe('element at index 1: number is not a string');
+                expect(result.error[2]).toBe('element at index 2: boolean is not a number');
+            });
         });
 
-        it('should return success as false', () => {
-            expect(result.success).toBe(false);
+        describe('correct input with incorrect amount of items', () => {
+            let result: Result<[string, number]>;
+
+            beforeEach(() => {
+                result = TupleResolver<[string, number]>([StringResolver(), NumberResolver()]).resolve(['some string', 1234124, true, 'olol', null]);
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toEqual(['some string', 1234124]);
+            });
+
+            it('should return 3 errors', () => {
+                expect(result.error.length).toBe(3);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('element at index 2: out of range');
+                expect(result.error[1]).toBe('element at index 3: out of range');
+                expect(result.error[2]).toBe('element at index 4: out of range');
+            });
         });
 
-        it('should return safe value', () => {
-            expect(result.result).toEqual(['', '', 1]);
-        });
+        describe('incorrect input with incorrect amount of items', () => {
+            let result: Result<[string, number]>;
 
-        it('should return 1 error', () => {
-            expect(result.error.length).toBe(3);
-        });
+            beforeEach(() => {
+                result = TupleResolver<[string, number]>([StringResolver(), NumberResolver()]).resolve([undefined, 'trust me im number', true, 'olol', null]);
+            });
 
-        it('should return proper error description', () => {
-            expect(result.error[0]).toBe('element at index 0: undefined is not a string');
-            expect(result.error[1]).toBe('element at index 1: number is not a string');
-            expect(result.error[2]).toBe('element at index 2: boolean is not a number');
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toEqual(['', NaN]);
+            });
+
+            it('should return 5 errors', () => {
+                expect(result.error.length).toBe(5);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('element at index 0: undefined is not a string');
+                expect(result.error[1]).toBe('element at index 1: string is not a number');
+                expect(result.error[2]).toBe('element at index 2: out of range');
+                expect(result.error[3]).toBe('element at index 3: out of range');
+                expect(result.error[4]).toBe('element at index 4: out of range');
+            });
         });
     });
 
