@@ -44,7 +44,7 @@ describe('Utilities', () => {
             expect(util.isNull(true)).toBe(false);
             expect(util.isNull([])).toBe(false);
             expect(util.isNull({})).toBe(false);
-            expect(util.isNull(function () {})).toBe(false);
+            expect(util.isNull(() => undefined)).toBe(false);
             expect(util.isNull(NaN)).toBe(false);
         });
     });
@@ -61,7 +61,7 @@ describe('Utilities', () => {
             expect(util.isString(true)).toBe(false);
             expect(util.isString([])).toBe(false);
             expect(util.isString({})).toBe(false);
-            expect(util.isString(function () {})).toBe(false);
+            expect(util.isString(() => undefined)).toBe(false);
             expect(util.isString(NaN)).toBe(false);
         });
     });
@@ -78,7 +78,7 @@ describe('Utilities', () => {
             expect(util.isBoolean('something')).toBe(false);
             expect(util.isBoolean([])).toBe(false);
             expect(util.isBoolean({})).toBe(false);
-            expect(util.isBoolean(function () {})).toBe(false);
+            expect(util.isBoolean(() => undefined)).toBe(false);
             expect(util.isBoolean(NaN)).toBe(false);
         });
     });
@@ -96,7 +96,7 @@ describe('Utilities', () => {
             expect(util.isNumber(true)).toBe(false);
             expect(util.isNumber([])).toBe(false);
             expect(util.isNumber({})).toBe(false);
-            expect(util.isNumber(function () {})).toBe(false);
+            expect(util.isNumber(() => undefined)).toBe(false);
         });
     });
 
@@ -113,7 +113,7 @@ describe('Utilities', () => {
         it('should return false if value is not primitive', () => {
             expect(util.isPrimitive([])).toBe(false);
             expect(util.isPrimitive({})).toBe(false);
-            expect(util.isPrimitive(function () {})).toBe(false);
+            expect(util.isPrimitive(() => undefined)).toBe(false);
         });
     });
 
@@ -129,7 +129,7 @@ describe('Utilities', () => {
             expect(util.isArray(true)).toBe(false);
             expect(util.isArray('something')).toBe(false);
             expect(util.isArray({})).toBe(false);
-            expect(util.isArray(function () {})).toBe(false);
+            expect(util.isArray(() => undefined)).toBe(false);
             expect(util.isArray(NaN)).toBe(false);
         });
     });
@@ -146,7 +146,7 @@ describe('Utilities', () => {
             expect(util.isArrayLike(true)).toBe(false);
             expect(util.isArrayLike('something')).toBe(false);
             expect(util.isArrayLike({})).toBe(false);
-            expect(util.isArrayLike(function () {})).toBe(false);
+            expect(util.isArrayLike(() => undefined)).toBe(false);
             expect(util.isArrayLike(NaN)).toBe(false);
         });
     });
@@ -155,7 +155,7 @@ describe('Utilities', () => {
         it('should return true if value is object', () => {
             expect(util.isObject({})).toBe(true);
             expect(util.isObject([])).toBe(true);
-            expect(util.isObject(function () {})).toBe(true);
+            expect(util.isObject(() => undefined)).toBe(true);
         });
 
         it('should return false if value is not a object', () => {
@@ -180,7 +180,7 @@ describe('Utilities', () => {
             expect(util.isDateLike(true)).toBe(false);
             expect(util.isDateLike('something')).toBe(false);
             expect(util.isDateLike({})).toBe(false);
-            expect(util.isDateLike(function () {})).toBe(false);
+            expect(util.isDateLike(() => undefined)).toBe(false);
             expect(util.isDateLike(NaN)).toBe(false);
         });
     });
@@ -198,14 +198,14 @@ describe('Utilities', () => {
             expect(util.isValidDate(true)).toBe(false);
             expect(util.isValidDate('something')).toBe(false);
             expect(util.isValidDate({})).toBe(false);
-            expect(util.isValidDate(function () {})).toBe(false);
+            expect(util.isValidDate(() => undefined)).toBe(false);
             expect(util.isValidDate(NaN)).toBe(false);
         });
     });
 
     describe('isFunction()', () => {
         it('should return true if value is function', () => {
-            expect(util.isFunction(function () {})).toBe(true);
+            expect(util.isFunction(() => undefined)).toBe(true);
         });
 
         it('should return false if value is not a function', () => {
@@ -224,7 +224,7 @@ describe('Utilities', () => {
         it('should return true if value is dictionary', () => {
             expect(util.isDict({})).toBe(true);
             expect(util.isDict({
-                lol: 'lolz'
+                lol: 'lolz',
             })).toBe(true);
         });
 
@@ -235,8 +235,9 @@ describe('Utilities', () => {
             expect(util.isDict(true)).toBe(false);
             expect(util.isDict('something')).toBe(false);
             expect(util.isDict(NaN)).toBe(false);
-            expect(util.isDict(function() {})).toBe(false,);
-            expect(util.isDict(new (function() {}))).toBe(false);
+            expect(util.isDict((() => undefined))).toBe(false);
+            // tslint:disable-next-line:new-parens no-empty
+            expect(util.isDict(new (function () {}))).toBe(false);
             expect(util.isDict([])).toBe(false);
         });
     });

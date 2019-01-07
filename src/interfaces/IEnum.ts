@@ -2,5 +2,5 @@
  * @hidden
  */
 export interface IEnum {
-    [key: number]: string
+    [key: number]: string;
 }

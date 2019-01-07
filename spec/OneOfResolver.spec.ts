@@ -14,8 +14,8 @@ describe('OneOf Resolver', () => {
         });
 
         it('should return success as true', () => {
-            expect(result.success).toBe(true);    
-            expect(result2.success).toBe(true);    
+            expect(result.success).toBe(true);
+            expect(result2.success).toBe(true);
         });
 
         it('should return result equals to input', () => {
@@ -39,8 +39,8 @@ describe('OneOf Resolver', () => {
         });
 
         it('should return success as false', () => {
-            expect(result.success).toBe(false);    
-            expect(result2.success).toBe(false);    
+            expect(result.success).toBe(false);
+            expect(result2.success).toBe(false);
         });
 
         it('should return safe value', () => {
@@ -69,7 +69,7 @@ describe('OneOf Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -89,7 +89,7 @@ describe('OneOf Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -109,7 +109,7 @@ describe('OneOf Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {
@@ -135,7 +135,7 @@ describe('OneOf Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -155,7 +155,7 @@ describe('OneOf Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -175,7 +175,7 @@ describe('OneOf Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -195,7 +195,7 @@ describe('OneOf Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {

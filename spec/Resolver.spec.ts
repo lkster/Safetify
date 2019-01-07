@@ -15,7 +15,7 @@ describe('Resolver', () => {
 
     describe('initialize', () => {
         it('should correctly use implemented resolver', () => {
-            let resolver: Resolver<any> = new TestResolver<string>();
+            const resolver: Resolver<any> = new TestResolver<string>();
 
             expect(resolver.resolve('test')).toEqual(new Result(true, 'test', []));
         });

@@ -89,7 +89,7 @@ describe('Array Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -109,7 +109,7 @@ describe('Array Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -129,7 +129,7 @@ describe('Array Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {
@@ -155,7 +155,7 @@ describe('Array Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -175,7 +175,7 @@ describe('Array Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -195,7 +195,7 @@ describe('Array Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -215,7 +215,7 @@ describe('Array Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {

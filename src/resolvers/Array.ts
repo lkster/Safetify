@@ -10,7 +10,7 @@ import { Resolver } from '@/base/Resolver';
  * <caption>
  * ArrayResolver<string\>(StringResolver()).resolve(['John', 'Doe']);
  * // returns ['John', 'Doe']
- * 
+ *
  * ArrayResolver<string\>(StringResolver()).resolve(['John', 5434]);
  * // returns ['John', '']
  * </caption>

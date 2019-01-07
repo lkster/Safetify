@@ -14,11 +14,11 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
     /**
      * @hidden
      */
-    constructor (
+    public constructor (
         /**
          * @hidden
          */
-        private definition: ITupleDefinition<T>
+        private definition: ITupleDefinition<T>,
     ) {
         super();
     }
@@ -27,12 +27,12 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
      * @hidden
      */
     protected resolver (input: any): Result<T> {
-        let result: any = [];
-        let errors: string[] = [];
-        let len: number = this.definition.length;
+        const result: any = [];
+        const errors: string[] = [];
+        const len: number = this.definition.length;
 
         if (!Util.isArray(input)) {
-            for (let i = 0; i < len; i++) {              
+            for (let i = 0; i < len; i++) {
                 result.push(this.definition[i].resolve(undefined));
             }
 
@@ -57,6 +57,6 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
             }
         }
 
-        return new Result<T>(errors.length == 0, result, errors);
-    } 
+        return new Result<T>(errors.length === 0, result, errors);
+    }
 }

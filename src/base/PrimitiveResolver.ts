@@ -24,16 +24,17 @@ export abstract class PrimitiveResolver<T extends string | number | boolean> ext
      *    opt1 = 'option 1',
      *    opt2 = 'option 2'
      * }
-     * 
+     *
      * EnumResolver<TestEnum\>(TestEnum).defaultsTo('option 1').resolve('option 2');
      * // returns 'option 2'
-     * 
+     *
      * EnumResolver<TestEnum\>(TestEnum).defaultsTo('option 1').resolve('option 3');
      * // returns default value which is 'option 1'
      * </caption>
      */
     public defaultsTo(val: T): PrimitiveResolver<T> {
         this._defaultValue = super.resolve(val);
+
         return this;
     }
 
@@ -45,16 +46,16 @@ export abstract class PrimitiveResolver<T extends string | number | boolean> ext
      * <caption>
      * NumberResolver().constraint((n: number) => n >= 0).resolve(5);
      * // returns 5
-     * 
+     *
      * NumberResolver().constraint((n: number) => n >= 0).resolve(-5);
      * // returns -5 with error that constraint failed
-     * 
+     *
      * NumberResolver().constraint((n: number) => n >= 0 || 'Value is not positive').resolve(-5);
      * // returns -5 with custom constraint error
-     * 
+     *
      * NumberResolver().constraint((n: number) => n >= 0, 0).resolve(-5);
      * // returns default constraint's value, in this case 0
-     * 
+     *
      * NumberResolver().constraint((n: number) => n >= 0, (n: number) => Math.abs(n)).resolve(-5);
      * // returns transformed value into that proposed by transform function, in this case 5
      * </caption>
@@ -62,8 +63,8 @@ export abstract class PrimitiveResolver<T extends string | number | boolean> ext
     public constraint (cond: (val: T) => boolean | string, defaultValue: T | ((val: T) => T) = null): PrimitiveResolver<T> {
         const con: IConstraint<T> = {
             condition: cond,
-            defaultValue: null
-        }
+            defaultValue: null,
+        };
 
         if (Util.isDefAndNotNull(defaultValue)) {
             con.defaultValue = defaultValue;
@@ -77,9 +78,31 @@ export abstract class PrimitiveResolver<T extends string | number | boolean> ext
     /**
      * @hidden
      */
+    public resolve(input: any): Result<T> {
+        let resolved: Result<T> = super.resolve(input);
+
+        if (!resolved.success && Util.isDef(this._defaultValue)) {
+            
+            if (!this._defaultValue.success) {
+                resolved.error.push(`DefaultValue: ${this._defaultValue.error}`);
+            } else if (this._defaultValue.success) {
+                resolved.result = this._defaultValue.result;
+            }
+        }
+
+        if (resolved.success && this._constraints.length > 0) {
+            resolved = this.resolveConstraints(resolved.result);
+        }
+
+        return resolved;
+    }
+
+    /**
+     * @hidden
+     */
     private resolveConstraints (input: any): Result<T> {
         const len: number = this._constraints.length;
-        let errors: string[] = [];
+        const errors: string[] = [];
         let value: any = input;
 
         for (let i = 0; i < len; i++) {
@@ -112,28 +135,6 @@ export abstract class PrimitiveResolver<T extends string | number | boolean> ext
             }
         }
 
-        return new Result(errors.length == 0, value, errors);
-    }
-
-    /**
-     * @hidden
-     */
-    public resolve(input: any): Result<T> {
-        let resolved: Result<T> = super.resolve(input);
-
-        if (!resolved.success && Util.isDef(this._defaultValue)) {
-            
-            if (!this._defaultValue.success) {
-                resolved.error.push(`DefaultValue: ${this._defaultValue.error}`);
-            } else if (this._defaultValue.success) {
-                resolved.result = this._defaultValue.result;
-            }
-        }
-
-        if (resolved.success && this._constraints.length > 0) {
-            resolved = this.resolveConstraints(resolved.result);
-        }
-
-        return resolved;
+        return new Result(errors.length === 0, value, errors);
     }
 }

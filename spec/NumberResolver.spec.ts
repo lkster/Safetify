@@ -14,8 +14,8 @@ describe('Number Resolver', () => {
         });
 
         it('should return success as true', () => {
-            expect(result.success).toBe(true);    
-            expect(result2.success).toBe(true);    
+            expect(result.success).toBe(true);
+            expect(result2.success).toBe(true);
         });
 
         it('should return result equals to input', () => {
@@ -37,7 +37,7 @@ describe('Number Resolver', () => {
         });
 
         it('should return success as false', () => {
-            expect(result.success).toBe(false);    
+            expect(result.success).toBe(false);
         });
 
         it('should return safe value', () => {
@@ -399,7 +399,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -419,7 +419,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -439,7 +439,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {
@@ -465,7 +465,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -485,7 +485,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -505,7 +505,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -525,7 +525,7 @@ describe('Number Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {

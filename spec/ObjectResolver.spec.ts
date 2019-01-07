@@ -33,15 +33,15 @@ describe('Object Resolver', () => {
                 b: NumberResolver(),
                 c: ObjectResolver<ITestC>({
                     d: StringResolver(),
-                    e: BooleanResolver()
-                })
+                    e: BooleanResolver(),
+                }),
             }).resolve({
                 a: 'a',
                 b: 10,
                 c: {
                     d: 'd',
-                    e: true
-                }
+                    e: true,
+                },
             });
         });
 
@@ -55,8 +55,8 @@ describe('Object Resolver', () => {
                 b: 10,
                 c: {
                     d: 'd',
-                    e: true
-                }
+                    e: true,
+                },
             });
         });
 
@@ -74,22 +74,22 @@ describe('Object Resolver', () => {
                 b: NumberResolver(),
                 c: ObjectResolver<ITestC>({
                     d: StringResolver(),
-                    e: BooleanResolver()
+                    e: BooleanResolver(),
                 }),
                 f: ArrayResolver(StringResolver()),
                 g: ObjectResolver<ITestG>({
-                    h: StringResolver()
-                })
+                    h: StringResolver(),
+                }),
             }).resolve({
                 a: false,
                 b: 10,
                 c: {
                     d: 'd',
-                    e: 'trust me im boolean'
+                    e: 'trust me im boolean',
                 },
                 f: 'a',
                 g: 'a',
-                superExtra: 'this shouldnt be here'
+                superExtra: 'this shouldnt be here',
             });
         });
 
@@ -103,12 +103,12 @@ describe('Object Resolver', () => {
                 b: 10,
                 c: {
                     d: 'd',
-                    e: true
+                    e: true,
                 },
                 f: [],
                 g: {
-                    h: ''
-                }
+                    h: '',
+                },
             });
         });
 
@@ -135,20 +135,20 @@ describe('Object Resolver', () => {
                     b: NumberResolver(),
                     c: ObjectResolver<ITestC>({
                         d: StringResolver(),
-                        e: BooleanResolver()
-                    })
+                        e: BooleanResolver(),
+                    }),
                 }).nullable().resolve({
                     a: 'a',
                     b: 10,
                     c: {
                         d: 'd',
-                        e: true
-                    }
+                        e: true,
+                    },
                 });
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -157,8 +157,8 @@ describe('Object Resolver', () => {
                     b: 10,
                     c: {
                         d: 'd',
-                        e: true
-                    }
+                        e: true,
+                    },
                 });
             });
 
@@ -176,13 +176,13 @@ describe('Object Resolver', () => {
                     b: NumberResolver(),
                     c: ObjectResolver<ITestC>({
                         d: StringResolver(),
-                        e: BooleanResolver()
-                    })
+                        e: BooleanResolver(),
+                    }),
                 }).nullable().resolve(null);
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -203,13 +203,13 @@ describe('Object Resolver', () => {
                     b: NumberResolver(),
                     c: ObjectResolver<ITestC>({
                         d: StringResolver(),
-                        e: BooleanResolver()
-                    })
+                        e: BooleanResolver(),
+                    }),
                 }).nullable().resolve(undefined);
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {
@@ -236,20 +236,20 @@ describe('Object Resolver', () => {
                     b: NumberResolver(),
                     c: ObjectResolver<ITestC>({
                         d: StringResolver(),
-                        e: BooleanResolver()
-                    })
+                        e: BooleanResolver(),
+                    }),
                 }).optional().resolve({
                     a: 'a',
                     b: 10,
                     c: {
                         d: 'd',
-                        e: true
-                    }
+                        e: true,
+                    },
                 });
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -258,8 +258,8 @@ describe('Object Resolver', () => {
                     b: 10,
                     c: {
                         d: 'd',
-                        e: true
-                    }
+                        e: true,
+                    },
                 });
             });
 
@@ -277,13 +277,13 @@ describe('Object Resolver', () => {
                     b: NumberResolver(),
                     c: ObjectResolver<ITestC>({
                         d: StringResolver(),
-                        e: BooleanResolver()
-                    })
+                        e: BooleanResolver(),
+                    }),
                 }).optional().resolve(null);
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -304,13 +304,13 @@ describe('Object Resolver', () => {
                     b: NumberResolver(),
                     c: ObjectResolver<ITestC>({
                         d: StringResolver(),
-                        e: BooleanResolver()
-                    })
+                        e: BooleanResolver(),
+                    }),
                 }).optional().resolve(undefined);
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -331,13 +331,13 @@ describe('Object Resolver', () => {
                     b: NumberResolver(),
                     c: ObjectResolver<ITestC>({
                         d: StringResolver(),
-                        e: BooleanResolver()
-                    })
+                        e: BooleanResolver(),
+                    }),
                 }).optional().resolve(23);
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {

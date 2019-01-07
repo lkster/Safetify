@@ -8,7 +8,7 @@ import { AnyResolver as AnyResolverBase } from '@/base/AnyResolver';
  * <caption>
  * AnyResolver().resolve('input of any type');
  * // returns 'input of any type'
- * 
+ *
  * AnyResolver().resolve(undefined);
  * // returns undefined
  * </caption>

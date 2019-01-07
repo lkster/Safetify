@@ -14,7 +14,7 @@ import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
  *   age: NumberResolver(),
  * }).resolve({ name: 'John', surname: 'Doe' });
  * // returns { name: 'John', surname: 'Doe' }
- * 
+ *
  * PartialResolver<IPerson>({
  *   name: StringResolver(),
  *   surname: StringResolver(),
@@ -25,4 +25,4 @@ import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
  */
 export function PartialResolver<T>(definition: IObjectDefinition<T>) {
     return new PartialResolverBase<T>(definition);
-} 
+}

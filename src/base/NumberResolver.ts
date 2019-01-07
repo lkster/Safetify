@@ -13,7 +13,7 @@ export class NumberResolver extends PrimitiveResolver<number> {
      * @hidden
      */
     protected resolver (input: any): Result<number> {
-        let errors: string[] = [];
+        const errors: string[] = [];
     
         if (!Util.isNumber(input) || isNaN(input)) {
             if (Util.isNumber(input) && isNaN(input)) {
@@ -24,5 +24,5 @@ export class NumberResolver extends PrimitiveResolver<number> {
         }
     
         return new Result<number>(errors.length === 0, SafeUtil.makeSafeNumber(input), errors);
-    } 
+    }
 }

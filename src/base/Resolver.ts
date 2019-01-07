@@ -9,12 +9,6 @@ import { Util } from '@/utils/Util';
 export abstract class Resolver<T> {
 
     /**
-     * Function that resolves data and returns [[Result]] object with defined success, resolved data and optional errors
-     * @param input data to resolve
-     */
-    protected abstract resolver(input: any): Result<T>;
-
-    /**
      * Resolver's type
      */
     public abstract readonly type: string;
@@ -31,4 +25,10 @@ export abstract class Resolver<T> {
     public resolve(input: any): Result<T> {
         return this.resolver(input);
     }
+
+    /**
+     * Function that resolves data and returns [[Result]] object with defined success, resolved data and optional errors
+     * @param input data to resolve
+     */
+    protected abstract resolver(input: any): Result<T>;
 }

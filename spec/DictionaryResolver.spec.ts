@@ -16,12 +16,12 @@ describe('Dictionary Resolver', () => {
             result = DictionaryResolver<string>(StringResolver()).resolve({
                 a: 'a',
                 b: 'b',
-                c: 'c'
+                c: 'c',
             });
             result2 = DictionaryResolver<number>(NumberResolver()).resolve({
                 a: 3,
                 b: 27,
-                c: 41
+                c: 41,
             });
         });
 
@@ -34,13 +34,13 @@ describe('Dictionary Resolver', () => {
             expect(result.result).toEqual(<any> {
                 a: 'a',
                 b: 'b',
-                c: 'c'
+                c: 'c',
             });
             expect(result2.result).toEqual(<any> {
                 a: 3,
                 b: 27,
-                c: 41
-            })
+                c: 41,
+            });
         });
 
         it('should not return error', () => {
@@ -82,8 +82,8 @@ describe('Dictionary Resolver', () => {
                 b: 10,
                 c: {
                     d: 'd',
-                    e: 'trust me im boolean'
-                }
+                    e: 'trust me im boolean',
+                },
             });
         });
 
@@ -95,7 +95,7 @@ describe('Dictionary Resolver', () => {
             expect(result.result).toEqual(<any> {
                 a: 'a',
                 b: '',
-                c: ''
+                c: '',
             });
         });
 
@@ -118,19 +118,19 @@ describe('Dictionary Resolver', () => {
                 result = DictionaryResolver<string>(StringResolver()).nullable().resolve({
                     a: 'a',
                     b: 'b',
-                    c: 'c'
+                    c: 'c',
                 });
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
                 expect(result.result).toEqual(<IDictionary<string>> {
                     a: 'a',
                     b: 'b',
-                    c: 'c'
+                    c: 'c',
                 });
             });
 
@@ -147,7 +147,7 @@ describe('Dictionary Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -167,7 +167,7 @@ describe('Dictionary Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {
@@ -192,19 +192,19 @@ describe('Dictionary Resolver', () => {
                 result = DictionaryResolver<string>(StringResolver()).optional().resolve({
                     a: 'a',
                     b: 'b',
-                    c: 'c'
+                    c: 'c',
                 });
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
                 expect(result.result).toEqual(<IDictionary<string>> {
                     a: 'a',
                     b: 'b',
-                    c: 'c'
+                    c: 'c',
                 });
             });
 
@@ -221,7 +221,7 @@ describe('Dictionary Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -241,7 +241,7 @@ describe('Dictionary Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(true);    
+                expect(result.success).toBe(true);
             });
 
             it('should return result equal to input', () => {
@@ -261,7 +261,7 @@ describe('Dictionary Resolver', () => {
             });
 
             it('should return success as true', () => {
-                expect(result.success).toBe(false);    
+                expect(result.success).toBe(false);
             });
 
             it('should return null as result', () => {

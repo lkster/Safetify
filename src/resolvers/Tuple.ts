@@ -11,7 +11,7 @@ import { TupleResolver as TupleResolverBase } from '@/base/TupleResolver';
  * <caption>
  * TupleResolver<[string, string, number]\>([StringResolver(), StringResolver(), NumberResolver()]).resolve(['John', 'Doe', 43]);
  * // returns ['John', 'Doe', 43]
- * 
+ *
  * TupleResolver<[string, string, number]\>([StringResolver(), StringResolver(), NumberResolver().defaultsTo(0)]).resolve(['John', 423, 'totally a number']);
  * // returns ['John', '', 0]
  * </caption>

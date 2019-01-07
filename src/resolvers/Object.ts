@@ -14,7 +14,7 @@ import { ObjectResolver as ObjectResolverBase } from '@/base/ObjectResolver';
  *   age: NumberResolver(),
  * }).resolve({ name: 'John', surname: 'Doe', age: 56 });
  * // returns { name: 'John', surname: 'Doe', age: 56 }
- * 
+ *
  * ObjectResolver<IPerson>({
  *   name: StringResolver(),
  *   surname: StringResolver(),

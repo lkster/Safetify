@@ -7,7 +7,8 @@
     "build": "webpack",
     "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/**/*.spec.ts",
     "jsdoc": "typedoc src/safetify.ts --mode file --out docs/ --theme typedoc-theme",
-    "jsdoc:noerrors": "npm run jsdoc -- --ignoreCompilerErrors"
+    "jsdoc:noerrors": "npm run jsdoc -- --ignoreCompilerErrors",
+    "lint": "tslint src/**/*.ts  -p tsconfig.json"
   },
   "keywords": [
     "var",
@@ -37,6 +38,8 @@
     "jasmine-spec-reporter": "^4.2.1",
     "jasmine-ts": "^0.2.1",
     "ts-loader": "^3.4.0",
+    "tslint": "^5.12.0",
+    "tslint-loader": "^3.5.4",
     "typedoc": "^0.11.1",
     "typescript": "^2.9.2",
     "webpack": "^3.10.0",

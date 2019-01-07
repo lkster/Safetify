@@ -8,7 +8,7 @@ import { BooleanResolver as BooleanResolverBase } from '@/base/BooleanResolver';
  * <caption>
  * BooleanResolver().resolve(true);
  * // returns true
- * 
+ *
  * BooleanResolver().resolve('im boolean');
  * // output will be converted input to boolean, in this case true
  * </caption>

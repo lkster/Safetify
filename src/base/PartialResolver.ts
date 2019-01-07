@@ -13,11 +13,11 @@ export class PartialResolver<T> extends OptionalResolver<Partial<T>> {
     /**
      * @hidden
      */
-    constructor (
+    public constructor (
         /**
          * @hidden
-         */    
-        private definition: IObjectDefinition<T>
+         */
+        private definition: IObjectDefinition<T>,
     ) {
         super();
     }
@@ -27,35 +27,42 @@ export class PartialResolver<T> extends OptionalResolver<Partial<T>> {
      */
     protected resolver (input: any): Result<Partial<T>> {
         if (!Util.isObject(input)) {
-            let safe: any = SafeUtil.makeSafeObject(input);
+            const safe: any = SafeUtil.makeSafeObject(input);
+
             return new Result<Partial<T>>(false, safe, [`${this.nested ? ': ' : ''}${typeof input} is not an object`]);
         }
         
-        let errors: string[] = [];
-        let result: any = {};
+        const errors: string[] = [];
+        const result: any = {};
 
-        for (let key in this.definition) {
+        for (const key in this.definition) {
             if (!(key in input)) {
                 continue;
             }
 
             this.definition[key].nested = true;
             
-            let dec = this.definition[key].resolve(input[key]);
+            const dec = this.definition[key].resolve(input[key]);
 
             if (!dec.success) {
-                if (this.definition[key].type === 'object' || this.definition[key].type === 'array' || this.definition[key].type === 'tuple') {
-                    for (let i = 0; i < dec.error.length; i++) {
-                        errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
-                    }
-                } else {
-                    errors.push(`${this.nested ? '.' : ''}${key}: ${dec.error[0]}`);
+                switch (this.definition[key].type) {
+                    case 'object':
+                    case 'array':
+                    case 'tuple':
+                        for (let i = 0; i < dec.error.length; i++) {
+                            errors.push(`${this.nested ? '.' : ''}${key}${dec.error[i]}`);
+                        }
+                        break;
+
+                    default:
+                        errors.push(`${this.nested ? '.' : ''}${key}: ${dec.error[0]}`);
+                        break;
                 }
             }
 
             result[key] = dec.result;
         }
         
-        return new Result<Partial<T>>(errors.length == 0, result, errors);
+        return new Result<Partial<T>>(errors.length === 0, result, errors);
     }
-} 
+}

@@ -14,12 +14,12 @@ export class DateResolver extends OptionalResolver<Date> {
     protected resolver (input: any): Result<Date> {
         let success: boolean = true;
         let date: Date = new Date(0);
-        let errors: string[] = [];
+        const errors: string[] = [];
 
         if (Util.isDateLike(input)) {
             date = input;
         } else if (Util.isNumber(input) || Util.isString(input)) {
-            let testDate = new Date(input);
+            const testDate = new Date(input);
 
             if (!isNaN(testDate.getTime())) {
                 date = testDate;
@@ -39,5 +39,5 @@ export class DateResolver extends OptionalResolver<Date> {
         }
     
         return new Result<Date>(success, date, errors);
-    } 
+    }
 }
