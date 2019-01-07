@@ -4,12 +4,13 @@ import { ResolverUtil } from '@/utils/ResolverUtil';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
 import { OptionalResolver } from '@/base/OptionalResolver';
+import { IPrimitive } from '@/interfaces/IPrimitive';
 
 
 /**
  * @hidden
  */
-export abstract class PrimitiveResolver<T extends string | number | boolean> extends OptionalResolver<T> {
+export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalResolver<T> {
 
     private _defaultValue: Result<T>;
 
