@@ -15,11 +15,11 @@ declare interface ITuple extends Array<Primitive> {
 
 declare type IObjectResolver<T> = { [U in keyof T]: Safetify.Resolver<T[U]> }
 
-declare type ITupleResolver<T extends any[]> = { [U in keyof T]:
-    U extends "length" ? T[U] :
-    U extends keyof any[] ? Array<Safetify.Resolver<T[number]>>[U] :
-    Safetify.Resolver<T[U]>
-}
+declare type ITupleDefinition<T extends Primitive[]> = { [U in keyof T]:
+    U extends 'length' ? T[U] :
+    U extends keyof Primitive[] ? (Base.PrimitiveResolver<T[number]>[])[U] :
+    Base.PrimitiveResolver<U>
+};
 
 declare namespace Base {
 

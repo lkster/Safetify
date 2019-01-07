@@ -39,9 +39,18 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
             return new Result<T>(false, result, [`${typeof input} is not a tuple`]);
         }
 
-        
+        const inputLen: number = input.length;
 
-        for (let i = 0; i < len; i++) {
+        for (let i = 0; i < inputLen; i++) {
+            if (i >= len) {
+                if (this.nested) {
+                    errors.push(`[${i}]: out of range`);
+                } else {
+                    errors.push(`element at index ${i}: out of range`);
+                }
+                continue;
+            }
+
             this.definition[i].nested = true;
 
             const resolved: Result<any> = this.definition[i].resolve(input[i]);
