@@ -223,7 +223,7 @@ describe('Enum Resolver', () => {
                 expect(result.success).toBe(false);
             });
 
-            it('should return null as result', () => {
+            it('should return undefined as result', () => {
                 expect(result.result).toBe(null);
             });
 
@@ -265,16 +265,16 @@ describe('Enum Resolver', () => {
                 result = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).optional().resolve(null);
             });
 
-            it('should return success as true', () => {
-                expect(result.success).toBe(true);
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
             });
 
             it('should return result equal to input', () => {
-                expect(result.result).toBe(null);
+                expect(result.result).toBe(undefined);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBe(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
             });
         });
 
@@ -290,7 +290,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return result equal to input', () => {
-                expect(result.result).toBe(null);
+                expect(result.result).toBe(undefined);
             });
 
             it('should not return error', () => {
@@ -310,7 +310,7 @@ describe('Enum Resolver', () => {
             });
 
             it('should return null as result', () => {
-                expect(result.result).toBe(null);
+                expect(result.result).toBe(undefined);
             });
 
             it('should return 1 error', () => {
