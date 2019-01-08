@@ -13,16 +13,21 @@ export abstract class OptionalResolver<T> extends NullableResolver<T> {
     protected isOptional: boolean = false;
 
     public resolve(input: any): Result<T> {
-        if (this.isOptional && (Util.isNull(input) || !Util.isDef(input))) {
-            return new Result<T>(true, null, []);
+        if (this.isOptional && !Util.isDef(input)) {
+            return new Result<T>(true, undefined, []);
         }
 
-        return super.resolve(input);
+        const resolved = super.resolve(input);
+
+        if (!resolved.success && this.isOptional) {
+            resolved.result = undefined;
+        }
+
+        return resolved;
     }
-    
+
     public optional(): Resolver<T> {
         this.isOptional = true;
-        this.isNullable = true;
 
         return this;
     }

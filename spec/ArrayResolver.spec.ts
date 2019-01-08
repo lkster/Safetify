@@ -174,16 +174,16 @@ describe('Array Resolver', () => {
                 result = ArrayResolver<string>(StringResolver()).optional().resolve(null);
             });
 
-            it('should return success as true', () => {
-                expect(result.success).toBe(true);
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
             });
 
             it('should return result equal to input', () => {
-                expect(result.result).toBe(null);
+                expect(result.result).toBe(undefined);
             });
 
-            it('should not return error', () => {
-                expect(result.error.length).toBe(0);
+            it('should return 1 error', () => {
+                expect(result.error.length).toBe(1);
             });
         });
 
@@ -199,7 +199,7 @@ describe('Array Resolver', () => {
             });
 
             it('should return result equal to input', () => {
-                expect(result.result).toBe(null);
+                expect(result.result).toBe(undefined);
             });
 
             it('should not return error', () => {
@@ -218,8 +218,8 @@ describe('Array Resolver', () => {
                 expect(result.success).toBe(false);
             });
 
-            it('should return null as result', () => {
-                expect(result.result).toBe(null);
+            it('should return undefined as result', () => {
+                expect(result.result).toBe(undefined);
             });
 
             it('should return 1 error', () => {
