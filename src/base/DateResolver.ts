@@ -11,6 +11,20 @@ export class DateResolver extends OptionalResolver<Date> {
     /**
      * @hidden
      */
+    public nullable(): DateResolver {
+        return new DateResolver(true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): DateResolver {
+        return new DateResolver(this.isNullable, true);
+    }
+
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<Date> {
         let success: boolean = true;
         let date: Date = new Date(0);

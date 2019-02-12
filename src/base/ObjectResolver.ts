@@ -18,8 +18,24 @@ export class ObjectResolver<T> extends OptionalResolver<T> {
          * @hidden
          */
         private definition: IObjectDefinition<T>,
+        isNullable: boolean = false,
+        isOptional: boolean = false,
     ) {
-        super();
+        super(isNullable, isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public nullable(): ObjectResolver<T> {
+        return new ObjectResolver(this.definition, true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): ObjectResolver<T> {
+        return new ObjectResolver(this.definition, this.isNullable, true);
     }
 
     /**

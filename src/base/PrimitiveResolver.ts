@@ -16,6 +16,13 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
 
     private _constraints: IConstraint<T>[] = [];
 
+    public constructor(
+        isNullable: boolean = false,
+        isOptional: boolean = false,
+    ) {
+        super(isNullable, isOptional);
+    }
+    
     /**
      * Sets default value which will be returned in case of failed resolving
      * @param val default value

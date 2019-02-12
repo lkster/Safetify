@@ -11,6 +11,20 @@ export class BooleanResolver extends PrimitiveResolver<boolean> {
     /**
      * @hidden
      */
+    public nullable(): BooleanResolver {
+        return new BooleanResolver(true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): BooleanResolver {
+        return new BooleanResolver(this.isNullable, true);
+    }
+
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<boolean> {
         const errors: string[] = [];
     

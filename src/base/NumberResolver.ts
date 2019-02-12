@@ -12,6 +12,20 @@ export class NumberResolver extends PrimitiveResolver<number> {
     /**
      * @hidden
      */
+    public nullable(): NumberResolver {
+        return new NumberResolver(true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): NumberResolver {
+        return new NumberResolver(this.isNullable, true);
+    }
+    
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<number> {
         const errors: string[] = [];
     

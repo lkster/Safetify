@@ -18,8 +18,24 @@ export class PartialResolver<T> extends OptionalResolver<Partial<T>> {
          * @hidden
          */
         private definition: IObjectDefinition<T>,
+        isNullable: boolean = false,
+        isOptional: boolean = false,
     ) {
-        super();
+        super(isNullable, isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public nullable(): PartialResolver<T> {
+        return new PartialResolver(this.definition, true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): PartialResolver<T> {
+        return new PartialResolver(this.definition, this.isNullable, true);
     }
 
     /**

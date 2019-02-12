@@ -18,8 +18,24 @@ export class ArrayResolver<T> extends OptionalResolver<T[]> {
          * @hidden
          */
         private definition: Resolver<T>,
+        isNullable: boolean = false,
+        isOptional: boolean = false,
     ) {
-        super();
+        super(isNullable, isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public nullable(): ArrayResolver<T> {
+        return new ArrayResolver(this.definition, true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): ArrayResolver<T> {
+        return new ArrayResolver(this.definition, this.isNullable, true);
     }
     
     /**

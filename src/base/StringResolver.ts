@@ -12,6 +12,20 @@ export class StringResolver extends PrimitiveResolver<string> {
     /**
      * @hidden
      */
+    public nullable(): StringResolver {
+        return new StringResolver(true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): StringResolver {
+        return new StringResolver(this.isNullable, true);
+    }
+    
+    /**
+     * @hidden
+     */
     protected resolver (input: any): Result<string> {
         const errors: string[] = [];
     

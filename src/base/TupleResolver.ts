@@ -19,8 +19,24 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
          * @hidden
          */
         private definition: ITupleDefinition<T>,
+        isNullable: boolean = false,
+        isOptional: boolean = false,
     ) {
-        super();
+        super(isNullable, isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public nullable(): TupleResolver<T> {
+        return new TupleResolver(this.definition, true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): TupleResolver<T> {
+        return new TupleResolver(this.definition, this.isNullable, true);
     }
 
     /**
