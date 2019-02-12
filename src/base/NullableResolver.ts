@@ -34,7 +34,9 @@ export abstract class NullableResolver<T> extends Resolver<T> {
     }
 
     /**
-     * Whether data can be nullable. If yes, resolver returns success when given data is null or returns null when given data is not validated properly
+     * Returns new instance of the same resolver with nullable flag enabled which tells that input data can be nullable.
+     * If yes, resolver returns success when given data is null or returns null when given data is not validated properly.
+     * Not properly validated data inside some object does not count.
      * @example
      * <caption>
      * StringResolver().nullable().resolve('John Doe');

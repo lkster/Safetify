@@ -34,5 +34,21 @@ export abstract class OptionalResolver<T> extends NullableResolver<T> {
         return resolved;
     }
 
+    /**
+     * Returns new instance of the same resolver with optional flag enabled which tells that input data can be nullable.
+     * If yes, resolver returns success when given data is undefined or returns undefined when given data is not validated properly.
+     * Not properly validated data inside some object does not count.
+     * @example
+     * <caption>
+     * StringResolver().optional().resolve('John Doe');
+     * // returns 'John Doe'
+     *
+     * StringResolver().optional().resolve(undefined);
+     * // returns undefined without any errors
+     *
+     * StringResolver().optional().resolve(null);
+     * // returns undefined with false success and input type error
+     * </caption>
+     */
     public abstract optional(): OptionalResolver<T>;
 }
