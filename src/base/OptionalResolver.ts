@@ -12,6 +12,14 @@ export abstract class OptionalResolver<T> extends NullableResolver<T> {
      */
     protected isOptional: boolean = false;
 
+    public constructor (
+        isNullable: boolean = false,
+        isOptional: boolean = false,
+    ) {
+        super(isNullable);
+        this.isOptional = isOptional;
+    }
+
     public resolve(input: any): Result<T> {
         if (this.isOptional && !Util.isDef(input)) {
             return new Result<T>(true, undefined, []);
@@ -26,9 +34,5 @@ export abstract class OptionalResolver<T> extends NullableResolver<T> {
         return resolved;
     }
 
-    public optional(): Resolver<T> {
-        this.isOptional = true;
-
-        return this;
-    }
+    public abstract optional(): OptionalResolver<T>;
 }
