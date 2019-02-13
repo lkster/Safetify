@@ -80,7 +80,15 @@ describe('Array Resolver', () => {
     });
 
     describe('nullable value', () => {
-        
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: ArrayResolver<string> = ArrayResolver<string>(StringResolver());
+                const resolver2: ArrayResolver<string> = resolver1.nullable();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<string[]>;
 
@@ -147,6 +155,15 @@ describe('Array Resolver', () => {
     });
 
     describe('optional value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: ArrayResolver<string> = ArrayResolver<string>(StringResolver());
+                const resolver2: ArrayResolver<string> = resolver1.optional();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<string[]>;
 

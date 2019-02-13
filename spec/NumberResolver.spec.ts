@@ -390,6 +390,14 @@ describe('Number Resolver', () => {
     });
 
     describe('nullable value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: NumberResolver = NumberResolver();
+                const resolver2: NumberResolver = resolver1.nullable();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
         
         describe('correct value', () => {
             let result: Result<number>;
@@ -457,6 +465,15 @@ describe('Number Resolver', () => {
     });
 
     describe('optional value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: NumberResolver = NumberResolver();
+                const resolver2: NumberResolver = resolver1.optional();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<number>;
 

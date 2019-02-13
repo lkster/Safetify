@@ -134,6 +134,15 @@ describe('String Resolver', () => {
 
     describe('constraints', () => {
 
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver: StringResolver = StringResolver();
+                const resolverWithConstraint: StringResolver = resolver.constraint((n: string) => n.length < 20);
+
+                expect(resolver).not.toBe(resolverWithConstraint);
+            });
+        });
+
         describe('correct value against constraint', () => {
             let result: Result<string>;
             let constraintFunction: (n: string) => boolean | string;
@@ -373,7 +382,15 @@ describe('String Resolver', () => {
     });
 
     describe('nullable value', () => {
-        
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: StringResolver = StringResolver();
+                const resolver2: StringResolver = resolver1.nullable();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<string>;
 
@@ -440,6 +457,15 @@ describe('String Resolver', () => {
     });
 
     describe('optional value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: StringResolver = StringResolver();
+                const resolver2: StringResolver = resolver1.optional();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+        
         describe('correct value', () => {
             let result: Result<string>;
 

@@ -110,7 +110,15 @@ describe('Dictionary Resolver', () => {
     });
 
     describe('nullable value', () => {
-        
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: DictionaryResolver<string> = DictionaryResolver<string>(StringResolver());
+                const resolver2: DictionaryResolver<string> = resolver1.nullable();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<IDictionary<string>>;
 
@@ -185,6 +193,15 @@ describe('Dictionary Resolver', () => {
     });
 
     describe('optional value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: DictionaryResolver<string> = DictionaryResolver<string>(StringResolver());
+                const resolver2: DictionaryResolver<string> = resolver1.optional();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<IDictionary<string>>;
 

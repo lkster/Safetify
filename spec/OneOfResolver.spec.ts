@@ -60,7 +60,15 @@ describe('OneOf Resolver', () => {
     });
 
     describe('nullable value', () => {
-        
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: OneOfResolver<string | number> = OneOfResolver<string | number>([StringResolver(), NumberResolver()]);
+                const resolver2: OneOfResolver<string | number> = resolver1.nullable();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<string | number>;
 
@@ -127,6 +135,15 @@ describe('OneOf Resolver', () => {
     });
 
     describe('optional value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: OneOfResolver<string | number> = OneOfResolver<string | number>([StringResolver(), NumberResolver()]);
+                const resolver2: OneOfResolver<string | number> = resolver1.optional();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<string | number>;
 

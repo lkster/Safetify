@@ -125,7 +125,22 @@ describe('Object Resolver', () => {
     });
 
     describe('nullable value', () => {
-        
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: ObjectResolver<ITest> = ObjectResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver(),
+                    }),
+                });
+                const resolver2: ObjectResolver<ITest> = resolver1.nullable();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<ITest>;
 
@@ -227,6 +242,22 @@ describe('Object Resolver', () => {
     });
 
     describe('optional value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: ObjectResolver<ITest> = ObjectResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver(),
+                    }),
+                });
+                const resolver2: ObjectResolver<ITest> = resolver1.optional();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<ITest>;
 
