@@ -10,7 +10,7 @@ export abstract class OptionalResolver<T> extends NullableResolver<T> {
     /**
      * @hidden
      */
-    protected isOptional: boolean = false;
+    protected readonly isOptional: boolean = false;
 
     public constructor (
         isNullable: boolean = false,

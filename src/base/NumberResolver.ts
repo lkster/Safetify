@@ -22,6 +22,13 @@ export class NumberResolver extends PrimitiveResolver<number> {
     public optional(): NumberResolver {
         return new NumberResolver(this.isNullable, true);
     }
+
+    /**
+     * @hidden
+     */
+    public defaultsTo(value: number): NumberResolver {
+        return new NumberResolver(this.isNullable, this.isOptional, value);
+    }
     
     /**
      * @hidden

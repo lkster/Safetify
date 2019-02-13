@@ -8,7 +8,7 @@ export abstract class NullableResolver<T> extends Resolver<T> {
     /**
      * @hidden
      */
-    protected isNullable: boolean = false;
+    protected readonly isNullable: boolean = false;
 
     public constructor(isNullable: boolean = false) {
         super();

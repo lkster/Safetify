@@ -22,6 +22,13 @@ export class StringResolver extends PrimitiveResolver<string> {
     public optional(): StringResolver {
         return new StringResolver(this.isNullable, true);
     }
+
+    /**
+     * @hidden
+     */
+    public defaultsTo(value: string): StringResolver {
+        return new StringResolver(this.isNullable, this.isOptional, value);
+    }
     
     /**
      * @hidden
