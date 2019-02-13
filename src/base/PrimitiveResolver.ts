@@ -10,19 +10,31 @@ import { IPrimitive } from '@/interfaces/IPrimitive';
  */
 export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalResolver<T> {
 
-    private defaultValue: Result<T>;
-    private constraints: IConstraint<T>[] = [];
+    private static readonly UNDEF_DEFAULT_VALUE: Symbol = Symbol();
+
+    private readonly defaultValue: Result<T>;
+    private readonly constraints: IConstraint<T>[] = [];
+
+    protected readonly wasDefaultValuePassed: boolean = false;
+    protected readonly wereConstraintsPassed: boolean = false;
 
     public constructor(
         isNullable: boolean = false,
         isOptional: boolean = false,
-        defaultValue?: T,
+        defaultValue?: T | Result<T>,
+        constraints?: IConstraint<T>[],
     ) {
         super(isNullable, isOptional);
 
         // undefined also can be passed so this way we can check if user really passed this value or argument just doesn't exist
-        if (arguments.length === 3) {
-            this.defaultValue = this.resolve(defaultValue);
+        if (arguments.length > 2 && defaultValue !== PrimitiveResolver.UNDEF_DEFAULT_VALUE) {
+            this.defaultValue = defaultValue instanceof Result ? defaultValue : this.resolve(defaultValue);
+            this.wasDefaultValuePassed = true;
+        }
+
+        if (arguments.length > 3) {
+            this.constraints = constraints;
+            this.wereConstraintsPassed = true;
         }
     }
     
@@ -73,13 +85,14 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
             defaultValue: null,
         };
 
+        // TODO: allow passing undefined values as default
         if (Util.isDefAndNotNull(defaultValue)) {
             con.defaultValue = defaultValue;
         }
 
-        this.constraints.push(con);
-
-        return this;
+        const resolverDefValue: Result<T> | Symbol = this.wasDefaultValuePassed ? this.defaultValue : PrimitiveResolver.UNDEF_DEFAULT_VALUE;
+        
+        return this.cloneResolverWithNewConstraint([...this.constraints, con], <any> resolverDefValue);
     }
 
     /**
@@ -103,6 +116,8 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
 
         return resolved;
     }
+
+    protected abstract cloneResolverWithNewConstraint(constraints: IConstraint<T>[], defaultValue: Result<T>): PrimitiveResolver<T>;
 
     /**
      * @hidden
