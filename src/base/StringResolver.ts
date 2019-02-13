@@ -2,6 +2,7 @@ import { PrimitiveResolver } from '@/base/PrimitiveResolver';
 import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Util } from '@/utils/Util';
+import { IConstraint } from '@/interfaces/IConstraint';
 
 
 
@@ -30,6 +31,13 @@ export class StringResolver extends PrimitiveResolver<string> {
         return new StringResolver(this.isNullable, this.isOptional, value);
     }
     
+    /**
+     * @hidden
+     */
+    public cloneResolverWithNewConstraint(constraints: IConstraint<string>[], defaultValue: Result<string>): StringResolver {
+        return new StringResolver(this.isNullable, this.isOptional, defaultValue, constraints);
+    }
+
     /**
      * @hidden
      */

@@ -2,6 +2,7 @@ import { PrimitiveResolver } from '@/base/PrimitiveResolver';
 import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Util } from '@/utils/Util';
+import { IConstraint } from '@/interfaces/IConstraint';
 
 
 
@@ -28,6 +29,13 @@ export class NumberResolver extends PrimitiveResolver<number> {
      */
     public defaultsTo(value: number): NumberResolver {
         return new NumberResolver(this.isNullable, this.isOptional, value);
+    }
+
+    /**
+     * @hidden
+     */
+    public cloneResolverWithNewConstraint(constraints: IConstraint<number>[], defaultValue: Result<number>): NumberResolver {
+        return new NumberResolver(this.isNullable, this.isOptional, defaultValue, constraints);
     }
     
     /**
