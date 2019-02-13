@@ -1,6 +1,4 @@
 import { IConstraint } from '@/interfaces/IConstraint';
-import { Resolver } from '@/base/Resolver';
-import { ResolverUtil } from '@/utils/ResolverUtil';
 import { Result } from '@/Result';
 import { Util } from '@/utils/Util';
 import { OptionalResolver } from '@/base/OptionalResolver';
@@ -12,20 +10,25 @@ import { IPrimitive } from '@/interfaces/IPrimitive';
  */
 export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalResolver<T> {
 
-    private _defaultValue: Result<T>;
-
-    private _constraints: IConstraint<T>[] = [];
+    private defaultValue: Result<T>;
+    private constraints: IConstraint<T>[] = [];
 
     public constructor(
         isNullable: boolean = false,
         isOptional: boolean = false,
+        defaultValue?: T,
     ) {
         super(isNullable, isOptional);
+
+        // undefined also can be passed so this way we can check if user really passed this value or argument just doesn't exist
+        if (arguments.length === 3) {
+            this.defaultValue = this.resolve(defaultValue);
+        }
     }
     
     /**
      * Sets default value which will be returned in case of failed resolving
-     * @param val default value
+     * @param value default value
      * @example
      * <caption>
      * enum TestEnum {
@@ -40,11 +43,7 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
      * // returns default value which is 'option 1'
      * </caption>
      */
-    public defaultsTo(val: T): PrimitiveResolver<T> {
-        this._defaultValue = super.resolve(val);
-
-        return this;
-    }
+    public abstract defaultsTo(value: T): PrimitiveResolver<T>;
 
     /**
      * Adds constraint to resolver to check for specified data range (eg. only positive numbers, strings under specific length etc.)
@@ -78,7 +77,7 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
             con.defaultValue = defaultValue;
         }
 
-        this._constraints.push(con);
+        this.constraints.push(con);
 
         return this;
     }
@@ -89,16 +88,16 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
     public resolve(input: any): Result<T> {
         let resolved: Result<T> = super.resolve(input);
 
-        if (!resolved.success && Util.isDef(this._defaultValue)) {
+        if (!resolved.success && Util.isDef(this.defaultValue)) {
             
-            if (!this._defaultValue.success) {
-                resolved.error.push(`DefaultValue: ${this._defaultValue.error}`);
-            } else if (this._defaultValue.success) {
-                resolved.result = this._defaultValue.result;
+            if (!this.defaultValue.success) {
+                resolved.error.push(`DefaultValue: ${this.defaultValue.error}`);
+            } else if (this.defaultValue.success) {
+                resolved.result = this.defaultValue.result;
             }
         }
 
-        if (resolved.success && this._constraints.length > 0) {
+        if (resolved.success && this.constraints.length > 0) {
             resolved = this.resolveConstraints(resolved.result);
         }
 
@@ -109,12 +108,12 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
      * @hidden
      */
     private resolveConstraints (input: any): Result<T> {
-        const len: number = this._constraints.length;
+        const len: number = this.constraints.length;
         const errors: string[] = [];
         let value: any = input;
 
         for (let i = 0; i < len; i++) {
-            const result: boolean | string = this._constraints[i].condition(value);
+            const result: boolean | string = this.constraints[i].condition(value);
 
             if (result !== true) {
                 if (Util.isString(result)) {
@@ -123,16 +122,16 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
                     errors.push(`constraint #${i} failed`);
                 }
 
-                if (Util.isDefAndNotNull(this._constraints[i].defaultValue)) {
-                    if (Util.isFunction(this._constraints[i].defaultValue)) {
-                        const defResult: Result<T> = super.resolve((<Function> this._constraints[i].defaultValue)(value));
+                if (Util.isDefAndNotNull(this.constraints[i].defaultValue)) {
+                    if (Util.isFunction(this.constraints[i].defaultValue)) {
+                        const defResult: Result<T> = super.resolve((<Function> this.constraints[i].defaultValue)(value));
                         value = defResult.result;
 
                         if (!defResult.success) {
                             errors.push(`Constraint #${i} default value transform function result: ${defResult.error}`);
                         }
                     } else {
-                        const defResult: Result<T> = super.resolve(this._constraints[i].defaultValue);
+                        const defResult: Result<T> = super.resolve(this.constraints[i].defaultValue);
                         value = defResult.result;
 
                         if (!defResult.success) {
