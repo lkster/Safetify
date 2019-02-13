@@ -10,18 +10,18 @@ import { IPrimitive } from '@/interfaces/IPrimitive';
  */
 export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalResolver<T> {
 
-    private static readonly UNDEF_DEFAULT_VALUE: Symbol = Symbol();
+    private static readonly UNDEF_DEFAULT_VALUE: symbol = Symbol();
 
     private readonly defaultValue: Result<T>;
     private readonly constraints: IConstraint<T>[] = [];
 
-    protected readonly wasDefaultValuePassed: boolean = false;
-    protected readonly wereConstraintsPassed: boolean = false;
+    private readonly wasDefaultValuePassed: boolean = false;
+    private readonly wereConstraintsPassed: boolean = false;
 
     public constructor(
         isNullable: boolean = false,
         isOptional: boolean = false,
-        defaultValue?: T | Result<T>,
+        defaultValue?: T | Result<T> | symbol,
         constraints?: IConstraint<T>[],
     ) {
         super(isNullable, isOptional);
