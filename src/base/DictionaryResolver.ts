@@ -4,6 +4,7 @@ import { Result } from '@/Result';
 import { SafeUtil } from '@/utils/SafeUtil';
 import { Util } from '@/utils/Util';
 import { OptionalResolver } from '@/base/OptionalResolver';
+import { ObjectResolver } from 'index';
 
 
 
@@ -19,8 +20,24 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
          * @hidden
          */
         private definition: Resolver<T>,
+        isNullable: boolean = false,
+        isOptional: boolean = false,
     ) {
-        super();
+        super(isNullable, isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public nullable(): DictionaryResolver<T> {
+        return new DictionaryResolver(this.definition, true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): DictionaryResolver<T> {
+        return new DictionaryResolver(this.definition, this.isNullable, true);
     }
 
     /**

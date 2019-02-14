@@ -390,6 +390,14 @@ describe('Number Resolver', () => {
     });
 
     describe('nullable value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: NumberResolver = NumberResolver();
+                const resolver2: NumberResolver = resolver1.nullable();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
         
         describe('correct value', () => {
             let result: Result<number>;
@@ -457,6 +465,15 @@ describe('Number Resolver', () => {
     });
 
     describe('optional value', () => {
+        describe('immutable', () => {
+            it('should return cloned resolver to keep it immutable', () => {
+                const resolver1: NumberResolver = NumberResolver();
+                const resolver2: NumberResolver = resolver1.optional();
+
+                expect(resolver1).not.toBe(resolver2);
+            });
+        });
+
         describe('correct value', () => {
             let result: Result<number>;
 
@@ -538,6 +555,69 @@ describe('Number Resolver', () => {
 
             it('should return proper error description', () => {
                 expect(result.error[0]).toBe('string is not a number');
+            });
+        });
+    });
+
+    describe('immutable', () => {
+        describe('default value', () => {
+            let resolver1: NumberResolver;
+            let resolver2: NumberResolver;
+
+            beforeEach(() => {
+                resolver1 = NumberResolver();
+                resolver2 = resolver1.defaultsTo(6);
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set default value in new returned instance instead of actual one', () => {
+                expect(resolver1.resolve(null).result).toBeNaN();
+                expect(resolver2.resolve(null).result).toBe(6);
+            });
+
+            it('should pass actual constraints to new instance when default value is being set', () => {
+                const constraintFunction = jasmine.createSpy().and.callFake((n: number) => n <= 6 || 'value is higher than 6');
+                resolver1 = NumberResolver().constraint(constraintFunction);
+                resolver2 = resolver1.defaultsTo(6);
+
+                resolver1.resolve(67);
+                resolver2.resolve(67);
+
+                expect(constraintFunction).toHaveBeenCalledTimes(2);
+            });
+        });
+        
+        describe('constraints', () => {
+            const constraintFunction = jasmine.createSpy().and.callFake((n: number) => n <= 6 || 'value is higher than 6');
+            let resolver1: NumberResolver;
+            let resolver2: NumberResolver;
+
+            beforeEach(() => {
+                resolver1 = NumberResolver();
+                resolver2 = resolver1.constraint(constraintFunction);
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set constraint in new returned instance instead of actual one', () => {
+                resolver2.resolve(67);
+                expect(constraintFunction).toHaveBeenCalled();
+                
+                resolver1.resolve(67);
+                expect(constraintFunction).toHaveBeenCalledTimes(1);
+            });
+
+            it('should pass actual default value to new instance when constraint is being set', () => {
+                resolver1 = NumberResolver().defaultsTo(6);
+                resolver2 = resolver1.constraint(constraintFunction);
+
+                expect(resolver1.resolve(null).result).toBe(6);
+                expect(resolver2.resolve(null).result).toBe(6);
             });
         });
     });

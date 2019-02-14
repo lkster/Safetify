@@ -17,8 +17,24 @@ export class EnumResolver<T> extends OptionalResolver<T> {
          * @hidden
          */
         private definition: (string | number)[] | IEnum,
+        isNullable: boolean = false,
+        isOptional: boolean = false,
     ) {
-        super();
+        super(isNullable, isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public nullable(): EnumResolver<T> {
+        return new EnumResolver(this.definition, true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): EnumResolver<T> {
+        return new EnumResolver(this.definition, this.isNullable, true);
     }
 
     /**

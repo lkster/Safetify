@@ -16,8 +16,24 @@ export class OneOfResolver<T> extends OptionalResolver<T> {
          * @hidden
          */
         private definition: Resolver<T>[],
+        isNullable: boolean = false,
+        isOptional: boolean = false,
     ) {
-        super();
+        super(isNullable, isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public nullable(): OneOfResolver<T> {
+        return new OneOfResolver(this.definition, true, this.isOptional);
+    }
+
+    /**
+     * @hidden
+     */
+    public optional(): OneOfResolver<T> {
+        return new OneOfResolver(this.definition, this.isNullable, true);
     }
 
     /**
