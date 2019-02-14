@@ -14,7 +14,7 @@ export class SafeUtil {
     public static makeSafeNumber(val: any, safeValue = NaN): number {
         const parsed = Number(val);
 
-        return isFinite(parsed) ? parsed : safeValue;
+        return !Util.isNull(val) && isFinite(parsed) ? parsed : safeValue;
     }
 
     public static makeSafeArray(val: any): any[] {
