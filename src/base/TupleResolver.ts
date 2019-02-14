@@ -49,7 +49,7 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
 
         if (!Util.isArray(input)) {
             for (let i = 0; i < len; i++) {
-                result.push(this.definition[i].resolve(undefined));
+                result.push(this.definition[i].resolve(undefined).result);
             }
 
             return new Result<T>(false, result, [`${typeof input} is not a tuple`]);
