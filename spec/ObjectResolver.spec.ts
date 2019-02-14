@@ -125,22 +125,6 @@ describe('Object Resolver', () => {
     });
 
     describe('nullable value', () => {
-        describe('immutable', () => {
-            it('should return cloned resolver to keep it immutable', () => {
-                const resolver1: ObjectResolver<ITest> = ObjectResolver<ITest>({
-                    a: StringResolver(),
-                    b: NumberResolver(),
-                    c: ObjectResolver<ITestC>({
-                        d: StringResolver(),
-                        e: BooleanResolver(),
-                    }),
-                });
-                const resolver2: ObjectResolver<ITest> = resolver1.nullable();
-
-                expect(resolver1).not.toBe(resolver2);
-            });
-        });
-
         describe('correct value', () => {
             let result: Result<ITest>;
 
@@ -242,22 +226,6 @@ describe('Object Resolver', () => {
     });
 
     describe('optional value', () => {
-        describe('immutable', () => {
-            it('should return cloned resolver to keep it immutable', () => {
-                const resolver1: ObjectResolver<ITest> = ObjectResolver<ITest>({
-                    a: StringResolver(),
-                    b: NumberResolver(),
-                    c: ObjectResolver<ITestC>({
-                        d: StringResolver(),
-                        e: BooleanResolver(),
-                    }),
-                });
-                const resolver2: ObjectResolver<ITest> = resolver1.optional();
-
-                expect(resolver1).not.toBe(resolver2);
-            });
-        });
-
         describe('correct value', () => {
             let result: Result<ITest>;
 
@@ -402,6 +370,104 @@ describe('Object Resolver', () => {
             const result: Result<any> = DictionaryResolver(ObjectResolver({ b: StringResolver() })).resolve({ a: { b: 2423 }});
 
             expect(result.error[0]).toBe('a.b: number is not a string');
+        });
+    });
+
+    describe('immutable', () => {
+        describe('nullable', () => {
+            let resolver1: ObjectResolver<ITest>;
+            let resolver2: ObjectResolver<ITest>;
+            
+            beforeEach(() => {
+                resolver1 = ObjectResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver(),
+                    }),
+                });
+                resolver2 = resolver1.nullable();
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set nullable option in new returned instance instead of actual one', () => {
+                expect(resolver1.resolve(null).result).toEqual({
+                    a: '',
+                    b: NaN,
+                    c: {
+                        d: '',
+                        e: false,
+                    },
+                });
+                expect(resolver2.resolve(null).result).toBeNull();
+            });
+
+            it('should pass actual optional option state to new instance when nullable option is being set', () => {
+                resolver1 = ObjectResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver(),
+                    }),
+                }).optional();
+                resolver2 = resolver1.nullable();
+
+                expect(resolver1.resolve(undefined).success).toBe(true);
+                expect(resolver2.resolve(undefined).success).toBe(true);
+            });
+        });
+
+        describe('optional', () => {
+            let resolver1: ObjectResolver<ITest>;
+            let resolver2: ObjectResolver<ITest>;
+
+            beforeEach(() => {
+                resolver1 = ObjectResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver(),
+                    }),
+                });
+                resolver2 = resolver1.optional();
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set optional option in new returned instance instead of actual one', () => {
+                expect(resolver1.resolve(undefined).result).toEqual({
+                    a: '',
+                    b: NaN,
+                    c: {
+                        d: '',
+                        e: false,
+                    },
+                });
+                expect(resolver2.resolve(undefined).result).toBeUndefined();
+            });
+
+            it('should pass actual nullable option state to new instance when optional option is being set', () => {
+                resolver1 = ObjectResolver<ITest>({
+                    a: StringResolver(),
+                    b: NumberResolver(),
+                    c: ObjectResolver<ITestC>({
+                        d: StringResolver(),
+                        e: BooleanResolver(),
+                    }),
+                }).nullable();
+                resolver2 = resolver1.optional();
+
+                expect(resolver1.resolve(null).result).toBeNull();
+                expect(resolver2.resolve(null).result).toBeNull();
+            });
         });
     });
 });

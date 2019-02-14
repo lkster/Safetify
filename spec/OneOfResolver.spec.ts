@@ -60,15 +60,6 @@ describe('OneOf Resolver', () => {
     });
 
     describe('nullable value', () => {
-        describe('immutable', () => {
-            it('should return cloned resolver to keep it immutable', () => {
-                const resolver1: OneOfResolver<string | number> = OneOfResolver<string | number>([StringResolver(), NumberResolver()]);
-                const resolver2: OneOfResolver<string | number> = resolver1.nullable();
-
-                expect(resolver1).not.toBe(resolver2);
-            });
-        });
-
         describe('correct value', () => {
             let result: Result<string | number>;
 
@@ -135,15 +126,6 @@ describe('OneOf Resolver', () => {
     });
 
     describe('optional value', () => {
-        describe('immutable', () => {
-            it('should return cloned resolver to keep it immutable', () => {
-                const resolver1: OneOfResolver<string | number> = OneOfResolver<string | number>([StringResolver(), NumberResolver()]);
-                const resolver2: OneOfResolver<string | number> = resolver1.optional();
-
-                expect(resolver1).not.toBe(resolver2);
-            });
-        });
-
         describe('correct value', () => {
             let result: Result<string | number>;
 
@@ -225,6 +207,62 @@ describe('OneOf Resolver', () => {
 
             it('should return proper error description', () => {
                 expect(result.error[0]).toBe('boolean is not a string nor number');
+            });
+        });
+    });
+
+    describe('immutable', () => {
+        describe('nullable', () => {
+            let resolver1: OneOfResolver<string | number>;
+            let resolver2: OneOfResolver<string | number>;
+            
+            beforeEach(() => {
+                resolver1 = OneOfResolver<string | number>([StringResolver(), NumberResolver()]);
+                resolver2 = resolver1.nullable();
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set nullable option in new returned instance instead of actual one', () => {
+                expect(resolver1.resolve(null).result).toBeNaN();
+                expect(resolver2.resolve(null).result).toBeNull();
+            });
+
+            it('should pass actual optional option state to new instance when nullable option is being set', () => {
+                resolver1 = OneOfResolver<string | number>([StringResolver(), NumberResolver()]).optional();
+                resolver2 = resolver1.nullable();
+
+                expect(resolver1.resolve(undefined).success).toBe(true);
+                expect(resolver2.resolve(undefined).success).toBe(true);
+            });
+        });
+
+        describe('optional', () => {
+            let resolver1: OneOfResolver<string | number>;
+            let resolver2: OneOfResolver<string | number>;
+
+            beforeEach(() => {
+                resolver1 = OneOfResolver<string | number>([StringResolver(), NumberResolver()]);
+                resolver2 = resolver1.optional();
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set optional option in new returned instance instead of actual one', () => {
+                expect(resolver1.resolve(undefined).result).toBeNaN();
+                expect(resolver2.resolve(undefined).result).toBeUndefined();
+            });
+
+            it('should pass actual nullable option state to new instance when optional option is being set', () => {
+                resolver1 = OneOfResolver<string | number>([StringResolver(), NumberResolver()]).nullable();
+                resolver2 = resolver1.optional();
+
+                expect(resolver1.resolve(null).result).toBeNull();
+                expect(resolver2.resolve(null).result).toBeNull();
             });
         });
     });

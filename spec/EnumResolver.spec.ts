@@ -171,15 +171,6 @@ describe('Enum Resolver', () => {
     });
 
     describe('nullable value', () => {
-        describe('immutable', () => {
-            it('should return cloned resolver to keep it immutable', () => {
-                const resolver1: EnumResolver<TestEnumNumberValues> = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues);
-                const resolver2: EnumResolver<TestEnumNumberValues> = resolver1.nullable();
-
-                expect(resolver1).not.toBe(resolver2);
-            });
-        });
-
         describe('correct value', () => {
             let result: Result<TestEnumNumberValues>;
 
@@ -246,15 +237,6 @@ describe('Enum Resolver', () => {
     });
 
     describe('optional value', () => {
-        describe('immutable', () => {
-            it('should return cloned resolver to keep it immutable', () => {
-                const resolver1: EnumResolver<TestEnumNumberValues> = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues);
-                const resolver2: EnumResolver<TestEnumNumberValues> = resolver1.optional();
-
-                expect(resolver1).not.toBe(resolver2);
-            });
-        });
-
         describe('correct value', () => {
             let result: Result<TestEnumNumberValues>;
 
@@ -336,6 +318,62 @@ describe('Enum Resolver', () => {
 
             it('should return proper error description', () => {
                 expect(result.error[0]).toBe('"im a string" string is not this enum\'s property');
+            });
+        });
+    });
+
+    describe('immutable', () => {
+        describe('nullable', () => {
+            let resolver1: EnumResolver<TestEnumNumberValues>;
+            let resolver2: EnumResolver<TestEnumNumberValues>;
+            
+            beforeEach(() => {
+                resolver1 = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues);
+                resolver2 = resolver1.nullable();
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set nullable option in new returned instance instead of actual one', () => {
+                expect(resolver1.resolve(null).result).toEqual(TestEnumNumberValues.option1);
+                expect(resolver2.resolve(null).result).toBeNull();
+            });
+
+            it('should pass actual optional option state to new instance when nullable option is being set', () => {
+                resolver1 = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).optional();
+                resolver2 = resolver1.nullable();
+
+                expect(resolver1.resolve(undefined).success).toBe(true);
+                expect(resolver2.resolve(undefined).success).toBe(true);
+            });
+        });
+
+        describe('optional', () => {
+            let resolver1: EnumResolver<TestEnumNumberValues>;
+            let resolver2: EnumResolver<TestEnumNumberValues>;
+
+            beforeEach(() => {
+                resolver1 = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues);
+                resolver2 = resolver1.optional();
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set optional option in new returned instance instead of actual one', () => {
+                expect(resolver1.resolve(undefined).result).toEqual(TestEnumNumberValues.option1);
+                expect(resolver2.resolve(undefined).result).toBeUndefined();
+            });
+
+            it('should pass actual nullable option state to new instance when optional option is being set', () => {
+                resolver1 = EnumResolver<TestEnumNumberValues>(TestEnumNumberValues).nullable();
+                resolver2 = resolver1.optional();
+
+                expect(resolver1.resolve(null).result).toBeNull();
+                expect(resolver2.resolve(null).result).toBeNull();
             });
         });
     });

@@ -550,4 +550,67 @@ describe('String Resolver', () => {
             });
         });
     });
+
+    describe('immutable', () => {
+        describe('default value', () => {
+            let resolver1: StringResolver;
+            let resolver2: StringResolver;
+
+            beforeEach(() => {
+                resolver1 = StringResolver();
+                resolver2 = resolver1.defaultsTo('ok');
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set default value in new returned instance instead of actual one', () => {
+                expect(resolver1.resolve(null).result).toBe('');
+                expect(resolver2.resolve(null).result).toBe('ok');
+            });
+
+            it('should pass actual constraints to new instance when default value is being set', () => {
+                const constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+                resolver1 = StringResolver().constraint(constraintFunction);
+                resolver2 = resolver1.defaultsTo('ok');
+
+                resolver1.resolve('something');
+                resolver2.resolve('something');
+
+                expect(constraintFunction).toHaveBeenCalledTimes(2);
+            });
+        });
+        
+        describe('constraints', () => {
+            const constraintFunction = jasmine.createSpy().and.callFake((n: string) => n.length < 20 || 'value is longer than 20 characters');
+            let resolver1: StringResolver;
+            let resolver2: StringResolver;
+
+            beforeEach(() => {
+                resolver1 = StringResolver();
+                resolver2 = resolver1.constraint(constraintFunction);
+            });
+
+            it('should return new instance of resolver', () => {
+                expect(resolver1).not.toBe(resolver2);
+            });
+
+            it('should set constraint in new returned instance instead of actual one', () => {
+                resolver2.resolve('ok');
+                expect(constraintFunction).toHaveBeenCalled();
+                
+                resolver1.resolve('ok');
+                expect(constraintFunction).toHaveBeenCalledTimes(1);
+            });
+
+            it('should pass actual default value to new instance when constraint is being set', () => {
+                resolver1 = StringResolver().defaultsTo('ok');
+                resolver2 = resolver1.constraint(constraintFunction);
+
+                expect(resolver1.resolve(true).result).toBe('ok');
+                expect(resolver2.resolve(true).result).toBe('ok');
+            });
+        });
+    });
 });
