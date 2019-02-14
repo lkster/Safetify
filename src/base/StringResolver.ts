@@ -28,7 +28,7 @@ export class StringResolver extends PrimitiveResolver<string> {
      * @hidden
      */
     public defaultsTo(value: string): StringResolver {
-        return new StringResolver(this.isNullable, this.isOptional, value);
+        return new StringResolver(this.isNullable, this.isOptional, value, this.constraints);
     }
     
     /**

@@ -27,7 +27,7 @@ export class BooleanResolver extends PrimitiveResolver<boolean> {
      * @hidden
      */
     public defaultsTo(value: boolean): BooleanResolver {
-        return new BooleanResolver(this.isNullable, this.isOptional, value);
+        return new BooleanResolver(this.isNullable, this.isOptional, value, this.constraints);
     }
 
     /**

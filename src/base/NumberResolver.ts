@@ -28,7 +28,7 @@ export class NumberResolver extends PrimitiveResolver<number> {
      * @hidden
      */
     public defaultsTo(value: number): NumberResolver {
-        return new NumberResolver(this.isNullable, this.isOptional, value);
+        return new NumberResolver(this.isNullable, this.isOptional, value, this.constraints);
     }
 
     /**
