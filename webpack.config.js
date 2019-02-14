@@ -1,6 +1,5 @@
 const path = require("path");
 const nodeExternals = require('webpack-node-externals');
-const webpack = require('webpack');
 
 module.exports = (options = {}) => {
 
@@ -9,6 +8,7 @@ module.exports = (options = {}) => {
     return {
         entry: "./src/Safetify.ts",
         target: "node",
+        mode: 'production',
         module: {
             rules: [
                 {
