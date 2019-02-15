@@ -1,3 +1,5 @@
+import { IDictionary } from './interfaces/IDictionary';
+
 /**
  * Resolver's result representation
  */
@@ -13,5 +15,6 @@ export class Result<T> {
         public success: boolean,
         public result: T,
         public error: string[],
+        public optionalData: IDictionary<any> = null,
     ) {}
 }
