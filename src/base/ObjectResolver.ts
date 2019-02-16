@@ -49,7 +49,7 @@ export class ObjectResolver<T> extends OptionalResolver<T> {
                 safe[key] = this.definition[key].resolve(undefined).result;
             }
 
-            return new Result<T>(false, safe, [`${this.nested ? ': ' : ''}${typeof input} is not an object`]);
+            return new Result<T>(false, safe, [`${this.nested ? ': ' : ''}${typeof input} is not an object`], { rootFail: true });
         }
         
         const errors: string[] = [];
@@ -73,6 +73,6 @@ export class ObjectResolver<T> extends OptionalResolver<T> {
             result[key] = dec.result;
         }
 
-        return new Result<T>(errors.length === 0, result, errors);
+        return new Result<T>(errors.length === 0, result, errors, { rootFail: false });
     }
 }

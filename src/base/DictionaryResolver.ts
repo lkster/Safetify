@@ -45,7 +45,7 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
      */
     protected resolver (input: any): Result<IDictionary<T>> {
         if (!Util.isObject(input)) {
-            return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), [`${this.nested ? ': ' : ''}${typeof input} is not an object`]);
+            return new Result<IDictionary<T>>(false, <IDictionary<T>> SafeUtil.makeSafeObject(input), [`${this.nested ? ': ' : ''}${typeof input} is not an object`], { rootFail: true });
         }
         
         const errors: string[] = [];
@@ -75,6 +75,6 @@ export class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
             result[key] = dec.result;
         }
 
-        return new Result<IDictionary<T>>(errors.length === 0, result, errors);
+        return new Result<IDictionary<T>>(errors.length === 0, result, errors, { rootFail: false });
     }
 }
