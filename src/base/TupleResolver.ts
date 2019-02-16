@@ -52,7 +52,7 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
                 result.push(this.definition[i].resolve(undefined).result);
             }
 
-            return new Result<T>(false, result, [`${typeof input} is not a tuple`]);
+            return new Result<T>(false, result, [`${typeof input} is not a tuple`], { rootFail: true });
         }
 
         const inputLen: number = input.length;
@@ -82,6 +82,6 @@ export class TupleResolver<T extends ITuple> extends OptionalResolver<T> {
             }
         }
 
-        return new Result<T>(errors.length === 0, result, errors);
+        return new Result<T>(errors.length === 0, result, errors, { rootFail: false });
     }
 }

@@ -45,7 +45,7 @@ export class PartialResolver<T> extends OptionalResolver<Partial<T>> {
         if (!Util.isObject(input)) {
             const safe: any = SafeUtil.makeSafeObject(input);
 
-            return new Result<Partial<T>>(false, safe, [`${this.nested ? ': ' : ''}${typeof input} is not an object`]);
+            return new Result<Partial<T>>(false, safe, [`${this.nested ? ': ' : ''}${typeof input} is not an object`], { rootFail: true });
         }
         
         const errors: string[] = [];
@@ -79,6 +79,6 @@ export class PartialResolver<T> extends OptionalResolver<Partial<T>> {
             result[key] = dec.result;
         }
         
-        return new Result<Partial<T>>(errors.length === 0, result, errors);
+        return new Result<Partial<T>>(errors.length === 0, result, errors, { rootFail: false });
     }
 }

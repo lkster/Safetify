@@ -181,6 +181,42 @@ describe('Dictionary Resolver', () => {
                 expect(result.error[0]).toBe('undefined is not an object');
             });
         });
+
+        describe('incorrect input values', () => {
+            let result: Result<IDictionary<string>>;
+    
+            beforeEach(() => {
+                result = DictionaryResolver(StringResolver()).nullable().resolve({
+                    a: 'a',
+                    b: 10,
+                    c: {
+                        d: 'd',
+                        e: 'trust me im boolean',
+                    },
+                });
+            });
+    
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+    
+            it('should return safe value', () => {
+                expect(result.result).toEqual(<any> {
+                    a: 'a',
+                    b: '',
+                    c: '',
+                });
+            });
+    
+            it('should return 2 errors', () => {
+                expect(result.error.length).toBe(2);
+            });
+    
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('b: number is not a string');
+                expect(result.error[1]).toBe('c: object is not a string');
+            });
+        });
     });
 
     describe('optional value', () => {
@@ -273,6 +309,42 @@ describe('Dictionary Resolver', () => {
 
             it('should return proper error description', () => {
                 expect(result.error[0]).toBe('number is not an object');
+            });
+        });
+
+        describe('incorrect input values', () => {
+            let result: Result<IDictionary<string>>;
+    
+            beforeEach(() => {
+                result = DictionaryResolver(StringResolver()).optional().resolve({
+                    a: 'a',
+                    b: 10,
+                    c: {
+                        d: 'd',
+                        e: 'trust me im boolean',
+                    },
+                });
+            });
+    
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+    
+            it('should return safe value', () => {
+                expect(result.result).toEqual(<any> {
+                    a: 'a',
+                    b: '',
+                    c: '',
+                });
+            });
+    
+            it('should return 2 errors', () => {
+                expect(result.error.length).toBe(2);
+            });
+    
+            it('should return proper errors descriptions', () => {
+                expect(result.error[0]).toBe('b: number is not a string');
+                expect(result.error[1]).toBe('c: object is not a string');
             });
         });
     });

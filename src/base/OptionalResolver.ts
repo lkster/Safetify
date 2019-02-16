@@ -27,7 +27,7 @@ export abstract class OptionalResolver<T> extends NullableResolver<T> {
 
         const resolved = super.resolve(input);
 
-        if (!resolved.success && this.isOptional) {
+        if (!resolved.success && this.isOptional && (Util.isNull(resolved.optionalData) || resolved.optionalData.rootFail)) {
             resolved.result = undefined;
         }
 

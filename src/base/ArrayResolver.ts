@@ -43,7 +43,7 @@ export class ArrayResolver<T> extends OptionalResolver<T[]> {
      */
     protected resolver (input: any): Result<T[]> {
         if (!Util.isArray(input)) {
-            return new Result(false, SafeUtil.makeSafeArray(input), [`${this.nested ? ': ' : ''}${typeof input} is not an array`]);
+            return new Result(false, SafeUtil.makeSafeArray(input), [`${this.nested ? ': ' : ''}${typeof input} is not an array`], { rootFail: true });
         }
 
         const errors: string[] = [];
@@ -78,6 +78,6 @@ export class ArrayResolver<T> extends OptionalResolver<T[]> {
             result.push(dec.result);
         }
 
-        return new Result<T[]>(errors.length === 0, result, errors);
+        return new Result<T[]>(errors.length === 0, result, errors, { rootFail: false });
     }
 }

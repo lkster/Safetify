@@ -26,10 +26,11 @@ export abstract class NullableResolver<T> extends Resolver<T> {
 
         const resolved = super.resolve(input);
 
-        if (!resolved.success && this.isNullable) {
+        // rootFail as root resolver fail
+        if (!resolved.success && this.isNullable && (Util.isNull(resolved.optionalData) || resolved.optionalData.rootFail)) {
             resolved.result = null;
         }
-
+        
         return resolved;
     }
 
