@@ -176,6 +176,32 @@ describe('TupleResolver', () => {
                 expect(result.error[0]).toBe('undefined is not a tuple');
             });
         });
+
+        describe('incorrect input values', () => {
+            let result: Result<[string, number]>;
+
+            beforeEach(() => {
+                result = TupleResolver<[string, number]>([StringResolver(), NumberResolver()]).nullable().resolve(['some string', 1234124, true, 'olol', null]);
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toEqual(['some string', 1234124]);
+            });
+
+            it('should return 3 errors', () => {
+                expect(result.error.length).toBe(3);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('element at index 2: out of range');
+                expect(result.error[1]).toBe('element at index 3: out of range');
+                expect(result.error[2]).toBe('element at index 4: out of range');
+            });
+        });
     });
 
     describe('optional value', () => {
@@ -260,6 +286,32 @@ describe('TupleResolver', () => {
 
             it('should return proper error description', () => {
                 expect(result.error[0]).toBe('number is not a tuple');
+            });
+        });
+
+        describe('incorrect input values', () => {
+            let result: Result<[string, number]>;
+
+            beforeEach(() => {
+                result = TupleResolver<[string, number]>([StringResolver(), NumberResolver()]).optional().resolve(['some string', 1234124, true, 'olol', null]);
+            });
+
+            it('should return success as false', () => {
+                expect(result.success).toBe(false);
+            });
+
+            it('should return safe value', () => {
+                expect(result.result).toEqual(['some string', 1234124]);
+            });
+
+            it('should return 3 errors', () => {
+                expect(result.error.length).toBe(3);
+            });
+
+            it('should return proper error description', () => {
+                expect(result.error[0]).toBe('element at index 2: out of range');
+                expect(result.error[1]).toBe('element at index 3: out of range');
+                expect(result.error[2]).toBe('element at index 4: out of range');
             });
         });
     });
