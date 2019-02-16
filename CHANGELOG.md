@@ -5,6 +5,8 @@
 - Errors are now always returned as `string[]` instead of previous `string` or `string[]`. If there are no errors, array is just empty (instead of previous `null`)
 - Rewritten all resolvers to be 100% class-based
 - Made all resolvers immutable (`nullable`, `optional`, `defaultsTo` and `constraint` options)
+- Added `CHANGELOG.md` file
+
 
 ## Bugfixes
 - Tuple now returns error if given input tuple has less or more places than expected
@@ -19,6 +21,18 @@
 - Nullable and Optional methods are now inherited from abstract `NullableResolver` and `OptionalResolver` classes
 - `AnyResolver` now extending `Resolver` to keep correct type definition
 - Removed `mergeErrors` utility
+- Bumped TypeScript, Webpack and other dev dependencies versions
+- Changed name of `ResolvingStructure` to `definition`
+- Changed name of `ITupleResolver` to `ITupleDefinition`
+- Changed name of `IObjectResolver` to `IObjectDefinition`
+- Removed `ResolverFunction` type
+- Fixed and updated unit tests
+
+---
+
+## 2.7.1
+### Bugfixes
+- Fixed returning null on nullable option when at least one property of some object was incorrect
 
 ---
 
