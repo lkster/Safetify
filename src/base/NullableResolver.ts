@@ -30,8 +30,8 @@ export abstract class NullableResolver<T> extends Resolver<T> {
         if (!resolved.success && this.isNullable && (Util.isNull(resolved.optionalData) || resolved.optionalData.rootFail)) {
             resolved.result = null;
         }
-
-        return new Result(resolved.success, resolved.result, resolved.error);
+        
+        return resolved;
     }
 
     /**
