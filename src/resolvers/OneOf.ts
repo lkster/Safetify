@@ -1,4 +1,4 @@
-import { OneOfResolver as OneOfResolverBase } from '@/base/OneOfResolver';
+import { OneOfResolver as OneOfResolverConstructor } from '@/base/OneOfResolver';
 import { Resolver } from '@/base/Resolver';
 
 
@@ -17,5 +17,5 @@ import { Resolver } from '@/base/Resolver';
  * </caption>
  */
 export function OneOfResolver<T>(definition: Resolver<T>[]) {
-    return new OneOfResolverBase<T>(definition);
+    return new OneOfResolverConstructor<T>(definition);
 }

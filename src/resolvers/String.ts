@@ -1,4 +1,4 @@
-import { StringResolver as StringResolverBase } from '@/base/StringResolver';
+import { StringResolver as StringResolverConstructor } from '@/base/StringResolver';
 
 
 
@@ -13,6 +13,6 @@ import { StringResolver as StringResolverBase } from '@/base/StringResolver';
  * // returns ''
  * </caption>
  */
-export function StringResolver(): StringResolverBase {
-    return new StringResolverBase();
+export function StringResolver(): StringResolverConstructor {
+    return new StringResolverConstructor();
 }

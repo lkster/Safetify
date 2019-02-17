@@ -1,6 +1,6 @@
 import { ITuple } from '@/interfaces/ITuple';
 import { ITupleDefinition } from '@/interfaces/ITupleDefinition';
-import { TupleResolver as TupleResolverBase } from '@/base/TupleResolver';
+import { TupleResolver as TupleResolverConstructor } from '@/base/TupleResolver';
 
 
 
@@ -17,5 +17,5 @@ import { TupleResolver as TupleResolverBase } from '@/base/TupleResolver';
  * </caption>
  */
 export function TupleResolver<T extends ITuple>(definition: ITupleDefinition<T>) {
-    return new TupleResolverBase<T>(definition);
+    return new TupleResolverConstructor<T>(definition);
 }

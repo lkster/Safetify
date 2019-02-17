@@ -1,5 +1,5 @@
 import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
-import { ObjectResolver as ObjectResolverBase } from '@/base/ObjectResolver';
+import { ObjectResolver as ObjectResolverConstructor } from '@/base/ObjectResolver';
 
 
 
@@ -24,5 +24,5 @@ import { ObjectResolver as ObjectResolverBase } from '@/base/ObjectResolver';
  * </caption>
  */
 export function ObjectResolver<T>(definition: IObjectDefinition<T>) {
-    return new ObjectResolverBase<T>(definition);
+    return new ObjectResolverConstructor<T>(definition);
 }

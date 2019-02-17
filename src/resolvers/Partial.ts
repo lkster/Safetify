@@ -1,4 +1,4 @@
-import { PartialResolver as PartialResolverBase } from '@/base/PartialResolver';
+import { PartialResolver as PartialResolverConstructor } from '@/base/PartialResolver';
 import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
 
 
@@ -24,5 +24,5 @@ import { IObjectDefinition } from '@/interfaces/IObjectDefinition';
  * </caption>
  */
 export function PartialResolver<T>(definition: IObjectDefinition<T>) {
-    return new PartialResolverBase<T>(definition);
+    return new PartialResolverConstructor<T>(definition);
 }

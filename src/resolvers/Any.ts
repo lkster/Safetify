@@ -1,4 +1,4 @@
-import { AnyResolver as AnyResolverBase } from '@/base/AnyResolver';
+import { AnyResolver as AnyResolverConstructor } from '@/base/AnyResolver';
 
 
 
@@ -13,6 +13,6 @@ import { AnyResolver as AnyResolverBase } from '@/base/AnyResolver';
  * // returns undefined
  * </caption>
  */
-export function AnyResolver(): AnyResolverBase {
-    return new AnyResolverBase();
+export function AnyResolver(): AnyResolverConstructor {
+    return new AnyResolverConstructor();
 }

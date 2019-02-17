@@ -1,4 +1,4 @@
-import { NumberResolver as NumberResolverBase } from '@/base/NumberResolver';
+import { NumberResolver as NumberResolverConstructor } from '@/base/NumberResolver';
 
 
 
@@ -13,6 +13,6 @@ import { NumberResolver as NumberResolverBase } from '@/base/NumberResolver';
  * // returns NaN
  * </caption>
  */
-export function NumberResolver(): NumberResolverBase {
-    return new NumberResolverBase();
+export function NumberResolver(): NumberResolverConstructor {
+    return new NumberResolverConstructor();
 }

@@ -1,4 +1,4 @@
-import { DateResolver as DateResolverBase } from '@/base/DateResolver';
+import { DateResolver as DateResolverConstructor } from '@/base/DateResolver';
 
 
 
@@ -17,6 +17,6 @@ import { DateResolver as DateResolverBase } from '@/base/DateResolver';
  * // returns Date 1970-01-01T00:00:00.000Z
  * </caption>
  */
-export function DateResolver(): DateResolverBase {
-    return new DateResolverBase();
+export function DateResolver(): DateResolverConstructor {
+    return new DateResolverConstructor();
 }

@@ -1,4 +1,4 @@
-import { ArrayResolver as ArrayResolverBase } from '@/base/ArrayResolver';
+import { ArrayResolver as ArrayResolverConstructor } from '@/base/ArrayResolver';
 import { Resolver } from '@/base/Resolver';
 
 
@@ -15,6 +15,6 @@ import { Resolver } from '@/base/Resolver';
  * // returns ['John', '']
  * </caption>
  */
-export function ArrayResolver<T>(resolver: Resolver<T>): ArrayResolverBase<T> {
-    return new ArrayResolverBase<T>(resolver);
+export function ArrayResolver<T>(resolver: Resolver<T>): ArrayResolverConstructor<T> {
+    return new ArrayResolverConstructor<T>(resolver);
 }

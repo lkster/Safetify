@@ -1,4 +1,4 @@
-import { EnumResolver as EnumResolverBase } from '@/base/EnumResolver';
+import { EnumResolver as EnumResolverConstructor } from '@/base/EnumResolver';
 import { IEnum } from '@/interfaces/IEnum';
 
 
@@ -25,5 +25,5 @@ import { IEnum } from '@/interfaces/IEnum';
  * </caption>
  */
 export function EnumResolver<T>(definition: (string | number)[] | IEnum) {
-    return new EnumResolverBase<T>(definition);
+    return new EnumResolverConstructor<T>(definition);
 }

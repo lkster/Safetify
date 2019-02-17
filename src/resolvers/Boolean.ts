@@ -1,4 +1,4 @@
-import { BooleanResolver as BooleanResolverBase } from '@/base/BooleanResolver';
+import { BooleanResolver as BooleanResolverConstructor } from '@/base/BooleanResolver';
 
 
 
@@ -13,6 +13,6 @@ import { BooleanResolver as BooleanResolverBase } from '@/base/BooleanResolver';
  * // output will be converted input to boolean, in this case true
  * </caption>
  */
-export function BooleanResolver(): BooleanResolverBase {
-    return new BooleanResolverBase();
+export function BooleanResolver(): BooleanResolverConstructor {
+    return new BooleanResolverConstructor();
 }

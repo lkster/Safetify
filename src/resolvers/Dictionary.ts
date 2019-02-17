@@ -1,4 +1,4 @@
-import { DictionaryResolver as DictionaryResolverBase } from '@/base/DictionaryResolver';
+import { DictionaryResolver as DictionaryResolverConstructor } from '@/base/DictionaryResolver';
 import { Resolver } from '@/base/Resolver';
 
 
@@ -16,5 +16,5 @@ import { Resolver } from '@/base/Resolver';
  * </caption>
  */
 export function DictionaryResolver<T>(resolver: Resolver<T>) {
-    return new DictionaryResolverBase<T>(resolver);
+    return new DictionaryResolverConstructor<T>(resolver);
 }
