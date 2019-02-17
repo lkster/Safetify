@@ -1,13 +1,14 @@
 {
   "name": "safetify",
-  "version": "2.7.1",
+  "version": "3.0.0",
   "description": "Utility for resolving and making values types safe",
   "main": "dist/safetify.js",
   "scripts": {
     "build": "webpack",
-    "test-js": "webpack & node spec/config/jasmine.js",
-    "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/ts/**/*.spec.ts",
-    "jsdoc": "typedoc src/safetify.ts --mode file --out docs/ --theme typedoc-theme"
+    "test": "webpack & jasmine-ts --config=spec/config/jasmine.json spec/**/*.spec.ts",
+    "jsdoc": "typedoc src/safetify.ts --mode file --out docs/ --theme typedoc-theme",
+    "jsdoc:noerrors": "npm run jsdoc -- --ignoreCompilerErrors",
+    "lint": "tslint src/**/*.ts  -p tsconfig.json"
   },
   "keywords": [
     "var",
@@ -35,11 +36,15 @@
     "jasmine": "^2.9.0",
     "jasmine-core": "^2.9.1",
     "jasmine-spec-reporter": "^4.2.1",
-    "jasmine-ts": "^0.2.1",
-    "ts-loader": "^3.4.0",
+    "jasmine-ts": "^0.3.0",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "tslint-loader": "^3.5.4",
     "typedoc": "^0.11.1",
-    "typescript": "^2.6.2",
-    "webpack": "^3.10.0",
+    "typescript": "^3.1.6",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
     "webpack-node-externals": "^1.6.0"
   },
   "types": "index.d.ts",

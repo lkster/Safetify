@@ -7,6 +7,12 @@ declare interface IDictionary<T> {
     [key: number]: T;
 }
 
+declare interface IConstraint<T> {
+    defaultValue: T | ((val: T) => T);
+    condition(val: T): boolean | string;
+}
+
+
 declare type Primitive = string | number | boolean | undefined | null | symbol;
 
 declare interface ITuple extends Array<Primitive> {
@@ -15,62 +21,156 @@ declare interface ITuple extends Array<Primitive> {
 
 declare type IObjectResolver<T> = { [U in keyof T]: Safetify.Resolver<T[U]> }
 
-declare type ITupleResolver<T extends any[]> = { [U in keyof T]:
-    U extends "length" ? T[U] :
-    U extends keyof any[] ? Array<Safetify.Resolver<T[number]>>[U] :
-    Safetify.Resolver<T[U]>
+declare type ITupleDefinition<T extends Primitive[]> = { [U in keyof T]:
+    U extends 'length' ? T[U] :
+    T[U] extends Primitive ? Base.PrimitiveResolver<T[U]> : undefined;
 }
 
 declare namespace Base {
 
-    class SimpleTypeResolver<T> extends Safetify.Resolver<T> {
+    abstract class NullableResolver<T> extends Safetify.Resolver<T> {
+        protected readonly isNullable: boolean;
 
-        public defaultsTo(val: T): SimpleTypeResolver<T>;
+        public constructor(isNullable?: boolean);
 
-        public constraint (cond: (val: T) => boolean | string, defaultValue?: T | ((val: T) => T)): SimpleTypeResolver<T>;
+        public abstract nullable(): NullableResolver<T>;
     }
 
-    class AnyResolver {
+    abstract class OptionalResolver<T> extends NullableResolver<T> {
+        protected readonly isOptional: boolean;
 
-        constructor(resolver: Safetify.ResolverFunction<any>);
+        public constructor(isNullable?: boolean, isOptional?: boolean);
 
-        public resolve(input: any): Safetify.Result<any>;
+        public abstract optional(): OptionalResolver<T>;
     }
 
-    class StringResolver extends SimpleTypeResolver<string> {}
+    abstract class PrimitiveResolver<T> extends OptionalResolver<T> {
+        public constructor(isNullable?: boolean, isOptional?: boolean, defaultValue?: T | Safetify.Result<T> | symbol, constraints?: IConstraint<T>[]);
 
-    class NumberResolver extends SimpleTypeResolver<number> {}
+        public abstract defaultsTo (val: T): PrimitiveResolver<T>;
+        protected abstract cloneResolverWithNewConstraint(constraints: IConstraint<T>[], defaultValue: Safetify.Result<T>): PrimitiveResolver<T>;
 
-    class BooleanResolver extends SimpleTypeResolver<boolean> {}
+        public constraint(cond: (val: T) => boolean | string, defaultValue?: T | ((val: T) => T)): PrimitiveResolver<T>;
+    }
 
-    class DateResolver extends Safetify.Resolver<Date> {}
+    class AnyResolver extends Safetify.Resolver<any> {
+        public type: string;
 
-    class ArrayResolver<T> extends Safetify.Resolver<Array<T>> {}
+        protected resolver(input: any): Safetify.Result<any>;
+    }
 
-    class DictionaryResolver<T> extends Safetify.Resolver<IDictionary<T>> {}
+    class StringResolver extends PrimitiveResolver<string> {
+        public type: string;
 
-    class EnumResolver<T> extends Safetify.Resolver<T> {}
+        public nullable(): StringResolver;
+        public optional(): StringResolver;
+        public defaultsTo(val: string): StringResolver;
+        public constraint(cond: (val: string) => boolean | string, defaultValue?: string | ((val: string) => string)): StringResolver;
 
-    class ObjectResolver<T> extends Safetify.Resolver<T> {}
+        protected cloneResolverWithNewConstraint(constraints: IConstraint<string>[], defaultValue: Safetify.Result<string>): StringResolver;
+        protected resolver(input: any): Safetify.Result<string>;
+    }
 
-    class OneOfResolver<T> extends Safetify.Resolver<T> {}
+    class NumberResolver extends PrimitiveResolver<number> {
+        public type: string;
 
-    class TupleResolver<T> extends Safetify.Resolver<T> {}
+        public nullable(): NumberResolver;
+        public optional(): NumberResolver;
+        public defaultsTo(val: number): NumberResolver;
+        public constraint(cond: (val: number) => boolean | string, defaultValue?: number | ((val: number) => number)): NumberResolver;
+
+        protected cloneResolverWithNewConstraint(constraints: IConstraint<number>[], defaultValue: Safetify.Result<number>): NumberResolver;
+        protected resolver(input: any): Safetify.Result<number>;
+    }
+
+    class BooleanResolver extends PrimitiveResolver<boolean> {
+        public type: string;
+
+        public nullable(): BooleanResolver;
+        public optional(): BooleanResolver;
+        public defaultsTo(val: boolean): BooleanResolver;
+        public constraint(cond: (val: boolean) => boolean | string, defaultValue?: boolean | ((val: boolean) => boolean)): BooleanResolver;
+
+        protected cloneResolverWithNewConstraint(constraints: IConstraint<boolean>[], defaultValue: Safetify.Result<boolean>): BooleanResolver;
+        protected resolver(input: any): Safetify.Result<boolean>;
+    }
+
+    class DateResolver extends OptionalResolver<Date> {
+        public type: string;
+
+        public nullable(): DateResolver;
+        public optional(): DateResolver;
+
+        protected resolver (input: any): Safetify.Result<Date>;
+    }
+
+    class ArrayResolver<T> extends OptionalResolver<Array<T>> {
+        public type: string;
+
+        public nullable(): ArrayResolver<T>;
+        public optional(): ArrayResolver<T>;
+
+        protected resolver(input: any): Safetify.Result<Array<T>>;
+    }
+
+    class DictionaryResolver<T> extends OptionalResolver<IDictionary<T>> {
+        public type: string;
+
+        public nullable(): DictionaryResolver<T>;
+        public optional(): DictionaryResolver<T>;
+
+        protected resolver(input: any): Safetify.Result<IDictionary<T>>;
+    }
+
+    class EnumResolver<T> extends OptionalResolver<T> {
+        public type: string;
+
+        public nullable(): EnumResolver<T>;
+        public optional(): EnumResolver<T>;
+
+        protected resolver(input: any): Safetify.Result<T>;
+    }
+
+    class ObjectResolver<T> extends OptionalResolver<T> {
+        public type: string;
+
+        public nullable(): ObjectResolver<T>;
+        public optional(): ObjectResolver<T>;
+
+        protected resolver(input: any): Safetify.Result<T>;
+    }
+
+    class OneOfResolver<T> extends OptionalResolver<T> {
+        public type: string;
+
+        public nullable(): OneOfResolver<T>;
+        public optional(): OneOfResolver<T>;
+
+        protected resolver(input: any): Safetify.Result<T>;
+    }
+
+    class TupleResolver<T> extends OptionalResolver<T> {
+        public type: string;
+
+        public nullable(): TupleResolver<T>;
+        public optional(): TupleResolver<T>;
+
+        protected resolver(input: any): Safetify.Result<T>;
+    }
 }
 
 declare namespace Safetify {
 
-    class Resolver<T> {
-
-        constructor(type: string, resolver: ResolverFunction<T>);
+    abstract class Resolver<T> {
+        public abstract type: string;
+        public nested: boolean;
+        
+        protected abstract resolver (input: any): Result<T>;
     
         public resolve(input: any): Result<T>;
-    
-        public nullable(): Resolver<T>;
     }
 
     class Result<T> {
-
         public success: boolean;
         public result: T;
         public error: string | string[];
@@ -79,23 +179,21 @@ declare namespace Safetify {
     }
 
     class util {
-        public static isDef(val: any): boolean;
-        public static isDefAndNotNull(val: any): boolean;
-        public static isNull(val: any): boolean;
-        public static isString(val: any): boolean;
-        public static isBoolean(val: any): boolean;
-        public static isNumber(val: any): boolean;
-        public static isPrimitive(val: any): boolean;
-        public static isArray(val: any): boolean;
-        public static isArrayLike(val: any): boolean;
-        public static isObject(val: any): boolean;
-        public static isDateLike(val: any): boolean;
-        public static isValidDate(val: any): boolean;
-        public static isFunction(val: any): boolean;
-        public static isDict(val: any): boolean;
+        public static isDef (val: any): boolean;
+        public static isDefAndNotNull (val: any): boolean;
+        public static isNull (val: any): boolean;
+        public static isString( val: any): boolean;
+        public static isBoolean (val: any): boolean;
+        public static isNumber (val: any): boolean;
+        public static isPrimitive (val: any): boolean;
+        public static isArray (val: any): boolean;
+        public static isArrayLike (val: any): boolean;
+        public static isObject (val: any): boolean;
+        public static isDateLike (val: any): boolean;
+        public static isValidDate (val: any): boolean;
+        public static isFunction (val: any): boolean;
+        public static isDict (val: any): boolean;
     }
-
-    type ResolverFunction<T> = (input: any) => Result<T>;
 
     function Boolean(): Base.BooleanResolver;
     type Boolean = Base.BooleanResolver;
@@ -112,19 +210,19 @@ declare namespace Safetify {
     function Date(): Base.DateResolver;
     type Date = Base.DateResolver;
     
-    function Object<T>(resolver: IObjectResolver<T>): Base.ObjectResolver<T>;
+    function Object<T>(definition: IObjectResolver<T>): Base.ObjectResolver<T>;
     type Object<T> = Base.ObjectResolver<T>;
 
-    function Array<T>(resolver: Resolver<T>): Base.ArrayResolver<T>;
+    function Array<T>(definition: Resolver<T>): Base.ArrayResolver<T>;
     type Array<T> = Base.ArrayResolver<T>;
     
-    function Dictionary<T>(resolver: Resolver<T>): Base.DictionaryResolver<T>;
+    function Dictionary<T>(definition: Resolver<T>): Base.DictionaryResolver<T>;
     type Dictionary<T> = Base.DictionaryResolver<T>;
 
     function Enum<T>(definition: Array<string | number> | IEnum): Base.EnumResolver<T>;
     type Enum<T> = Base.EnumResolver<T>;
 
-    function OneOf<T>(resolvers: Array<Resolver<T>>): Base.OneOfResolver<T>;
+    function OneOf<T>(definition: Array<Resolver<T>>): Base.OneOfResolver<T>;
     type OneOf<T> = Base.OneOfResolver<T>;
 
     function BooleanResolver(): Base.BooleanResolver;
@@ -142,26 +240,26 @@ declare namespace Safetify {
     function DateResolver(): Base.DateResolver;
     type DateResolver = Base.DateResolver;
 
-    function ObjectResolver<T>(resolver: IObjectResolver<T>): Base.ObjectResolver<T>;
+    function ObjectResolver<T>(definition: IObjectResolver<T>): Base.ObjectResolver<T>;
     type ObjectResolver<T> = Base.ObjectResolver<T>;
 
-    function PartialResolver<T>(resolver: IObjectResolver<T>): Base.ObjectResolver<Partial<T>>;
+    function PartialResolver<T>(definition: IObjectResolver<T>): Base.ObjectResolver<Partial<T>>;
     type PartialResolver<T> = Base.ObjectResolver<Partial<T>>;
 
-    function ArrayResolver<T>(resolver: Resolver<T>): Base.ArrayResolver<T>;
+    function ArrayResolver<T>(definition: Resolver<T>): Base.ArrayResolver<T>;
     type ArrayResolver<T> = Base.ArrayResolver<T>;
     
-    function DictionaryResolver<T>(resolver: Resolver<T>): Base.DictionaryResolver<T>;
+    function DictionaryResolver<T>(definition: Resolver<T>): Base.DictionaryResolver<T>;
     type DictionaryResolver<T> = Base.DictionaryResolver<T>;
 
     function EnumResolver<T>(definition: Array<string | number> | IEnum): Base.EnumResolver<T>;
     type EnumResolver<T> = Base.EnumResolver<T>;
 
-    function OneOfResolver<T>(resolvers: Resolver<T>[]): Base.OneOfResolver<T>;
+    function OneOfResolver<T>(definition: Resolver<T>[]): Base.OneOfResolver<T>;
     type OneOfResolver<T> = Base.OneOfResolver<T>;
 
-    function TupleResolver<T extends ITuple>(resolvers: ITupleResolver<T>): Base.TupleResolver<T>;
-    type TupleResolver<T> = Base.TupleResolver<T>;
+    function TupleResolver<T extends Primitive[]>(definition: ITupleDefinition<T>): Base.TupleResolver<T>;
+    type TupleResolver<T extends Primitive[]> = Base.TupleResolver<T>;
     
 }
 

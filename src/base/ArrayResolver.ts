@@ -1,35 +1,83 @@
 import { Resolver } from '@/base/Resolver';
-import { ResolverFunction } from '@/ResolverFunction';
 import { Result } from '@/Result';
+import { SafeUtil } from '@/utils/SafeUtil';
 import { Util } from '@/utils/Util';
+import { OptionalResolver } from '@/base/OptionalResolver';
 
 
 
-export class ArrayResolver<T> extends Resolver<Array<T>> {
+export class ArrayResolver<T> extends OptionalResolver<T[]> {
+
+    public type: string = 'array';
 
     /**
      * @hidden
      */
-    constructor (resolver: ResolverFunction<Array<T>>) {
-        super('array', resolver);
+    public constructor (
+        /**
+         * @hidden
+         */
+        private definition: Resolver<T>,
+        isNullable: boolean = false,
+        isOptional: boolean = false,
+    ) {
+        super(isNullable, isOptional);
     }
 
     /**
      * @hidden
      */
-    public resolve(input: any): Result<Array<T>> {
-        let resolved = this.resolver(input);
+    public nullable(): ArrayResolver<T> {
+        return new ArrayResolver(this.definition, true, this.isOptional);
+    }
 
-        if (!resolved.success) {
-            if (this.isNullable === true && input === null) {
-                return new Result<Array<T>>(true, null, null);
-            } else if (this.isNullable === true && !Util.isArrayLike(input)) {
-                resolved.result = null;
-            }
-        } else if (!Util.isDef(resolved.result) && this.isNullable === true) {
-            resolved.result = null;
+    /**
+     * @hidden
+     */
+    public optional(): ArrayResolver<T> {
+        return new ArrayResolver(this.definition, this.isNullable, true);
+    }
+    
+    /**
+     * @hidden
+     */
+    protected resolver (input: any): Result<T[]> {
+        if (!Util.isArray(input)) {
+            return new Result(false, SafeUtil.makeSafeArray(input), [`${this.nested ? ': ' : ''}${typeof input} is not an array`], { rootFail: true });
         }
 
-        return resolved;
+        const errors: string[] = [];
+
+        const result: T[] = [];
+
+        for (let i = 0; i < input.length; i++) {
+            this.definition.nested = true;
+
+            const dec = this.definition.resolve(input[i]);
+            
+            if (!dec.success) {
+                switch (this.definition.type) {
+                    case 'object':
+                    case 'array':
+                    case 'tuple':
+                        for (let j = 0; j < dec.error.length; j++) {
+                            errors.push(`[${i}]${dec.error[j]}`);
+                        }
+                        break;
+
+                    default:
+                        if (this.nested) {
+                            errors.push(`[${i}]: ${dec.error[0]}`);
+                        } else {
+                            errors.push(`element at index ${i}: ${dec.error[0]}`);
+                        }
+                        break;
+                }
+            }
+
+            result.push(dec.result);
+        }
+
+        return new Result<T[]>(errors.length === 0, result, errors, { rootFail: false });
     }
 }

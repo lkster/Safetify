@@ -75,11 +75,11 @@
 					<dl class="tsd-comment-tags">
 						<span class="tag-label">example</span>
 						<dd><pre class="code"><code><caption>
-AnyResolver().resolve('input of any type');
-// returns 'input of any type'
+AnyResolver().resolve(&#39;input of any type&#39;);
+// returns &#39;input of any type&#39;
 
-<p>AnyResolver().resolve(undefined);
-// returns undefined</p>
+AnyResolver().resolve(undefined);
+// returns undefined
 </caption>
 </code></pre></dd>
 					</dl>
@@ -89,20 +89,25 @@ AnyResolver().resolve('input of any type');
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">AnyResolver</span>
+						<a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">AnyResolver</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel">
 				<h3 class="tsd-before-signature">Callable</h3>
 				<ul class="tsd-signatures tsd-kind-class tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">Any<wbr>Resolver<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AnyResolverBase</span></li>
+					<li class="tsd-signature tsd-kind-icon">Any<wbr>Resolver<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AnyResolverConstructor</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/resolvers/Any.ts#L17">resolvers/Any.ts:17</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/resolvers/Any.ts#L16">resolvers/Any.ts:16</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -112,16 +117,16 @@ AnyResolver().resolve('input of any type');
 							<dl class="tsd-comment-tags">
 								<span class="tag-label">example</span>
 								<dd><pre class="code"><code><caption>
-AnyResolver().resolve('input of any type');
-// returns 'input of any type'
+AnyResolver().resolve(&#39;input of any type&#39;);
+// returns &#39;input of any type&#39;
 
-<p>AnyResolver().resolve(undefined);
-// returns undefined</p>
+AnyResolver().resolve(undefined);
+// returns undefined
 </caption>
 </code></pre></dd>
 							</dl>
 						</div>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AnyResolverBase</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AnyResolverConstructor</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -130,27 +135,65 @@ AnyResolver().resolve('input of any type');
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section tsd-is-external">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="anyresolver.html#nested" class="tsd-kind-icon">nested</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="anyresolver.html#type" class="tsd-kind-icon">type</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="anyresolver.html#resolve" class="tsd-kind-icon">resolve</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="anyresolver.html#resolve" class="tsd-kind-icon">resolve</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="nested" class="tsd-anchor"></a>
+					<h3>nested</h3>
+					<div class="tsd-signature tsd-kind-icon">nested<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#nested">nested</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/Resolver.ts#L19">base/Resolver.ts:19</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>True if current resolver is resolved in another resolver</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;any&quot;</span></div>
+					<aside class="tsd-sources">
+						<p>Overrides <a href="resolver.html">Resolver</a>.<a href="resolver.html#type">type</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/AnyResolver.ts#L8">base/AnyResolver.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-external">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a name="resolve" class="tsd-anchor"></a>
 					<h3>resolve</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 						<li class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#resolve">resolve</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/67588cd/src/base/AnyResolver.ts#L22">base/AnyResolver.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/Resolver.ts#L25">base/Resolver.ts:25</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -188,7 +231,13 @@ AnyResolver().resolve('input of any type');
 					<li class="current tsd-kind-class tsd-is-external">
 						<a href="anyresolver.html" class="tsd-kind-icon">Any<wbr>Resolver</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="anyresolver.html#nested" class="tsd-kind-icon">nested</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+								<a href="anyresolver.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="anyresolver.html#resolve" class="tsd-kind-icon">resolve</a>
 							</li>
 						</ul>
@@ -210,6 +259,9 @@ AnyResolver().resolve('input of any type');
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="nullableresolver.html" class="tsd-kind-icon">Nullable<wbr>Resolver</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="numberresolver.html" class="tsd-kind-icon">Number<wbr>Resolver</a>
 					</li>
@@ -220,16 +272,13 @@ AnyResolver().resolve('input of any type');
 						<a href="oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="optionalresolver.html" class="tsd-kind-icon">Optional<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="primitiveresolver.html" class="tsd-kind-icon">Primitive<wbr>Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="resolverutil.html" class="tsd-kind-icon">Resolver<wbr>Util</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="result.html" class="tsd-kind-icon">Result</a>
@@ -243,17 +292,17 @@ AnyResolver().resolve('input of any type');
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="util.html" class="tsd-kind-icon">Util</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external">
-						<a href="../interfaces/iconstraint.html" class="tsd-kind-icon">IConstraint</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/ituple.html" class="tsd-kind-icon">ITuple</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="../globals.html#iobjectdefinition" class="tsd-kind-icon">IObject<wbr>Definition</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="../globals.html#iprimitive" class="tsd-kind-icon">IPrimitive</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
-						<a href="../globals.html#resolverfunction" class="tsd-kind-icon">Resolver<wbr>Function</a>
+						<a href="../globals.html#itupledefinition" class="tsd-kind-icon">ITuple<wbr>Definition</a>
 					</li>
 				</ul>
 			</nav>

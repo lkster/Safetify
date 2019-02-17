@@ -94,7 +94,7 @@ let personResolver: ObjectResolver = ObjectResolver<IPerson>({
 After resolving any type of data `resolve` method will always return `Result` object which has 3 properties:
 - `success` as `boolean`,
 - `result` as resolved data type,
-- `error` if success is false as `string` or `string[]` type. `Null` otherwise
+- `error` if success is false as `string[]`.
 
 If resolving was not succeeded then `error` property will always describe what went wrong (and which property in if resolved data was `object` or `array`)
 
@@ -107,14 +107,15 @@ Safetify provides resolvers for couple of data types:
 - StringResolver - resolves `string` values
 - BooleanResolver - resolves `boolean` values
 - ArrayResolver - resolves `array`s
-- ObjectResolver - resolves object with specific structure (eg. model)
+- ObjectResolver - resolves `object` with specific structure (eg. model)
 - DictionaryResolver - resolves `object` which is a dictionary (has *n* key-value pairs of specific type)
+- PartialResolver - resolvers `object` which is subset of another `object` with specific structure (eg. model)
 - EnumResolver - resolves `enum` (if input is correct value of given `enum`)
 - DateResolver - resolves `date`s. This includes `Date` object, string-date and timestamp
 - TupleResolver - resolves `tuple` of given structure
 - OneOfResolver - resolves input which can be one of given type
 
-For examples and more look on [documentation](https://thafog.github.io/Safetify/index.html).
+For examples and more, look on [documentation](https://thafog.github.io/Safetify/index.html).
 
 # Constraints
 
@@ -212,19 +213,13 @@ Then You can simply build it with:
 npm run build
 ```
 
-To run Typescript tests use:
+To run unit tests use:
 
 ```
 npm test
 ```
 
-Or
-
-```
-npm run test-js
-```
-
-For pure Javascript tests. To generate documentation use
+To generate documentation use:
 
 ```
 npm run jsdoc

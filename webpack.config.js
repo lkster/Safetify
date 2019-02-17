@@ -1,6 +1,5 @@
 const path = require("path");
 const nodeExternals = require('webpack-node-externals');
-const webpack = require('webpack');
 
 module.exports = (options = {}) => {
 
@@ -9,8 +8,19 @@ module.exports = (options = {}) => {
     return {
         entry: "./src/Safetify.ts",
         target: "node",
+        mode: 'production',
         module: {
             rules: [
+                {
+                    test: /\.ts$/,
+                    loader: 'tslint-loader',
+                    enforce: 'pre',
+                    exclude: /node_modules/,
+                    options: {
+                        emitErrors: true,
+                        failOnHint: true
+                    }
+                },
                 {
                     test: /\.ts?$/,
                     use: 'ts-loader',

@@ -69,16 +69,18 @@
 				<p>Safetify is a tool for resolving received data from 3rd party applications (eg. API) to make data strongly-typed. Thanks to that we don&#39;t need to take care later on about unexpected <code>undefined</code> values or value type.</p>
 				<h2 id="installation">Installation</h2>
 				<p>To install Safetify simply use <code>npm</code>:</p>
-				<pre><code>npm <span class="hljs-keyword">install</span> safetify <span class="hljs-comment">--save</span></code></pre><h1 id="introduction">Introduction</h1>
+				<pre><code>npm <span class="hljs-keyword">install</span> safetify <span class="hljs-comment">--save</span>
+</code></pre><h1 id="introduction">Introduction</h1>
 				<p>Received from 3rd party applications data are never strongly-typed so we can get any value in place we expect specifically typed one. Not always something that fits data we made application for. As example we can take bug in API because of which we wouldn&#39;t receive specific value or even get empty result. We need to prevent of situations like that one simply by checking for <code>null</code>s, <code>undefined</code> values or by mapping data to validated model.</p>
 				<p>Say we would receive from API data like this:</p>
-				<pre><code class="language-json">{
+				<pre><code class="lang-json">{
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John Doe"</span>,
     <span class="hljs-attr">"age"</span>: <span class="hljs-number">30</span>,
     <span class="hljs-attr">"isSingle"</span>: <span class="hljs-literal">false</span>
-}</code></pre>
+}
+</code></pre>
 				<p>With Safetify we can resolve the data in that way:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Safetify <span class="hljs-keyword">from</span> <span class="hljs-string">'safetify'</span>;
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Safetify <span class="hljs-keyword">from</span> <span class="hljs-string">'safetify'</span>;
 
 <span class="hljs-keyword">let</span> personResolver: Safetify.Object = Safetify.Object&lt;IPerson&gt;({
     name: Safetify.String(),
@@ -86,9 +88,10 @@
     isSingle: Safetify.Boolean()
 });
 
-<span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data).result;</code></pre>
+<span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data).result;
+</code></pre>
 				<p>Or use alternative imports:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { ObjectResolver, StringResolver, NumberResolver, BooleanResolver } <span class="hljs-keyword">from</span> <span class="hljs-string">'safetify'</span>;
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { ObjectResolver, StringResolver, NumberResolver, BooleanResolver } <span class="hljs-keyword">from</span> <span class="hljs-string">'safetify'</span>;
 
 <span class="hljs-keyword">let</span> personResolver: ObjectResolver = ObjectResolver&lt;IPerson&gt;({
     name: StringResolver(),
@@ -96,15 +99,18 @@
     isSingle: BooleanResolver()
 });
 
-<span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data).result;</code></pre>
+<span class="hljs-keyword">let</span> person: IPerson = personResolver.resolve(data).result;
+</code></pre>
 				<p>And then data will always be the exact type no matter if we received correct data or not. It prevents of many cases of using methods dedicated to specific types of data. Say we got <code>undefined</code> value in <code>name</code> property and now we want to use <code>toUpperCase</code> method on that data. Basically it would look like that:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">let</span> name = person.name; <span class="hljs-comment">// it's undefined</span>
+				<pre><code class="lang-ts"><span class="hljs-keyword">let</span> name = person.name; <span class="hljs-comment">// it's undefined</span>
 
-name.toUpperCase();</code></pre>
+name.toUpperCase();
+</code></pre>
 				<p>This would throw us a <code>TypeError</code> exception. Safetify in that case will convert failed data to empty <code>string</code> so in result we will always be operating on string:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">let</span> name = person.name; <span class="hljs-comment">// now it's empty string</span>
+				<pre><code class="lang-ts"><span class="hljs-keyword">let</span> name = person.name; <span class="hljs-comment">// now it's empty string</span>
 
-name.toUpperCase();</code></pre>
+name.toUpperCase();
+</code></pre>
 				<p>This won&#39;t throw any exception of course.</p>
 				<h1 id="usage">Usage</h1>
 				<p>Safetify works both with TypeScript and JavaScript. Look on <a href="https://github.com/ThaFog/Safetify/tree/master/spec">unit tests</a> or <a href="https://thafog.github.io/Safetify/index.html">documentation</a> to get more familiar with.</p>
@@ -117,16 +123,17 @@ name.toUpperCase();</code></pre>
 				<p>just like <code>StringResolver().resolve(&lt;anyString&gt;)</code>.</p>
 				<p>In case of advanced types like <code>object</code> we need to pass structure or values (as we did it in example above).</p>
 				<p>Additional functionality is a possibility to set nullable and default value (default is available only for primitives and enum).</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">let</span> personResolver: ObjectResolver = ObjectResolver&lt;IPerson&gt;({
+				<pre><code class="lang-ts"><span class="hljs-keyword">let</span> personResolver: ObjectResolver = ObjectResolver&lt;IPerson&gt;({
     name: StringResolver().defaultsTo(<span class="hljs-string">'Johnny'</span>),
     age: NumberResolver(),
     isSingle: BooleanResolver().nullable()
-});</code></pre>
+});
+</code></pre>
 				<p>After resolving any type of data <code>resolve</code> method will always return <code>Result</code> object which has 3 properties:</p>
 				<ul>
 					<li><code>success</code> as <code>boolean</code>,</li>
 					<li><code>result</code> as resolved data type,</li>
-					<li><code>error</code> if success is false as <code>string</code> or <code>string[]</code> type. <code>Null</code> otherwise</li>
+					<li><code>error</code> if success is false as <code>string[]</code>.</li>
 				</ul>
 				<p>If resolving was not succeeded then <code>error</code> property will always describe what went wrong (and which property in if resolved data was <code>object</code> or <code>array</code>)</p>
 				<h1 id="resolvers-list">Resolvers list</h1>
@@ -137,21 +144,23 @@ name.toUpperCase();</code></pre>
 					<li>StringResolver - resolves <code>string</code> values</li>
 					<li>BooleanResolver - resolves <code>boolean</code> values</li>
 					<li>ArrayResolver - resolves <code>array</code>s</li>
-					<li>ObjectResolver - resolves object with specific structure (eg. model)</li>
+					<li>ObjectResolver - resolves <code>object</code> with specific structure (eg. model)</li>
 					<li>DictionaryResolver - resolves <code>object</code> which is a dictionary (has <em>n</em> key-value pairs of specific type)</li>
+					<li>PartialResolver - resolvers <code>object</code> which is subset of another <code>object</code> with specific structure (eg. model)</li>
 					<li>EnumResolver - resolves <code>enum</code> (if input is correct value of given <code>enum</code>)</li>
 					<li>DateResolver - resolves <code>date</code>s. This includes <code>Date</code> object, string-date and timestamp</li>
 					<li>TupleResolver - resolves <code>tuple</code> of given structure</li>
 					<li>OneOfResolver - resolves input which can be one of given type</li>
 				</ul>
-				<p>For examples and more look on <a href="https://thafog.github.io/Safetify/index.html">documentation</a>.</p>
+				<p>For examples and more, look on <a href="https://thafog.github.io/Safetify/index.html">documentation</a>.</p>
 				<h1 id="constraints">Constraints</h1>
 				<p>Constraints are simple functions to check resolved value under specified condition. Say we want to get only positive numbers. We can make constraint like this:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span>);
+				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span>);
 
-positiveResolver.resolve(<span class="hljs-number">5</span>);</code></pre>
+positiveResolver.resolve(<span class="hljs-number">5</span>);
+</code></pre>
 				<p>Now if value is not positive, Result will have <code>success</code> as false and error with constraint number. </p>
-				<pre><code class="language-ts">positiveResolver.resolve(<span class="hljs-number">-5</span>);
+				<pre><code class="lang-ts">positiveResolver.resolve(<span class="hljs-number">-5</span>);
 
 <span class="hljs-comment">/*
     Returns:
@@ -160,9 +169,10 @@ positiveResolver.resolve(<span class="hljs-number">5</span>);</code></pre>
         result: -5,
         error: [ 'constraint #0 failed' ]
     }
-*/</span></code></pre>
+*/</span>
+</code></pre>
 				<p>To make it more clear we can set own error in simplest way:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>);
+				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>);
 
 positiveResolver.resolve(<span class="hljs-number">-5</span>);
 
@@ -173,9 +183,10 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
         result: -5,
         error: [ 'Value is not positive' ]
     }
-*/</span></code></pre>
+*/</span>
+</code></pre>
 				<p>As You saw in examples above, Safetify returns <code>-5</code> as a result. It&#39;s because this is still correct value in terms of type safety. I assume dev would like to get <code>-5</code> more than <code>NaN</code> value. In case we would like to change value if constraint is failed, default value can be set:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>, <span class="hljs-number">0</span>);
+				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>, <span class="hljs-number">0</span>);
 
 positiveResolver.resolve(<span class="hljs-number">-5</span>);
 
@@ -186,9 +197,10 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
         result: 0,
         error: [ 'Value is not positive' ]
     }
-*/</span></code></pre>
+*/</span>
+</code></pre>
 				<p>Much better but sometimes it&#39;s still not perfect (especially in this example). Say we want to change all values to positive if there is failed constraint and value is negative. Default value argument can take also default value transform function:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>, <span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">Math</span>.abs(n));
+				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span> || <span class="hljs-string">'Value is not positive'</span>, <span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">Math</span>.abs(n));
 
 positiveResolver.resolve(<span class="hljs-number">-5</span>);
 
@@ -199,17 +211,21 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
         result: 5,
         error: [ 'Value is not positive' ]
     }
-*/</span></code></pre>
+*/</span>
+</code></pre>
 				<p>And that&#39;s all the simple stuff of constraints. Btw. they works only on primitive types resolvers.</p>
 				<h1 id="utilities">Utilities</h1>
 				<p>Safetify provides bunch of utilities for checking type of values like <code>isDefAndNotNull()</code>, <code>isObject()</code>, <code>isDateLike()</code> etc. You can use them via <code>Safetify.util</code> property. All functions are described <a href="https://thafog.github.io/Safetify/classes/util.html">here</a>. Most of the functions are based on Google&#39;s <a href="https://github.com/google/closure-library">Closure Library</a>&#39;s Goog functions.</p>
 				<h1 id="building">Building</h1>
 				<p>If You want to contribute or fork this library firstly install all dependencies:</p>
-				<pre><code>npm <span class="hljs-keyword">install</span></code></pre><p>Then You can simply build it with:</p>
-				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> build</span></code></pre><p>To run Typescript tests use:</p>
-				<pre><code>npm <span class="hljs-built_in">test</span></code></pre><p>Or</p>
-				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span>-js</span></code></pre><p>For pure Javascript tests. To generate documentation use</p>
-				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> jsdoc</span></code></pre>
+				<pre><code>npm <span class="hljs-keyword">install</span>
+</code></pre><p>Then You can simply build it with:</p>
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> build</span>
+</code></pre><p>To run unit tests use:</p>
+				<pre><code>npm <span class="hljs-built_in">test</span>
+</code></pre><p>To generate documentation use:</p>
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> jsdoc</span>
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -240,6 +256,9 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/nullableresolver.html" class="tsd-kind-icon">Nullable<wbr>Resolver</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/numberresolver.html" class="tsd-kind-icon">Number<wbr>Resolver</a>
 					</li>
@@ -250,16 +269,13 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 						<a href="classes/oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/optionalresolver.html" class="tsd-kind-icon">Optional<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="classes/primitiveresolver.html" class="tsd-kind-icon">Primitive<wbr>Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/resolver.html" class="tsd-kind-icon">Resolver</a>
-					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="classes/resolverutil.html" class="tsd-kind-icon">Resolver<wbr>Util</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/result.html" class="tsd-kind-icon">Result</a>
@@ -273,17 +289,17 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/util.html" class="tsd-kind-icon">Util</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external">
-						<a href="interfaces/iconstraint.html" class="tsd-kind-icon">IConstraint</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="interfaces/ituple.html" class="tsd-kind-icon">ITuple</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="globals.html#iobjectdefinition" class="tsd-kind-icon">IObject<wbr>Definition</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="globals.html#iprimitive" class="tsd-kind-icon">IPrimitive</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
-						<a href="globals.html#resolverfunction" class="tsd-kind-icon">Resolver<wbr>Function</a>
+						<a href="globals.html#itupledefinition" class="tsd-kind-icon">ITuple<wbr>Definition</a>
 					</li>
 				</ul>
 			</nav>

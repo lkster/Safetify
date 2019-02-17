@@ -1,5 +1,4 @@
-import { AnyResolver as AnyResolverBase } from '@/base/AnyResolver';
-import { Result } from '@/Result';
+import { AnyResolver as AnyResolverConstructor } from '@/base/AnyResolver';
 
 
 
@@ -9,13 +8,11 @@ import { Result } from '@/Result';
  * <caption>
  * AnyResolver().resolve('input of any type');
  * // returns 'input of any type'
- * 
+ *
  * AnyResolver().resolve(undefined);
  * // returns undefined
  * </caption>
  */
-export function AnyResolver(): AnyResolverBase {
-    return new AnyResolverBase((input: any) => {
-        return new Result<any>(true, input, null);
-    });
+export function AnyResolver(): AnyResolverConstructor {
+    return new AnyResolverConstructor();
 }
