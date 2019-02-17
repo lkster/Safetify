@@ -12,7 +12,6 @@ export abstract class PrimitiveResolver<T extends IPrimitive> extends OptionalRe
     private static readonly UNDEF_DEFAULT_VALUE: symbol = Symbol();
 
     private readonly wasDefaultValuePassed: boolean = false;
-    private readonly wereConstraintsPassed: boolean = false;
 
     protected readonly constraints: IConstraint<T>[] = [];
     protected readonly defaultValue: Result<T>;

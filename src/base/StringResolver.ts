@@ -34,7 +34,7 @@ export class StringResolver extends PrimitiveResolver<string> {
     /**
      * @hidden
      */
-    public cloneResolverWithNewConstraint(constraints: IConstraint<string>[], defaultValue: Result<string>): StringResolver {
+    protected cloneResolverWithNewConstraint(constraints: IConstraint<string>[], defaultValue: Result<string>): StringResolver {
         return new StringResolver(this.isNullable, this.isOptional, defaultValue, constraints);
     }
 

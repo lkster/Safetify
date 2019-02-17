@@ -34,7 +34,7 @@ export class NumberResolver extends PrimitiveResolver<number> {
     /**
      * @hidden
      */
-    public cloneResolverWithNewConstraint(constraints: IConstraint<number>[], defaultValue: Result<number>): NumberResolver {
+    protected cloneResolverWithNewConstraint(constraints: IConstraint<number>[], defaultValue: Result<number>): NumberResolver {
         return new NumberResolver(this.isNullable, this.isOptional, defaultValue, constraints);
     }
     

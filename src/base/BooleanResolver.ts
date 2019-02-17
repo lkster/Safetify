@@ -33,7 +33,7 @@ export class BooleanResolver extends PrimitiveResolver<boolean> {
     /**
      * @hidden
      */
-    public cloneResolverWithNewConstraint(constraints: IConstraint<boolean>[], defaultValue: Result<boolean>): BooleanResolver {
+    protected cloneResolverWithNewConstraint(constraints: IConstraint<boolean>[], defaultValue: Result<boolean>): BooleanResolver {
         return new BooleanResolver(this.isNullable, this.isOptional, defaultValue, constraints);
     }
 
