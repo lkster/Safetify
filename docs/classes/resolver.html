@@ -89,25 +89,10 @@
 						<span class="target">Resolver</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<a href="arrayresolver.html" class="tsd-signature-type">ArrayResolver</a>
+								<a href="nullableresolver.html" class="tsd-signature-type">NullableResolver</a>
 							</li>
 							<li>
-								<a href="objectresolver.html" class="tsd-signature-type">ObjectResolver</a>
-							</li>
-							<li>
-								<a href="dictionaryresolver.html" class="tsd-signature-type">DictionaryResolver</a>
-							</li>
-							<li>
-								<a href="tupleresolver.html" class="tsd-signature-type">TupleResolver</a>
-							</li>
-							<li>
-								<a href="oneofresolver.html" class="tsd-signature-type">OneOfResolver</a>
-							</li>
-							<li>
-								<a href="enumresolver.html" class="tsd-signature-type">EnumResolver</a>
-							</li>
-							<li>
-								<a href="dateresolver.html" class="tsd-signature-type">DateResolver</a>
+								<a href="anyresolver.html" class="tsd-signature-type">AnyResolver</a>
 							</li>
 						</ul>
 					</li>
@@ -120,13 +105,13 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="resolver.html#nested" class="tsd-kind-icon">nested</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="resolver.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="resolver.html#nullable" class="tsd-kind-icon">nullable</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="resolver.html#resolve" class="tsd-kind-icon">resolve</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="resolver.html#resolver-1" class="tsd-kind-icon">resolver</a></li>
 							</ul>
@@ -137,12 +122,27 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="nested" class="tsd-anchor"></a>
+					<h3>nested</h3>
+					<div class="tsd-signature tsd-kind-icon">nested<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/Resolver.ts#L19">base/Resolver.ts:19</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>True if current resolver is resolved in another resolver</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
 					<a name="type" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> type</h3>
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/Resolver.ts#L25">base/Resolver.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/Resolver.ts#L14">base/Resolver.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -155,42 +155,6 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="nullable" class="tsd-anchor"></a>
-					<h3>nullable</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">nullable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/Resolver.ts#L61">base/Resolver.ts:61</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Whether data can be nullable. If yes, resolver returns success when given data is null or returns null when given data is not validated properly</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<span class="tag-label">example</span>
-									<dd><pre class="code"><code><caption>
-StringResolver().nullable().resolve(&#39;John Doe&#39;);
-// returns &#39;John Doe&#39;
-
-StringResolver().nullable().resolve(null);
-// returns null without any errors
-
-StringResolver().nullable().resolve(undefined);
-// returns null with false success and input type error
-</caption>
-</code></pre></dd>
-								</dl>
-							</div>
-							<h4 class="tsd-returns-title">Returns <a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
 					<a name="resolve" class="tsd-anchor"></a>
 					<h3>resolve</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
@@ -200,7 +164,7 @@ StringResolver().nullable().resolve(undefined);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/Resolver.ts#L31">base/Resolver.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/Resolver.ts#L25">base/Resolver.ts:25</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -231,7 +195,7 @@ StringResolver().nullable().resolve(undefined);
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/Resolver.ts#L20">base/Resolver.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/Resolver.ts#L33">base/Resolver.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -282,6 +246,9 @@ StringResolver().nullable().resolve(undefined);
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="nullableresolver.html" class="tsd-kind-icon">Nullable<wbr>Resolver</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="numberresolver.html" class="tsd-kind-icon">Number<wbr>Resolver</a>
 					</li>
@@ -291,16 +258,22 @@ StringResolver().nullable().resolve(undefined);
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="optionalresolver.html" class="tsd-kind-icon">Optional<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
-								<a href="resolver.html#type" class="tsd-kind-icon">type</a>
+								<a href="resolver.html#nested" class="tsd-kind-icon">nested</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="resolver.html#nullable" class="tsd-kind-icon">nullable</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="resolver.html#type" class="tsd-kind-icon">type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="resolver.html#resolve" class="tsd-kind-icon">resolve</a>
@@ -312,9 +285,6 @@ StringResolver().nullable().resolve(undefined);
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="resolverutil.html" class="tsd-kind-icon">Resolver<wbr>Util</a>
-					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="result.html" class="tsd-kind-icon">Result</a>
 					</li>

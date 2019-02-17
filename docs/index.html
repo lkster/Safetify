@@ -133,7 +133,7 @@ name.toUpperCase();
 				<ul>
 					<li><code>success</code> as <code>boolean</code>,</li>
 					<li><code>result</code> as resolved data type,</li>
-					<li><code>error</code> if success is false as <code>string</code> or <code>string[]</code> type. <code>Null</code> otherwise</li>
+					<li><code>error</code> if success is false as <code>string[]</code>.</li>
 				</ul>
 				<p>If resolving was not succeeded then <code>error</code> property will always describe what went wrong (and which property in if resolved data was <code>object</code> or <code>array</code>)</p>
 				<h1 id="resolvers-list">Resolvers list</h1>
@@ -144,14 +144,15 @@ name.toUpperCase();
 					<li>StringResolver - resolves <code>string</code> values</li>
 					<li>BooleanResolver - resolves <code>boolean</code> values</li>
 					<li>ArrayResolver - resolves <code>array</code>s</li>
-					<li>ObjectResolver - resolves object with specific structure (eg. model)</li>
+					<li>ObjectResolver - resolves <code>object</code> with specific structure (eg. model)</li>
 					<li>DictionaryResolver - resolves <code>object</code> which is a dictionary (has <em>n</em> key-value pairs of specific type)</li>
+					<li>PartialResolver - resolvers <code>object</code> which is subset of another <code>object</code> with specific structure (eg. model)</li>
 					<li>EnumResolver - resolves <code>enum</code> (if input is correct value of given <code>enum</code>)</li>
 					<li>DateResolver - resolves <code>date</code>s. This includes <code>Date</code> object, string-date and timestamp</li>
 					<li>TupleResolver - resolves <code>tuple</code> of given structure</li>
 					<li>OneOfResolver - resolves input which can be one of given type</li>
 				</ul>
-				<p>For examples and more look on <a href="https://thafog.github.io/Safetify/index.html">documentation</a>.</p>
+				<p>For examples and more, look on <a href="https://thafog.github.io/Safetify/index.html">documentation</a>.</p>
 				<h1 id="constraints">Constraints</h1>
 				<p>Constraints are simple functions to check resolved value under specified condition. Say we want to get only positive numbers. We can make constraint like this:</p>
 				<pre><code class="lang-ts"><span class="hljs-keyword">const</span> positiveResolver: NumberResolver = NumberResolver().constraint(<span class="hljs-function">(<span class="hljs-params">n: <span class="hljs-built_in">number</span></span>) =&gt;</span> n &gt;= <span class="hljs-number">0</span>);
@@ -220,11 +221,9 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 				<pre><code>npm <span class="hljs-keyword">install</span>
 </code></pre><p>Then You can simply build it with:</p>
 				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> build</span>
-</code></pre><p>To run Typescript tests use:</p>
+</code></pre><p>To run unit tests use:</p>
 				<pre><code>npm <span class="hljs-built_in">test</span>
-</code></pre><p>Or</p>
-				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span>-js</span>
-</code></pre><p>For pure Javascript tests. To generate documentation use</p>
+</code></pre><p>To generate documentation use:</p>
 				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> jsdoc</span>
 </code></pre>
 			</div>
@@ -257,6 +256,9 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/nullableresolver.html" class="tsd-kind-icon">Nullable<wbr>Resolver</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/numberresolver.html" class="tsd-kind-icon">Number<wbr>Resolver</a>
 					</li>
@@ -267,10 +269,13 @@ positiveResolver.resolve(<span class="hljs-number">-5</span>);
 						<a href="classes/oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="classes/resolver.html" class="tsd-kind-icon">Resolver</a>
+						<a href="classes/optionalresolver.html" class="tsd-kind-icon">Optional<wbr>Resolver</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="classes/resolverutil.html" class="tsd-kind-icon">Resolver<wbr>Util</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/resolver.html" class="tsd-kind-icon">Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/result.html" class="tsd-kind-icon">Result</a>

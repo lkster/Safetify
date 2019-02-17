@@ -101,13 +101,13 @@ NumberResolver().resolve(&#39;&#39;);
 			<section class="tsd-panel">
 				<h3 class="tsd-before-signature">Callable</h3>
 				<ul class="tsd-signatures tsd-kind-class tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">Number<wbr>Resolver<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NumberResolverBase</span></li>
+					<li class="tsd-signature tsd-kind-icon">Number<wbr>Resolver<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NumberResolverConstructor</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/resolvers/Number.ts#L16">resolvers/Number.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/resolvers/Number.ts#L16">resolvers/Number.ts:16</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -126,7 +126,7 @@ NumberResolver().resolve(&#39;&#39;);
 </code></pre></dd>
 							</dl>
 						</div>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NumberResolverBase</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NumberResolverConstructor</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -134,9 +134,18 @@ NumberResolver().resolve(&#39;&#39;);
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-inherited tsd-is-external">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-external"><a href="numberresolver.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-external"><a href="numberresolver.html#constraints" class="tsd-kind-icon">constraints</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-external"><a href="numberresolver.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="numberresolver.html#nested" class="tsd-kind-icon">nested</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="numberresolver.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
@@ -144,15 +153,88 @@ NumberResolver().resolve(&#39;&#39;);
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="numberresolver.html#constraint" class="tsd-kind-icon">constraint</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="numberresolver.html#defaultsto" class="tsd-kind-icon">defaults<wbr>To</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="numberresolver.html#nullable" class="tsd-kind-icon">nullable</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-external">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-external">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Number<wbr>Resolver<span class="tsd-signature-symbol">(</span>isNullable<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, isOptional<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, defaultValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, constraints<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IConstraint</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="numberresolver.html" class="tsd-signature-type">NumberResolver</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from PrimitiveResolver.__constructor</p>
+								<p>Overrides <a href="optionalresolver.html">OptionalResolver</a>.<a href="optionalresolver.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/PrimitiveResolver.ts#L18">base/PrimitiveResolver.ts:18</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> isNullable: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> isOptional: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultValue: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> constraints: <span class="tsd-signature-type">IConstraint</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="numberresolver.html" class="tsd-signature-type">NumberResolver</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-external">
+					<a name="constraints" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> constraints</h3>
+					<div class="tsd-signature tsd-kind-icon">constraints<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IConstraint</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from PrimitiveResolver.constraints</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/PrimitiveResolver.ts#L17">base/PrimitiveResolver.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-external">
+					<a name="defaultvalue" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> default<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from PrimitiveResolver.defaultValue</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/PrimitiveResolver.ts#L18">base/PrimitiveResolver.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="nested" class="tsd-anchor"></a>
+					<h3>nested</h3>
+					<div class="tsd-signature tsd-kind-icon">nested<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#nested">nested</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/Resolver.ts#L19">base/Resolver.ts:19</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>True if current resolver is resolved in another resolver</p>
+						</div>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 					<a name="type" class="tsd-anchor"></a>
 					<h3>type</h3>
@@ -160,7 +242,7 @@ NumberResolver().resolve(&#39;&#39;);
 					<aside class="tsd-sources">
 						<p>Overrides <a href="resolver.html">Resolver</a>.<a href="resolver.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/NumberResolver.ts#L10">base/NumberResolver.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/NumberResolver.ts#L11">base/NumberResolver.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +260,7 @@ NumberResolver().resolve(&#39;&#39;);
 							<aside class="tsd-sources">
 								<p>Inherited from PrimitiveResolver.constraint</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/PrimitiveResolver.ts#L61">base/PrimitiveResolver.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/base/PrimitiveResolver.ts#L78">base/PrimitiveResolver.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -246,91 +328,6 @@ NumberResolver().constraint((n: number) =&gt; n &gt;= 0, (n: number) =&gt; Math.
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-					<a name="defaultsto" class="tsd-anchor"></a>
-					<h3>defaults<wbr>To</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">defaults<wbr>To<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PrimitiveResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from PrimitiveResolver.defaultsTo</p>
-								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/PrimitiveResolver.ts#L34">base/PrimitiveResolver.ts:34</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Sets default value which will be returned in case of failed resolving</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<span class="tag-label">example</span>
-									<dd><pre class="code"><code><caption>
-enum TestEnum {
-   opt1 = &#39;option 1&#39;,
-   opt2 = &#39;option 2&#39;
-}
-
-EnumResolver&lt;TestEnum>(TestEnum).defaultsTo(&#39;option 1&#39;).resolve(&#39;option 2&#39;);
-// returns &#39;option 2&#39;
-
-EnumResolver&lt;TestEnum>(TestEnum).defaultsTo(&#39;option 1&#39;).resolve(&#39;option 3&#39;);
-// returns default value which is &#39;option 1&#39;
-</caption>
-</code></pre></dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>val: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>default value</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PrimitiveResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-					<a name="nullable" class="tsd-anchor"></a>
-					<h3>nullable</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">nullable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="resolver.html">Resolver</a>.<a href="resolver.html#nullable">nullable</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/base/Resolver.ts#L61">base/Resolver.ts:61</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Whether data can be nullable. If yes, resolver returns success when given data is null or returns null when given data is not validated properly</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<span class="tag-label">example</span>
-									<dd><pre class="code"><code><caption>
-StringResolver().nullable().resolve(&#39;John Doe&#39;);
-// returns &#39;John Doe&#39;
-
-StringResolver().nullable().resolve(null);
-// returns null without any errors
-
-StringResolver().nullable().resolve(undefined);
-// returns null with false success and input type error
-</caption>
-</code></pre></dd>
-								</dl>
-							</div>
-							<h4 class="tsd-returns-title">Returns <a href="resolver.html" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -361,22 +358,31 @@ StringResolver().nullable().resolve(undefined);
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="nullableresolver.html" class="tsd-kind-icon">Nullable<wbr>Resolver</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-is-external">
 						<a href="numberresolver.html" class="tsd-kind-icon">Number<wbr>Resolver</a>
 						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-external">
+								<a href="numberresolver.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-external">
+								<a href="numberresolver.html#constraints" class="tsd-kind-icon">constraints</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-external">
+								<a href="numberresolver.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="numberresolver.html#nested" class="tsd-kind-icon">nested</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="numberresolver.html#type" class="tsd-kind-icon">type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="numberresolver.html#constraint" class="tsd-kind-icon">constraint</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-								<a href="numberresolver.html#defaultsto" class="tsd-kind-icon">defaults<wbr>To</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-								<a href="numberresolver.html#nullable" class="tsd-kind-icon">nullable</a>
 							</li>
 						</ul>
 					</li>
@@ -389,10 +395,13 @@ StringResolver().nullable().resolve(undefined);
 						<a href="oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
+						<a href="optionalresolver.html" class="tsd-kind-icon">Optional<wbr>Resolver</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="resolverutil.html" class="tsd-kind-icon">Resolver<wbr>Util</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="result.html" class="tsd-kind-icon">Result</a>

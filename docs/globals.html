@@ -77,11 +77,13 @@
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/dateresolver.html" class="tsd-kind-icon">Date<wbr>Resolver</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/dictionaryresolver.html" class="tsd-kind-icon">Dictionary<wbr>Resolver</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/nullableresolver.html" class="tsd-kind-icon">Nullable<wbr>Resolver</a></li>
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/numberresolver.html" class="tsd-kind-icon">Number<wbr>Resolver</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/objectresolver.html" class="tsd-kind-icon">Object<wbr>Resolver</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/optionalresolver.html" class="tsd-kind-icon">Optional<wbr>Resolver</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/resolver.html" class="tsd-kind-icon">Resolver</a></li>
-								<li class="tsd-kind-class tsd-is-external"><a href="classes/resolverutil.html" class="tsd-kind-icon">Resolver<wbr>Util</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/result.html" class="tsd-kind-icon">Result</a></li>
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/stringresolver.html" class="tsd-kind-icon">String<wbr>Resolver</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter tsd-is-external"><a href="classes/tupleresolver.html" class="tsd-kind-icon">Tuple<wbr>Resolver</a></li>
@@ -113,7 +115,7 @@
 					<div class="tsd-signature tsd-kind-icon">IObject<wbr>Definition<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/interfaces/IObjectDefinition.ts#L5">interfaces/IObjectDefinition.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/interfaces/IObjectDefinition.ts#L5">interfaces/IObjectDefinition.ts:5</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -128,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">IPrimitive<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/interfaces/IPrimitive.ts#L1">interfaces/IPrimitive.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/interfaces/IPrimitive.ts#L1">interfaces/IPrimitive.ts:1</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -138,7 +140,7 @@
 					<div class="tsd-signature tsd-kind-icon">ITuple<wbr>Definition<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/interfaces/ITupleDefinition.ts#L8">interfaces/ITupleDefinition.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/interfaces/ITupleDefinition.ts#L11">interfaces/ITupleDefinition.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -177,6 +179,9 @@
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/nullableresolver.html" class="tsd-kind-icon">Nullable<wbr>Resolver</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/numberresolver.html" class="tsd-kind-icon">Number<wbr>Resolver</a>
 					</li>
@@ -187,10 +192,13 @@
 						<a href="classes/oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="classes/resolver.html" class="tsd-kind-icon">Resolver</a>
+						<a href="classes/optionalresolver.html" class="tsd-kind-icon">Optional<wbr>Resolver</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="classes/resolverutil.html" class="tsd-kind-icon">Resolver<wbr>Util</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/resolver.html" class="tsd-kind-icon">Resolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="classes/result.html" class="tsd-kind-icon">Result</a>

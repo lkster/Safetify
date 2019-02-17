@@ -104,6 +104,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="result.html#error" class="tsd-kind-icon">error</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="result.html#optionaldata" class="tsd-kind-icon">optional<wbr>Data</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="result.html#result-1" class="tsd-kind-icon">result</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="result.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
@@ -117,13 +118,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Result<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type">Result</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Result<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, optionalData<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IDictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="result.html" class="tsd-signature-type">Result</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/Result.ts#L4">Result.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/Result.ts#L6">Result.ts:6</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -147,10 +148,18 @@
 									</div>
 								</li>
 								<li>
-									<h5>error: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>error: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>has error(s) if resolving failed</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> optionalData: <span class="tsd-signature-type">IDictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>any data you want to stick to this object. Mostly used to pass data between resolver handlers.</p>
 										</div>
 									</div>
 								</li>
@@ -165,10 +174,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
 					<a name="error" class="tsd-anchor"></a>
 					<h3>error</h3>
-					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/Result.ts#L15">Result.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/Result.ts#L18">Result.ts:18</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -178,12 +187,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="optionaldata" class="tsd-anchor"></a>
+					<h3>optional<wbr>Data</h3>
+					<div class="tsd-signature tsd-kind-icon">optional<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IDictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/Result.ts#L19">Result.ts:19</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>any data you want to stick to this object. Mostly used to pass data between resolver handlers.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
 					<a name="result-1" class="tsd-anchor"></a>
 					<h3>result</h3>
 					<div class="tsd-signature tsd-kind-icon">result<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/Result.ts#L14">Result.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/Result.ts#L17">Result.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -198,7 +222,7 @@
 					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/830c2cf/src/Result.ts#L13">Result.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/ThaFog/Safetify/blob/a2b98b3/src/Result.ts#L16">Result.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -237,6 +261,9 @@
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="enumresolver.html" class="tsd-kind-icon">Enum<wbr>Resolver</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="nullableresolver.html" class="tsd-kind-icon">Nullable<wbr>Resolver</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="numberresolver.html" class="tsd-kind-icon">Number<wbr>Resolver</a>
 					</li>
@@ -247,10 +274,13 @@
 						<a href="oneofresolver.html" class="tsd-kind-icon">One<wbr>OfResolver</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
-						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
+						<a href="optionalresolver.html" class="tsd-kind-icon">Optional<wbr>Resolver</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="resolverutil.html" class="tsd-kind-icon">Resolver<wbr>Util</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="partialresolver.html" class="tsd-kind-icon">Partial<wbr>Resolver</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="resolver.html" class="tsd-kind-icon">Resolver</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -262,6 +292,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="result.html#error" class="tsd-kind-icon">error</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="result.html#optionaldata" class="tsd-kind-icon">optional<wbr>Data</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="result.html#result-1" class="tsd-kind-icon">result</a>
