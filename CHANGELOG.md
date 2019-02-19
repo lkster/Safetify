@@ -1,3 +1,7 @@
+## 3.0.1
+## General
+- Added new keywords
+
 ## 3.0.0
 ## General
 - Changed errors to return input's type instead of static `value` label

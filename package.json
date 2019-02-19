@@ -1,6 +1,6 @@
 {
   "name": "safetify",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Utility for resolving and making values types safe",
   "main": "dist/safetify.js",
   "scripts": {
@@ -23,7 +23,19 @@
     "decode",
     "safing",
     "safety",
-    "safe"
+    "safe",
+    "type",
+    "types",
+    "check",
+    "checking",
+    "type-check",
+    "type-checking",
+    "parameters",
+    "data",
+    "validation",
+    "validate",
+    "assert",
+    "verify"
   ],
   "author": {
     "name": "Dominik Mielcarek",
